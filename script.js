@@ -1,4 +1,5 @@
-const tabButtons = [...document.querySelectorAll('[data-tab-target]')];
+const tabButtons = [...document.querySelectorAll('[role="tab"][data-tab-target]')];
+const tabLinks = [...document.querySelectorAll('[data-tab-link]')];
 const tabPanels = [...document.querySelectorAll('[data-tab-panel]')];
 
 const COMPANY_LOAN = {
@@ -40,6 +41,10 @@ tabButtons.forEach((button, index) => {
     nextButton.focus();
     showTab(nextButton.dataset.tabTarget);
   });
+});
+
+tabLinks.forEach((button) => {
+  button.addEventListener('click', () => showTab(button.dataset.tabLink));
 });
 
 function numberValue(element) {
@@ -205,6 +210,11 @@ function calculateFinance() {
   setTextAll('[data-home-budget-caption]', Number.isFinite(moveBudget) ? '매도 순자금 + 사내 대출 + 신용대출' : '현재 집 예상 매도가를 입력해 주세요.');
   setTextAll('[data-home-cost-caption]', Number.isFinite(transactionCosts) ? '취득세 + 매도·매수 복비 상한' : '매도가 입력 후 계산합니다.');
   setTextAll('[data-home-loan-summary]', Number.isFinite(repaymentMonthlyCost) ? '37개월차 · 지원이자 세금 포함' : '사내 대출 실행액을 계산합니다.');
+  setTextAll('[data-home-sale-net]', formatWon(saleNetProceeds));
+  setTextAll('[data-home-company-loan]', formatWon(companyPrincipal));
+  setTextAll('[data-home-credit-loan]', formatWon(creditAmountEok * 100000000));
+  setTextAll('[data-result-sale-net]', formatWon(saleNetProceeds));
+  setTextAll('[data-result-credit]', formatWon(creditAmountEok * 100000000));
   setText('#tax-disclaimer', '1주택 일반 매수 기준 추정입니다. 양도소득세, 일시적 2주택·다주택 중과, 대출 부대비용, 법무사비, 이사비는 포함하지 않습니다. 복비는 법정 상한이며 부가세와 실제 협의 금액은 별도입니다.');
 }
 

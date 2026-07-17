@@ -9,17 +9,17 @@
     <link rel="apple-touch-icon" href="assets/happy-house-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#content">본문으로 바로가기</a>
     <div class="app-shell">
       <aside class="sidebar">
-        <a class="brand" href="#home-panel" aria-label="Happy House 이사 대작전 홈">
+        <button class="brand" type="button" data-tab-link="home" aria-label="Happy House 이사 대작전 홈">
           <img src="assets/happy-house-icon.png" alt="상자를 안고 있는 귀여운 집 아이콘" />
           <span>Happy House<br /><strong>이사 대작전</strong></span>
-        </a>
+        </button>
         <nav class="sidebar-nav" aria-label="메뉴" role="tablist" aria-orientation="vertical">
           <button class="tab-button is-active" id="home-tab" type="button" role="tab" aria-selected="true" aria-controls="home-panel" data-tab-target="home"><span aria-hidden="true">🏠</span><b>홈</b></button>
           <button class="tab-button" id="budget-tab" type="button" role="tab" aria-selected="false" aria-controls="budget-panel" data-tab-target="budget"><span aria-hidden="true">💳</span><b>대출 관리</b></button>
@@ -31,123 +31,151 @@
 
       <main id="content" class="main-content">
         <section class="tab-panel" id="home-panel" role="tabpanel" aria-labelledby="home-tab" data-tab-panel="home">
-          <header class="page-heading"><h1>홈</h1></header>
-          <div class="summary-grid" aria-label="이사 자금 핵심 요약">
-            <article class="summary-card"><span>이사갈 집 예산</span><strong data-home-move-budget>입력 필요</strong><small data-home-budget-caption>매도가를 입력해 주세요.</small></article>
-            <article class="summary-card"><span>세금 + 복비</span><strong data-home-extra-cost>입력 필요</strong><small data-home-cost-caption>매도·매수 복비와 취득세</small></article>
-            <article class="summary-card"><span>상환 시작 후 월 실부담</span><strong data-home-monthly-cost>입력 필요</strong><small data-home-loan-summary>사내 대출 + 신용대출</small></article>
-          </div>
-          <div class="home-quick-links">
-            <button class="text-button" type="button" data-tab-target="budget">자금 흐름 자세히 보기</button>
-            <button class="text-button" type="button" data-tab-target="home-price">우리집 가격 보기</button>
+          <header class="page-heading"><div><span class="eyebrow">OVERVIEW</span><h1>홈</h1></div></header>
+
+          <section class="home-overview" aria-label="이사 자금 핵심 요약">
+            <article class="home-budget-card">
+              <span class="card-kicker">이사갈 수 있는 집 가격</span>
+              <strong data-home-move-budget>입력 필요</strong>
+              <small data-home-budget-caption>현재 집 예상 매도가를 입력해 주세요.</small>
+              <button class="primary-button" type="button" data-tab-link="budget">내 조건 입력하기 <span aria-hidden="true">→</span></button>
+            </article>
+            <div class="home-metrics">
+              <article>
+                <span>세금 + 복비</span>
+                <strong data-home-extra-cost>입력 필요</strong>
+                <small data-home-cost-caption>매도가 입력 후 계산합니다.</small>
+              </article>
+              <article>
+                <span>상환 시작 후 월 실부담</span>
+                <strong data-home-monthly-cost>입력 필요</strong>
+                <small data-home-loan-summary>사내 대출 실행액을 계산합니다.</small>
+              </article>
+            </div>
+          </section>
+
+          <section class="home-funding" aria-labelledby="funding-title">
+            <div class="section-heading-row"><h2 id="funding-title">예산 구성</h2><button class="text-button" type="button" data-tab-link="budget">자세히 보기</button></div>
+            <div class="funding-steps">
+              <div><span class="step-icon">1</span><p>현재 집 매도 순자금<small>주담대와 매도 복비 차감</small></p><b data-home-sale-net>입력 필요</b></div>
+              <i aria-hidden="true">+</i>
+              <div><span class="step-icon">2</span><p>사내 대출<small>고정 조건 자동 반영</small></p><b data-home-company-loan>입력 필요</b></div>
+              <i aria-hidden="true">+</i>
+              <div><span class="step-icon">3</span><p>신용대출<small>선택한 금액 반영</small></p><b data-home-credit-loan>0원</b></div>
+            </div>
+          </section>
+
+          <div class="home-shortcuts">
+            <button type="button" data-tab-link="home-price"><span aria-hidden="true">📈</span><span><b>우리집 가격</b><small>최근 실거래와 매물 확인</small></span><i aria-hidden="true">→</i></button>
+            <button type="button" data-tab-link="reconstruction"><span aria-hidden="true">🏗️</span><span><b>재건축</b><small>수도권 남부 4개 단지</small></span><i aria-hidden="true">→</i></button>
           </div>
         </section>
 
         <section class="tab-panel" id="budget-panel" role="tabpanel" aria-labelledby="budget-tab" data-tab-panel="budget" hidden>
           <header class="page-heading page-heading-with-action">
-            <div><h1>대출 관리</h1><p>현재 집을 팔고 이사갈 때의 자금과 월 부담을 계산합니다.</p></div>
+            <div><span class="eyebrow">LOAN PLANNER</span><h1>대출 관리</h1><p>필요한 값만 입력하면 이사 예산과 월 부담을 바로 계산합니다.</p></div>
             <button class="secondary-button" id="finance-reset" type="button">입력 초기화</button>
           </header>
 
-          <section class="report-card" aria-label="사내 대출 리포트">
-            <div class="card-heading"><h2>사내 대출 리포트</h2><span>입력 없이 고정 반영</span></div>
-            <div class="report-grid">
-              <div><span>대출 한도</span><b>5억원 · 매매가/KB 시세 70% 중 최소</b></div>
-              <div><span>상환</span><b>3년 거치 · 10년 원리금균등 추정</b></div>
-              <div><span>이자</span><b>개인 1.5% · 회사 3.1%</b></div>
-              <div><span>지원이자 과세</span><b>세전 연봉 1억원 기준 추정</b></div>
+          <div class="loan-layout">
+            <div class="loan-input-column">
+              <section class="step-card">
+                <div class="step-heading"><span>1</span><div><h2>현재 집</h2><p>예상 매도가에서 남은 주담대를 뺍니다.</p></div></div>
+                <div class="field-grid two-columns">
+                  <label>예상 매도가<div class="unit-input"><input id="current-sale-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="예: 9" /><b>억원</b></div></label>
+                  <label>남은 주담대<div class="read-only-input"><b>5억원</b><span>고정</span></div></label>
+                </div>
+                <div class="inline-result"><span>매도 순자금</span><b id="sale-net-proceeds">입력 필요</b><small id="sale-net-caption">현재 집 예상 매도가를 입력해 주세요.</small></div>
+              </section>
+
+              <section class="step-card">
+                <div class="step-heading"><span>2</span><div><h2>사내 대출</h2><p>회사 제도 조건은 이미 적용되어 있습니다.</p></div></div>
+                <div class="loan-rules" aria-label="사내 대출 고정 조건">
+                  <div><span>한도</span><b>최대 5억원</b></div>
+                  <div><span>상환</span><b>3년 거치 + 10년</b></div>
+                  <div><span>내 이자</span><b>연 1.5%</b></div>
+                </div>
+                <div class="field-grid two-columns">
+                  <label>KB 시세 하한<div class="unit-input"><input id="kb-low-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="선택 입력" /><b>억원</b></div></label>
+                  <label>KB 시세 상한<div class="unit-input"><input id="kb-high-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="선택 입력" /><b>억원</b></div></label>
+                </div>
+                <p class="formula-note" id="kb-check-copy">KB 시세 입력 전에는 매매가 70%와 5억원 한도를 먼저 적용합니다.</p>
+              </section>
+
+              <section class="step-card">
+                <div class="step-heading"><span>3</span><div><h2>추가 신용대출</h2><p>필요하지 않다면 0원으로 두세요.</p></div></div>
+                <div class="field-grid credit-fields">
+                  <label>대출 금액<div class="unit-input"><input id="credit-loan-amount" type="number" min="0" step="0.1" value="0" inputmode="decimal" /><b>억원</b></div></label>
+                  <label>연 이자율<div class="unit-input"><input id="credit-loan-rate" type="number" min="0" max="30" step="0.1" value="5" inputmode="decimal" /><b>%</b></div></label>
+                  <label>상환 기간<select id="credit-loan-term"><option value="3">3년</option><option value="5" selected>5년</option><option value="7">7년</option><option value="10">10년</option></select></label>
+                </div>
+              </section>
+
+              <section class="step-card">
+                <div class="step-heading"><span>4</span><div><h2>세금 계산</h2><p>면적에 따라 농어촌특별세를 반영합니다.</p></div></div>
+                <div class="compact-field"><label>이사갈 집 전용면적<div class="unit-input"><input id="tax-area" type="number" min="0" step="0.1" value="84" inputmode="decimal" /><b>㎡</b></div></label></div>
+              </section>
             </div>
-          </section>
 
-          <div class="finance-input-grid">
-            <section class="input-card">
-              <div class="card-heading"><h2>현재 집</h2><span>남은 주담대 5억원 반영</span></div>
-              <div class="field-grid two-columns">
-                <label>예상 매도가<div class="unit-input"><input id="current-sale-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /><b>억원</b></div></label>
-                <label>남은 주담대<div class="read-only-input"><b>5억원</b><span>고정</span></div></label>
+            <aside class="loan-result-column" aria-live="polite">
+              <div class="result-summary-card">
+                <span class="card-kicker">이사갈 수 있는 집 가격</span>
+                <strong id="move-budget">입력 필요</strong>
+                <small>매도 순자금 + 사내 대출 + 신용대출</small>
+                <div class="result-breakdown">
+                  <div><span>현재 집 매도 순자금</span><b data-result-sale-net>입력 필요</b></div>
+                  <div><span>사내 대출</span><b id="company-loan-result">입력 필요</b></div>
+                  <div><span>신용대출</span><b data-result-credit>0원</b></div>
+                </div>
               </div>
-              <p class="formula-note">매도 차액 = 예상 매도가 - 남은 주담대. 매도 복비는 순자금에서 차감합니다.</p>
-            </section>
 
-            <section class="input-card">
-              <div class="card-heading"><h2>이사갈 집</h2><span>KB 시세는 대출 한도 검증용</span></div>
-              <div class="field-grid two-columns">
-                <label>KB 시세 하한<div class="unit-input"><input id="kb-low-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="선택 입력" /><b>억원</b></div></label>
-                <label>KB 시세 상한<div class="unit-input"><input id="kb-high-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="선택 입력" /><b>억원</b></div></label>
-              </div>
-              <p class="formula-note" id="kb-check-copy">KB 시세 입력 전에는 매매가 70%와 5억원 한도를 먼저 적용합니다.</p>
-            </section>
+              <section class="monthly-card">
+                <div class="compact-heading"><h2>이사 후 월 부담</h2><span>세금 포함 추정</span></div>
+                <div class="monthly-row is-highlighted"><span><b>1~36개월</b><small>거치 기간</small></span><strong id="grace-monthly-cost">입력 필요</strong></div>
+                <div class="monthly-row"><span><b>37개월부터</b><small>원리금 상환</small></span><strong id="repayment-monthly-cost">입력 필요</strong></div>
+              </section>
 
-            <section class="input-card">
-              <div class="card-heading"><h2>추가 신용대출</h2></div>
-              <div class="field-grid credit-fields">
-                <label>대출 금액<div class="unit-input"><input id="credit-loan-amount" type="number" min="0" step="0.1" value="0" inputmode="decimal" /><b>억원</b></div></label>
-                <label>연 이자율<div class="unit-input"><input id="credit-loan-rate" type="number" min="0" max="30" step="0.1" value="5" inputmode="decimal" /><b>%</b></div></label>
-                <label>상환 기간<select id="credit-loan-term"><option value="3">3년</option><option value="5" selected>5년</option><option value="7">7년</option><option value="10">10년</option></select></label>
-              </div>
-            </section>
-          </div>
-
-          <section class="flow-section" aria-live="polite">
-            <div class="section-heading-row"><h2>이사 자금 흐름</h2><p>매도 순자금 + 사내 대출 + 신용대출</p></div>
-            <div class="flow-grid">
-              <article class="result-card"><span>현재 집 매도 순자금</span><strong id="sale-net-proceeds">입력 필요</strong><small id="sale-net-caption">매도가 - 주담대 - 매도 복비</small></article>
-              <article class="result-card"><span>사내 대출 실행액</span><strong id="company-loan-result">입력 필요</strong><small id="company-loan-caption">리포트 조건 적용</small></article>
-              <article class="result-card accent-card"><span>이사갈 집 예산</span><strong id="move-budget">입력 필요</strong><small>매도 순자금 + 사내 대출 + 신용대출</small></article>
-            </div>
-            <div class="calculation-list">
-              <div><span>현재 집 매도 차액</span><b id="current-sale-equity">-</b></div>
-              <div><span>매도 복비 상한</span><b id="seller-brokerage">-</b></div>
-              <div><span>신용대출 월 상환액</span><b id="credit-monthly-payment">-</b></div>
-              <div><span>사내 대출 가능 한도</span><b id="company-loan-limit">-</b></div>
-            </div>
-          </section>
-
-          <section class="cost-section">
-            <div class="section-heading-row"><h2>세금과 복비</h2><p>1주택 일반 매수 · 전용 84㎡ 기준</p></div>
-            <div class="cost-layout">
-              <div class="input-card tax-inputs">
-                <label>이사갈 집 전용면적<div class="unit-input"><input id="tax-area" type="number" min="0" step="0.1" value="84" inputmode="decimal" /><b>㎡</b></div></label>
-                <p class="formula-note">취득세·지방교육세·전용 85㎡ 초과 시 농어촌특별세와 매도·매수 복비 상한을 반영합니다.</p>
-              </div>
-              <div class="cost-result" aria-live="polite">
-                <span>총 세금 + 복비</span><strong id="total-transaction-cost">입력 필요</strong>
+              <section class="cost-card">
+                <div class="compact-heading"><h2>세금과 복비</h2><span>1주택 기준</span></div>
+                <div class="cost-total"><span>총 세금 + 복비</span><strong id="total-transaction-cost">입력 필요</strong></div>
                 <dl>
                   <div><dt>취득세</dt><dd id="acquisition-tax">-</dd></div>
                   <div><dt>지방교육세</dt><dd id="local-education-tax">-</dd></div>
                   <div><dt>농어촌특별세</dt><dd id="rural-special-tax">-</dd></div>
                   <div><dt>취득세 등 합계</dt><dd id="tax-total">-</dd></div>
                   <div><dt>매수 복비 상한</dt><dd id="buyer-brokerage">-</dd></div>
-                  <div><dt>총 거래 필요액</dt><dd id="total-moving-required">-</dd></div>
+                  <div class="total-row"><dt>총 거래 필요액</dt><dd id="total-moving-required">-</dd></div>
                 </dl>
-              </div>
-            </div>
-            <p class="disclaimer" id="tax-disclaimer">양도소득세, 대출 부대비용, 법무사비, 이사비는 포함하지 않습니다. 복비는 법정 상한이며 부가세와 실제 협의 금액은 별도입니다.</p>
-          </section>
+              </section>
 
-          <section class="monthly-section" aria-live="polite">
-            <div class="section-heading-row"><h2>이사 후 월 부담</h2><p>회사 지원이자의 예상 소득세 포함</p></div>
-            <div class="flow-grid">
-              <article class="result-card accent-card"><span>실행 후 1~36개월</span><strong id="grace-monthly-cost">입력 필요</strong><small>개인 이자 + 지원이자 세금 + 신용대출</small></article>
-              <article class="result-card"><span>37개월차 월 실부담</span><strong id="repayment-monthly-cost">입력 필요</strong><small>사내 대출 상환 + 신용대출</small></article>
-              <article class="result-card"><span>지원이자 연간 예상 세금</span><strong id="annual-subsidy-tax">입력 필요</strong><small>세전 연봉 1억원 · 기타 공제 미반영</small></article>
-            </div>
-            <p class="disclaimer">지원이자 과세는 근로소득공제와 누진세율, 지방소득세 10%만 반영한 추정입니다. 부양가족·연금·보험·세액공제와 회사의 실제 원천징수에 따라 달라집니다.</p>
-          </section>
+              <details class="detail-card">
+                <summary>계산 상세 보기</summary>
+                <dl>
+                  <div><dt>현재 집 매도 차액</dt><dd id="current-sale-equity">-</dd></div>
+                  <div><dt>매도 복비 상한</dt><dd id="seller-brokerage">-</dd></div>
+                  <div><dt>사내 대출 가능 한도</dt><dd id="company-loan-limit">-</dd></div>
+                  <div><dt>신용대출 월 상환액</dt><dd id="credit-monthly-payment">-</dd></div>
+                  <div><dt>지원이자 연간 예상 세금</dt><dd id="annual-subsidy-tax">-</dd></div>
+                </dl>
+                <p id="company-loan-caption">리포트 조건 적용</p>
+              </details>
+            </aside>
+          </div>
+          <p class="disclaimer" id="tax-disclaimer">1주택 일반 매수 기준 추정입니다. 양도소득세와 대출 부대비용 등은 포함하지 않습니다.</p>
         </section>
 
         <section class="tab-panel" id="home-price-panel" role="tabpanel" aria-labelledby="home-price-tab" data-tab-panel="home-price" hidden>
           <header class="page-heading price-heading">
-            <div><h1>우리집 가격</h1><p id="price-apartment-name">힐스테이트 푸르지오 수원</p><small id="price-address">경기도 수원시 팔달구 효원로93번길 33</small></div>
+            <div><span class="eyebrow">HOME VALUE</span><h1>우리집 가격</h1><p id="price-apartment-name">힐스테이트 푸르지오 수원</p><small id="price-address">경기도 수원시 팔달구 효원로93번길 33</small></div>
             <div class="sync-state"><i class="sync-dot" id="price-sync-dot"></i><span><b id="price-sync-state">동기화 대기</b><small id="price-synced-at">공식 데이터 연결 후 갱신됩니다.</small></span></div>
           </header>
-          <p class="source-line">실거래가: 국토교통부 실거래가 공개 자료 · 현재 매물가: <b id="listing-source-name">허용된 매물 데이터 제공자 연결 대기</b></p>
-          <section class="price-section" aria-labelledby="trade-title">
+          <p class="source-line">국토교통부 실거래가 · <b id="listing-source-name">매물 데이터 연결 대기</b></p>
+          <section class="content-card price-section" aria-labelledby="trade-title">
             <div class="section-heading-row"><h2 id="trade-title">최근 3개월 실거래가</h2><p id="trade-period">동기화 후 거래 기간을 표시합니다.</p></div>
             <div class="price-stat-grid"><article><span>거래 건수</span><strong id="trade-count">-</strong></article><article><span>평균 거래가</span><strong id="trade-average">-</strong></article><article><span>최근 거래가</span><strong id="trade-latest">-</strong></article></div>
             <div class="transaction-table-wrap"><table><thead><tr><th scope="col">계약일</th><th scope="col">거래가</th><th scope="col">전용면적</th><th scope="col">층</th></tr></thead><tbody id="recent-trades-body"><tr><td colspan="4" class="table-empty">공식 실거래가 동기화를 기다리고 있어요.</td></tr></tbody></table></div>
           </section>
-          <section class="price-section" aria-labelledby="listing-title">
+          <section class="content-card price-section" aria-labelledby="listing-title">
             <div class="section-heading-row"><h2 id="listing-title">현재 매물가</h2><p id="current-listings-state">허용된 매물 데이터 제공자를 연결하면 표시됩니다.</p></div>
             <div class="listing-grid" id="current-listings-body"><article class="listing-empty"><h3>현재 매물 데이터 연결 대기</h3><p>자동 수집이 허용된 부동산 데이터 API를 연결하면 최신 매물가를 보여드려요.</p></article></div>
           </section>
@@ -155,15 +183,15 @@
         </section>
 
         <section class="tab-panel" id="map-panel" role="tabpanel" aria-labelledby="map-tab" data-tab-panel="map" hidden>
-          <header class="page-heading"><div><h1>지도</h1><p>힐스테이트 푸르지오 수원</p></div><a class="secondary-button" href="https://www.google.com/maps/search/?api=1&query=%ED%9E%90%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%8A%B8%20%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4%20%EC%88%98%EC%9B%90" target="_blank" rel="noreferrer">Google Maps 열기</a></header>
+          <header class="page-heading page-heading-with-action"><div><span class="eyebrow">LOCATION</span><h1>지도</h1><p>힐스테이트 푸르지오 수원</p></div><a class="secondary-button" href="https://www.google.com/maps/search/?api=1&query=%ED%9E%90%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%8A%B8%20%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4%20%EC%88%98%EC%9B%90" target="_blank" rel="noreferrer">Google Maps 열기</a></header>
           <div class="map-card"><iframe title="힐스테이트 푸르지오 수원 지도" src="https://maps.google.com/maps?q=%ED%9E%90%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%8A%B8%20%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4%20%EC%88%98%EC%9B%90&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </section>
 
         <section class="tab-panel" id="reconstruction-panel" role="tabpanel" aria-labelledby="reconstruction-tab" data-tab-panel="reconstruction" hidden>
-          <header class="page-heading price-heading"><div><h1>재건축</h1><p>수도권 남부 주요 진행 단지</p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 API 연결 후 갱신됩니다.</small></span></div></header>
-          <p class="source-line">사업 단계는 공개 행정자료와 보도를 정리한 참고 정보입니다. 최근 실거래가는 국토교통부 API로 매일 동기화합니다.</p>
+          <header class="page-heading price-heading"><div><span class="eyebrow">REBUILDING</span><h1>재건축</h1><p>수도권 남부 주요 진행 단지</p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 API 연결 후 갱신됩니다.</small></span></div></header>
+          <p class="source-line">공개 행정자료·보도 정리 · 최근 실거래가는 국토교통부 API 연동</p>
           <div class="reconstruction-grid" id="reconstruction-list"><article class="listing-empty"><h3>재건축 정보를 불러오는 중입니다.</h3></article></div>
-          <p class="disclaimer">남은 기간은 인허가·조합 의사결정·공사비·이주계획에 따라 크게 달라지는 추정치이며, 투자 판단의 근거로 사용하면 안 됩니다.</p>
+          <p class="disclaimer">남은 기간은 인허가와 사업 일정에 따라 달라지는 추정치입니다.</p>
         </section>
       </main>
     </div>

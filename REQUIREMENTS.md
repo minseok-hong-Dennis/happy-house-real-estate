@@ -37,3 +37,6 @@
 33. Remove move countdown and contract-status content that was not requested.
 34. Add a Map tab with a Google Maps marker for Hillstate Prugio Suwon.
 35. Add a Reconstruction tab for selected ongoing reconstruction projects in southern metropolitan areas, including latest official transaction data when the scheduled sync is configured and an approximate remaining timeline.
+36. Increase the top-left logo size and place the brand text below the image.
+37. Research comparable home-affordability and mortgage-calculator services, then redesign the interface using proven interaction patterns.
+38. Improve usability with a clear input hierarchy, prominent budget and monthly-payment results, consistent spacing and typography, and a responsive layout.
