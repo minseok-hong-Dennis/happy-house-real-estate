@@ -1,5 +1,7 @@
 # Real Estate Price Sync
 
+한국어 키 발급 및 GitHub Secret 등록 방법은 [API_KEYS_SETUP.md](API_KEYS_SETUP.md)를 참고하세요.
+
 ## Schedule
 
 `.github/workflows/sync-home-price.yml` runs once a day at 14:00 KST (`05:00 UTC`) and can also be run manually from the GitHub Actions page.

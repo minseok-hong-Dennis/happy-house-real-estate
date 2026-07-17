@@ -3,179 +3,160 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Happy House 이사 대작전 - 즐거운 이사를 위한 나만의 플래너" />
+    <meta name="description" content="Happy House 이사 대작전 - 집 구매와 이사 준비를 위한 플래너" />
     <title>Happy House 이사 대작전</title>
+    <link rel="icon" type="image/png" href="assets/happy-house-icon.png" />
+    <link rel="apple-touch-icon" href="assets/happy-house-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Gaegu:wght@400;700&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <a class="skip-link" href="#content">본문으로 바로가기</a>
     <div class="app-shell">
       <aside class="sidebar">
-        <a class="brand" href="#home" aria-label="Happy House 이사 대작전 홈">
-          <img src="assets/moving-mascot.png" alt="상자에서 손을 흔드는 귀여운 집 마스코트" />
-          <span class="brand-copy">
-            <small>Happy House</small>
-            <strong>이사 대작전</strong>
-          </span>
+        <a class="brand" href="#home-panel" aria-label="Happy House 이사 대작전 홈">
+          <img src="assets/happy-house-icon.png" alt="상자를 안고 있는 귀여운 집 아이콘" />
+          <span>Happy House<br /><strong>이사 대작전</strong></span>
         </a>
 
-        <nav class="sidebar-nav" aria-label="이사 대작전 메뉴" role="tablist" aria-orientation="vertical">
-          <button class="tab-button is-active" id="home-tab" type="button" role="tab" aria-selected="true" aria-controls="home-panel" data-tab-target="home">
-            <span class="tab-number">01</span>
-            <span><b>홈</b><small>이사 현황 한눈에</small></span>
-          </button>
-          <button class="tab-button" id="budget-tab" type="button" role="tab" aria-selected="false" aria-controls="budget-panel" data-tab-target="budget">
-            <span class="tab-number">02</span>
-            <span><b>예산 관리</b><small>대출과 월 상환 계획</small></span>
-          </button>
-          <button class="tab-button" id="home-price-tab" type="button" role="tab" aria-selected="false" aria-controls="home-price-panel" data-tab-target="home-price">
-            <span class="tab-number">03</span>
-            <span><b>우리집 가격</b><small>실거래가와 현재 매물</small></span>
-          </button>
+        <nav class="sidebar-nav" aria-label="메뉴" role="tablist" aria-orientation="vertical">
+          <button class="tab-button is-active" id="home-tab" type="button" role="tab" aria-selected="true" aria-controls="home-panel" data-tab-target="home"><span aria-hidden="true">🏠</span><b>홈</b></button>
+          <button class="tab-button" id="budget-tab" type="button" role="tab" aria-selected="false" aria-controls="budget-panel" data-tab-target="budget"><span aria-hidden="true">💳</span><b>대출 관리</b></button>
+          <button class="tab-button" id="home-price-tab" type="button" role="tab" aria-selected="false" aria-controls="home-price-panel" data-tab-target="home-price"><span aria-hidden="true">📈</span><b>우리집 가격</b></button>
         </nav>
-
-        <div class="sidebar-bottom">
-          <p>MOVE WITH A SMILE</p>
-          <div class="moving-note">
-            <span class="note-dot"></span>
-            <div><b>이사 준비 중</b><small>조금씩, 가볍게 해봐요.</small></div>
-          </div>
-        </div>
       </aside>
 
       <main id="content" class="main-content">
-        <header class="topbar">
-          <div><p class="page-kicker">HAPPY HOUSE MOVE PLANNER</p><p class="today-copy">2026년 7월, 새로운 시작을 준비해요.</p></div>
-          <div class="topbar-badge"><span></span> D-23</div>
-        </header>
+        <section class="tab-panel" id="home-panel" role="tabpanel" aria-labelledby="home-tab" data-tab-panel="home">
+          <header class="page-heading">
+            <h1>홈</h1>
+          </header>
 
-        <section class="tab-panel home-panel" id="home-panel" role="tabpanel" aria-labelledby="home-tab" data-tab-panel="home">
-          <div class="welcome-section">
-            <div>
-              <p class="eyebrow">HOME DASHBOARD</p>
-              <h1>우리의 새 집까지,<br /><em>한 걸음씩 즐겁게.</em></h1>
-              <p class="intro">복잡한 이사 준비를 한곳에 모았어요. 오늘은 예산부터 차분히 살펴볼까요?</p>
-            </div>
-            <div class="moving-sticker" aria-hidden="true"><span>LET'S</span><b>MOVE!</b><i></i></div>
+          <div class="summary-grid" aria-label="핵심 요약">
+            <article class="summary-card"><span>사내 대출 가능 한도</span><strong data-home-company-limit>입력 필요</strong><small data-home-company-detail>매매가와 KB 시세를 입력해 주세요.</small></article>
+            <article class="summary-card"><span>상환 시작 후 월 실부담</span><strong data-home-monthly-cost>입력 필요</strong><small data-home-loan-summary>대출 관리에서 계산합니다.</small></article>
+            <article class="summary-card"><span>최근 실거래가</span><strong data-home-price-value>동기화 대기</strong><small data-home-price-meta>공식 데이터 연결 후 표시</small></article>
           </div>
 
-          <div class="summary-grid" aria-label="이사 준비 요약">
-            <article class="summary-card coral-card"><span>이사일까지</span><strong>23<small>일</small></strong><p>여유 있게 준비하는 중</p></article>
-            <article class="summary-card cream-card"><span>계약 상태</span><strong>진행<small>중</small></strong><p>계약서 확인을 남겨두었어요</p></article>
-            <article class="summary-card mint-card"><span>예상 월 상환액</span><strong data-home-payment>1,779,000원</strong><p data-home-loan>3.8억원 · 30년 기준</p></article>
-            <article class="summary-card price-card"><span>우리집 최근 실거래가</span><strong data-home-price-value>동기화 대기</strong><p data-home-price-meta>공식 데이터 연결 후 표시</p></article>
-          </div>
-
-          <div class="home-layout">
-            <section class="overview-card budget-glance">
-              <div class="card-heading"><div><p class="eyebrow">BUDGET GLANCE</p><h2>이번 달 예산 미리보기</h2></div><button class="quiet-button" type="button" data-tab-target="budget">자세히 계산하기 <span>→</span></button></div>
-              <div class="glance-body">
-                <div class="payment-orb"><span>매월</span><strong data-home-payment>1,779,000원</strong><small>원리금 균등 상환</small></div>
-                <div class="glance-list">
-                  <div><span>대출 원금</span><b data-home-principal>3.8억원</b></div>
-                  <div><span>예상 총 이자</span><b data-home-interest>약 2.7억원</b></div>
-                  <div><span>금리</span><b data-home-rate>연 3.8%</b></div>
-                </div>
-              </div>
+          <div class="home-grid">
+            <section class="simple-card">
+              <div class="card-title-row"><h2>대출 요약</h2><button class="text-button" type="button" data-tab-target="budget">대출 관리</button></div>
+              <dl class="info-list">
+                <div><dt>거치 기간</dt><dd>3년</dd></div>
+                <div><dt>상환 기간</dt><dd>10년</dd></div>
+                <div><dt>사내 대출 금리</dt><dd>개인 1.5% + 회사 3.1%</dd></div>
+              </dl>
             </section>
-
-            <section class="overview-card checklist-card">
-              <div class="card-heading"><div><p class="eyebrow">NEXT LITTLE WINS</p><h2>다음 할 일</h2></div><span class="count-pill">2 / 4</span></div>
-              <ul class="check-list">
-                <li class="done"><span>01</span><p>이사 날짜 확정</p><b>완료</b></li>
-                <li><span>02</span><p>대출 조건 비교하기</p><b>오늘</b></li>
-                <li><span>03</span><p>이사 업체 견적 받기</p><b>이번 주</b></li>
-              </ul>
+            <section class="simple-card">
+              <div class="card-title-row"><h2>우리집 가격</h2><button class="text-button" type="button" data-tab-target="home-price">가격 보기</button></div>
+              <dl class="info-list">
+                <div><dt>대상</dt><dd>힐스테이트 푸르지오 수원</dd></div>
+                <div><dt>실거래가</dt><dd>최근 3개월</dd></div>
+                <div><dt>동기화</dt><dd id="home-price-sync">대기 중</dd></div>
+              </dl>
             </section>
           </div>
         </section>
 
-        <section class="tab-panel budget-panel" id="budget-panel" role="tabpanel" aria-labelledby="budget-tab" data-tab-panel="budget" hidden>
-          <div class="budget-heading">
-            <div><p class="eyebrow">LOAN CALCULATOR</p><h1>대출을 받으면,<br /><em>매달 얼마나 낼까요?</em></h1></div>
-            <p>입력한 조건으로 원리금 균등 상환액을 바로 계산해드려요.</p>
-          </div>
+        <section class="tab-panel" id="budget-panel" role="tabpanel" aria-labelledby="budget-tab" data-tab-panel="budget" hidden>
+          <header class="page-heading page-heading-with-action">
+            <div><h1>대출 관리</h1><p>사내 대출과 신용대출을 함께 계산합니다.</p></div>
+            <button class="secondary-button" id="loan-reset" type="button">입력 초기화</button>
+          </header>
 
-          <div class="calculator-layout">
-            <form class="loan-form" id="loan-form">
-              <div class="form-heading"><span>나의 대출 조건</span><button type="reset" class="reset-button">기본값으로</button></div>
-              <label class="field-group" for="loan-amount-number">
-                <span>대출 금액</span>
-                <div class="number-field"><input id="loan-amount-number" name="loanAmount" type="number" min="0.5" max="15" step="0.1" value="3.8" inputmode="decimal" /><b>억원</b></div>
-                <input id="loan-amount-range" type="range" min="0.5" max="15" step="0.1" value="3.8" aria-label="대출 금액 슬라이더" />
-                <div class="range-scale"><span>0.5억</span><span>15억</span></div>
-              </label>
-              <label class="field-group" for="interest-rate">
-                <span>연 이자율</span>
-                <div class="number-field"><input id="interest-rate" name="interestRate" type="number" min="0" max="12" step="0.1" value="3.8" inputmode="decimal" /><b>%</b></div>
-                <input id="interest-rate-range" type="range" min="0" max="12" step="0.1" value="3.8" aria-label="연 이자율 슬라이더" />
-                <div class="range-scale"><span>0%</span><span>12%</span></div>
-              </label>
-              <label class="field-group" for="loan-term">
-                <span>상환 기간</span>
-                <select id="loan-term" name="loanTerm"><option value="10">10년</option><option value="20">20년</option><option value="30" selected>30년</option><option value="40">40년</option></select>
-              </label>
-              <div class="repayment-method"><span>상환 방식</span><b>원리금 균등</b><small>매달 같은 금액으로 원금과 이자를 함께 상환해요.</small></div>
-              <button class="calculate-button" type="submit">월 상환액 다시 계산하기 <span>→</span></button>
-            </form>
-
-            <section class="result-card" aria-live="polite">
-              <p class="eyebrow light">YOUR MONTHLY PAYMENT</p>
-              <p class="result-label">매달 내는 예상 금액</p>
-              <strong id="monthly-payment">1,779,000원</strong>
-              <p class="result-caption" id="payment-caption">3.8억원을 연 3.8%, 30년 동안 상환할 때</p>
-              <div class="result-divider"></div>
-              <div class="result-breakdown">
-                <div><span>총 상환 금액</span><b id="total-repayment">약 6.4억원</b></div>
-                <div><span>예상 총 이자</span><b id="total-interest">약 2.6억원</b></div>
+          <div class="loan-workspace">
+            <section class="input-card">
+              <div class="card-heading"><h2>사내 대출</h2><span>3년 거치 · 10년 상환</span></div>
+              <div class="field-grid">
+                <label>매매가<div class="unit-input"><input id="purchase-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /><b>억원</b></div></label>
+                <label>KB 시세 하한<div class="unit-input"><input id="kb-low-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /><b>억원</b></div></label>
+                <label>KB 시세 상한<div class="unit-input"><input id="kb-high-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /><b>억원</b></div></label>
+                <label>실행 금액<div class="unit-input"><input id="company-loan-amount" type="number" min="0" max="5" step="0.1" inputmode="decimal" placeholder="한도 적용" /><b>억원</b></div></label>
               </div>
-              <div class="payment-visual"><span>월 상환 부담</span><div><i id="payment-fill"></i></div><b id="payment-level">안정적인 수준</b></div>
-              <p class="result-note">실제 상환액은 대출 상품, 거치 기간, 우대금리 등에 따라 달라질 수 있어요.</p>
+              <div class="limit-line"><span>가능 한도 <b id="company-loan-limit">입력 필요</b></span><button class="text-button" id="apply-company-limit" type="button">한도 적용</button></div>
+              <div class="field-grid compact-fields">
+                <label>지원이자 한계세율<div class="unit-input"><input id="company-tax-rate" type="number" min="0" max="55" step="0.1" value="24.2" inputmode="decimal" /><b>%</b></div><small>지방소득세 포함 추정</small></label>
+                <label>상환 방식<select id="company-repayment-method"><option value="annuity">원리금 균등</option><option value="equal-principal">원금 균등</option></select><small>상환 시작 후 적용</small></label>
+              </div>
+              <p class="formula-note">한도 = 5억원, 매매가의 70%, KB 시세 상·하한 평균의 70% 중 최소값</p>
+            </section>
+
+            <section class="input-card">
+              <div class="card-heading"><h2>신용대출</h2></div>
+              <div class="field-grid credit-fields">
+                <label>대출 금액<div class="unit-input"><input id="credit-loan-amount" type="number" min="0" step="0.1" value="0" inputmode="decimal" /><b>억원</b></div></label>
+                <label>연 이자율<div class="unit-input"><input id="credit-loan-rate" type="number" min="0" max="30" step="0.1" value="5" inputmode="decimal" /><b>%</b></div></label>
+                <label>상환 기간<select id="credit-loan-term"><option value="3">3년</option><option value="5" selected>5년</option><option value="7">7년</option><option value="10">10년</option></select></label>
+              </div>
+              <div class="credit-summary"><span>신용대출 월 상환액</span><b id="credit-monthly-payment">0원</b></div>
             </section>
           </div>
-        </section>
 
-        <section class="tab-panel home-price-panel" id="home-price-panel" role="tabpanel" aria-labelledby="home-price-tab" data-tab-panel="home-price" hidden>
-          <div class="price-heading">
-            <div>
-              <p class="eyebrow">HOME PRICE TRACKER</p>
-              <h1>우리집 가격을<br /><em>차분하게 살펴봐요.</em></h1>
-              <p class="price-apartment-name" id="price-apartment-name">힐스테이트 푸르지오 수원</p>
-              <p class="price-address" id="price-address">경기도 수원시 팔달구 효원로93번길 33</p>
+          <section class="result-section" aria-live="polite">
+            <div class="section-heading-row"><h2>월 부담</h2><p>회사 부담 이자의 예상 세금까지 반영</p></div>
+            <div class="result-grid">
+              <article class="result-card accent-card"><span>실행 후 1~36개월</span><strong id="grace-monthly-cost">입력 필요</strong><small id="grace-monthly-caption">개인 부담 이자 + 지원이자 세금 + 신용대출</small></article>
+              <article class="result-card"><span>37개월차 월 실부담</span><strong id="repayment-monthly-cost">입력 필요</strong><small id="repayment-monthly-caption">사내 대출 상환 + 신용대출</small></article>
+              <article class="result-card"><span>37개월차 은행 월 납입액</span><strong id="bank-monthly-payment">입력 필요</strong><small id="bank-monthly-caption">회사 부담분을 포함한 금액</small></article>
             </div>
-            <div class="sync-card"><span class="sync-dot" id="price-sync-dot"></span><div><b id="price-sync-state">동기화 대기</b><small id="price-synced-at">공식 데이터 연결 후 갱신됩니다.</small></div></div>
-          </div>
-
-          <section class="price-source-note" aria-label="가격 데이터 출처">
-            <span>최근 실거래가</span><b>국토교통부 실거래가 공개 자료</b><span>현재 매물가</span><b id="listing-source-name">허용된 매물 데이터 제공자 연결 대기</b>
+            <div class="calculation-list">
+              <div><span>사내 대출 실행 금액</span><b id="company-loan-result">-</b></div>
+              <div><span>월 회사 부담 이자</span><b id="company-subsidy">-</b></div>
+              <div><span>지원이자 예상 세금</span><b id="company-subsidy-tax">-</b></div>
+              <div><span>신용대출 포함 월 부담 변화</span><b id="credit-impact">-</b></div>
+            </div>
+            <p class="disclaimer">추정치입니다. 실제 사내 대출의 상환 방식, 지원이자 과세와 원천징수는 회사 규정 및 개인 소득에 따라 달라질 수 있습니다.</p>
           </section>
 
+          <section class="tax-section">
+            <div class="section-heading-row"><h2>구매 세금</h2><p>1주택 일반 매수 기준</p></div>
+            <div class="tax-layout">
+              <div class="input-card tax-inputs">
+                <div class="field-grid">
+                  <label>취득가액<div class="unit-input"><input id="tax-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /><b>억원</b></div></label>
+                  <label>전용면적<div class="unit-input"><input id="tax-area" type="number" min="0" step="0.1" value="84" inputmode="decimal" /><b>㎡</b></div></label>
+                  <label>취득 구분<select id="tax-home-count"><option value="one" selected>1주택 일반 매수</option><option value="other">다주택 · 법인 · 기타</option></select></label>
+                </div>
+                <p class="formula-note">취득세, 지방교육세, 전용 85㎡ 초과 시 농어촌특별세를 추정합니다.</p>
+              </div>
+              <div class="tax-result" aria-live="polite">
+                <span>예상 취득 세금</span><strong id="tax-total">입력 필요</strong>
+                <dl>
+                  <div><dt>취득세</dt><dd id="acquisition-tax">-</dd></div>
+                  <div><dt>지방교육세</dt><dd id="local-education-tax">-</dd></div>
+                  <div><dt>농어촌특별세</dt><dd id="rural-special-tax">-</dd></div>
+                </dl>
+              </div>
+            </div>
+            <p class="disclaimer" id="tax-disclaimer">중과세, 감면, 일시적 2주택, 법인 취득, 등기·중개 수수료는 포함하지 않습니다. 계약 전 관할 세무 부서 또는 전문가에게 확인해 주세요.</p>
+          </section>
+        </section>
+
+        <section class="tab-panel" id="home-price-panel" role="tabpanel" aria-labelledby="home-price-tab" data-tab-panel="home-price" hidden>
+          <header class="page-heading price-heading">
+            <div><h1>우리집 가격</h1><p id="price-apartment-name">힐스테이트 푸르지오 수원</p><small id="price-address">경기도 수원시 팔달구 효원로93번길 33</small></div>
+            <div class="sync-state"><i class="sync-dot" id="price-sync-dot"></i><span><b id="price-sync-state">동기화 대기</b><small id="price-synced-at">공식 데이터 연결 후 갱신됩니다.</small></span></div>
+          </header>
+
+          <p class="source-line">실거래가: 국토교통부 실거래가 공개 자료 · 현재 매물가: <b id="listing-source-name">허용된 매물 데이터 제공자 연결 대기</b></p>
+
           <section class="price-section" aria-labelledby="trade-title">
-            <div class="price-section-heading"><div><p class="eyebrow">LAST 3 MONTHS</p><h2 id="trade-title">최근 3개월 실거래가</h2></div><p id="trade-period">동기화 후 거래 기간을 표시합니다.</p></div>
+            <div class="section-heading-row"><h2 id="trade-title">최근 3개월 실거래가</h2><p id="trade-period">동기화 후 거래 기간을 표시합니다.</p></div>
             <div class="price-stat-grid">
               <article><span>거래 건수</span><strong id="trade-count">-</strong></article>
               <article><span>평균 거래가</span><strong id="trade-average">-</strong></article>
               <article><span>최근 거래가</span><strong id="trade-latest">-</strong></article>
             </div>
-            <div class="transaction-table-wrap">
-              <table>
-                <thead><tr><th scope="col">계약일</th><th scope="col">거래가</th><th scope="col">전용면적</th><th scope="col">층</th></tr></thead>
-                <tbody id="recent-trades-body"><tr><td colspan="4" class="table-empty">공식 실거래가 동기화를 기다리고 있어요.</td></tr></tbody>
-              </table>
-            </div>
+            <div class="transaction-table-wrap"><table><thead><tr><th scope="col">계약일</th><th scope="col">거래가</th><th scope="col">전용면적</th><th scope="col">층</th></tr></thead><tbody id="recent-trades-body"><tr><td colspan="4" class="table-empty">공식 실거래가 동기화를 기다리고 있어요.</td></tr></tbody></table></div>
           </section>
 
-          <section class="price-section listing-section" aria-labelledby="listing-title">
-            <div class="price-section-heading"><div><p class="eyebrow">ON THE MARKET</p><h2 id="listing-title">현재 매물가</h2></div><p id="current-listings-state">허용된 매물 데이터 제공자를 연결하면 표시됩니다.</p></div>
-            <div class="listing-grid" id="current-listings-body">
-              <article class="listing-empty"><span>DATA SOURCE</span><h3>현재 매물 데이터 연결 대기</h3><p>자동 수집이 허용된 부동산 데이터 API를 연결하면 최신 매물가를 보여드려요.</p></article>
-            </div>
+          <section class="price-section" aria-labelledby="listing-title">
+            <div class="section-heading-row"><h2 id="listing-title">현재 매물가</h2><p id="current-listings-state">허용된 매물 데이터 제공자를 연결하면 표시됩니다.</p></div>
+            <div class="listing-grid" id="current-listings-body"><article class="listing-empty"><h3>현재 매물 데이터 연결 대기</h3><p>자동 수집이 허용된 부동산 데이터 API를 연결하면 최신 매물가를 보여드려요.</p></article></div>
           </section>
-
-          <p class="price-disclaimer">실거래가는 신고된 계약 정보를 기준으로 하며, 계약 해제나 신고 시점에 따라 변경될 수 있습니다. 현재 매물가는 연결된 제공자의 참고용 정보입니다.</p>
+          <p class="disclaimer">실거래가는 신고된 계약 정보를 기준으로 하며, 계약 해제나 신고 시점에 따라 변경될 수 있습니다.</p>
         </section>
       </main>
     </div>
