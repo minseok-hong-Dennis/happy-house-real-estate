@@ -46,3 +46,7 @@
 42. Investigate KB market-price API availability and connect it to the scheduled Action only through an officially supported or licensed API.
 43. Limit the home-price dashboard for Hillstate Prugio Suwon to the user's 59-square-meter exclusive-area type.
 44. Expand the Reconstruction tab with the official nationwide urban-renewal dataset and show more southern Gyeonggi reconstruction projects.
+45. Redesign the responsive layout so the service is comfortable to use on a mobile phone.
+46. Add useful filters to the Reconstruction tab.
+47. Fix the unexpectedly small reconstruction dataset and substantially expand the number of displayed projects.
+48. Show Reconstruction-tab projects as distinct pins on the Map tab.

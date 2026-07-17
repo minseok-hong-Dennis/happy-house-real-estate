@@ -1,6 +1,15 @@
 const tabButtons = [...document.querySelectorAll('[role="tab"][data-tab-target]')];
 const tabLinks = [...document.querySelectorAll('[data-tab-link]')];
 const tabPanels = [...document.querySelectorAll('[data-tab-panel]')];
+const RECONSTRUCTION_PAGE_SIZE = 24;
+const HOME_MAP_POINT = [37.2669, 127.0158];
+
+let reconstructionItems = [];
+let visibleReconstructionCount = RECONSTRUCTION_PAGE_SIZE;
+let propertyMap = null;
+let reconstructionMapLayer = null;
+let homeMapMarker = null;
+const reconstructionMarkers = new Map();
 
 const COMPANY_LOAN = {
   capEok: 5,
@@ -30,6 +39,10 @@ function showTab(tabName) {
     button.setAttribute('aria-selected', String(isActive));
   });
   tabPanels.forEach((panel) => { panel.hidden = panel.dataset.tabPanel !== tabName; });
+  window.scrollTo({ top: 0, left: 0 });
+  if (tabName === 'map' && propertyMap) {
+    window.setTimeout(() => propertyMap.invalidateSize(), 50);
+  }
 }
 
 tabButtons.forEach((button, index) => {
@@ -251,8 +264,14 @@ function renderTransactionRows(records) {
   }
   records.slice(0, 10).forEach((record) => {
     const row = document.createElement('tr');
+    const labels = ['계약일', '거래가', '전용면적', '층'];
     const values = [record.contractDate || '-', formatPriceManwon(Number(record.priceManwon)), record.areaSqm ? Number(record.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) + '㎡' : '-', record.floor ? record.floor + '층' : '-'];
-    values.forEach((value) => { const cell = document.createElement('td'); cell.textContent = value; row.append(cell); });
+    values.forEach((value, index) => {
+      const cell = document.createElement('td');
+      cell.dataset.label = labels[index];
+      cell.textContent = value;
+      row.append(cell);
+    });
     tbody.append(row);
   });
 }
@@ -337,8 +356,270 @@ function makeDetailRow(label, value) {
   return row;
 }
 
-function renderReconstruction(data) {
+const LEGACY_REGION_POINTS = [
+  { name: '수원영통구', aliases: ['수원시 영통구', '수원영통구'], point: [37.2596, 127.0464] },
+  { name: '성남분당구', aliases: ['성남시 분당구', '성남분당구'], point: [37.3828, 127.1189] },
+  { name: '평택시', aliases: ['평택시'], point: [36.9921, 127.1127] },
+  { name: '의왕시', aliases: ['의왕시'], point: [37.3449, 126.9683] },
+  { name: '과천시', aliases: ['과천시'], point: [37.4292, 126.9876] },
+  { name: '군포시', aliases: ['군포시'], point: [37.3617, 126.9352] },
+  { name: '오산시', aliases: ['오산시'], point: [37.1498, 127.0772] }
+];
+
+function inferredRegion(item) {
+  if (item.regionName) return item.regionName;
+  return LEGACY_REGION_POINTS.find((region) => region.aliases.some((alias) => (item.location || '').includes(alias)))?.name || '기타 지역';
+}
+
+function fallbackMapPoint(item) {
+  if (Number.isFinite(item.mapPoint?.latitude) && Number.isFinite(item.mapPoint?.longitude)) return item.mapPoint;
+  const region = LEGACY_REGION_POINTS.find((candidate) => candidate.name === inferredRegion(item));
+  if (!region) return null;
+  const hash = Array.from(item.name || '').reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 17);
+  const angle = (hash % 360) * Math.PI / 180;
+  const radius = 0.0025 + ((hash >>> 8) % 7) * 0.0012;
+  return {
+    latitude: region.point[0] + Math.sin(angle) * radius,
+    longitude: region.point[1] + Math.cos(angle) * radius,
+    accuracy: '시군구 중심 기준 추정 위치'
+  };
+}
+
+function stageRank(stage = '') {
+  if (/준공|이전고시/.test(stage)) return 8;
+  if (/착공|이주|철거/.test(stage)) return 7;
+  if (/관리처분/.test(stage)) return 6;
+  if (/사업시행/.test(stage)) return 5;
+  if (/조합설립|사업시행자/.test(stage)) return 4;
+  if (/추진위|주민대표/.test(stage)) return 3;
+  if (/정비구역/.test(stage)) return 2;
+  return 1;
+}
+
+function stageGroup(stage = '') {
+  if (/준공|착공|관리처분|이주|철거/.test(stage)) return 'late';
+  if (/사업시행|조합설립/.test(stage)) return 'middle';
+  if (/추진위|정비구역|주민대표/.test(stage)) return 'early';
+  return 'other';
+}
+
+function googleMapsUrl(item) {
+  const query = item.mapQuery || [item.location, item.name].filter(Boolean).join(' ');
+  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
+}
+
+function normalizeReconstructionItem(item) {
+  return {
+    ...item,
+    regionName: inferredRegion(item),
+    mapPoint: fallbackMapPoint(item)
+  };
+}
+
+function populateRegionFilters(items) {
+  const regions = [...new Set(items.map((item) => item.regionName).filter(Boolean))].sort((left, right) => left.localeCompare(right, 'ko'));
+  ['#reconstruction-region-filter', '#map-region-filter'].forEach((selector) => {
+    const select = document.querySelector(selector);
+    const currentValue = select.value;
+    select.replaceChildren(new Option('전체 지역', 'all'));
+    regions.forEach((region) => select.add(new Option(region, region)));
+    select.value = regions.includes(currentValue) ? currentValue : 'all';
+  });
+}
+
+function filteredReconstructionItems() {
+  const search = document.querySelector('#reconstruction-search').value.trim().toLocaleLowerCase('ko');
+  const region = document.querySelector('#reconstruction-region-filter').value;
+  const stage = document.querySelector('#reconstruction-stage-filter').value;
+  const priceOnly = document.querySelector('#reconstruction-price-only').checked;
+  const sort = document.querySelector('#reconstruction-sort').value;
+  const filtered = reconstructionItems.filter((item) => {
+    const haystack = [item.name, item.location, item.regionName].filter(Boolean).join(' ').toLocaleLowerCase('ko');
+    return (!search || haystack.includes(search))
+      && (region === 'all' || item.regionName === region)
+      && (stage === 'all' || stageGroup(item.stage) === stage)
+      && (!priceOnly || Boolean(item.latestTransaction));
+  });
+  return filtered.sort((left, right) => {
+    if (sort === 'households') return (right.supplyHouseholds || 0) - (left.supplyHouseholds || 0) || left.name.localeCompare(right.name, 'ko');
+    if (sort === 'name') return left.name.localeCompare(right.name, 'ko');
+    return stageRank(right.stage) - stageRank(left.stage) || left.location.localeCompare(right.location, 'ko');
+  });
+}
+
+function makeQuickValue(label, value) {
+  const wrapper = document.createElement('span');
+  const caption = document.createElement('small');
+  const result = document.createElement('b');
+  caption.textContent = label;
+  result.textContent = value;
+  wrapper.append(caption, result);
+  return wrapper;
+}
+
+function makeReconstructionCard(item) {
+  const card = document.createElement('article');
+  const label = document.createElement('span');
+  const title = document.createElement('h3');
+  const location = document.createElement('p');
+  const quickValues = document.createElement('div');
+  const details = document.createElement('details');
+  const summary = document.createElement('summary');
+  const detailList = document.createElement('dl');
+  const footer = document.createElement('div');
+  const source = document.createElement('a');
+  const mapButton = document.createElement('button');
+  const transaction = item.latestTransaction || null;
+  card.className = 'reconstruction-card';
+  label.className = 'card-label';
+  label.textContent = item.stage || '사업 단계 확인 중';
+  title.textContent = item.name || '재건축 단지';
+  location.className = 'location';
+  location.textContent = item.location || '';
+  quickValues.className = 'reconstruction-quick-values';
+  quickValues.append(
+    makeQuickValue('최근 실거래', transaction ? formatPriceManwon(Number(transaction.priceManwon)) : '매칭 준비 중'),
+    makeQuickValue('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요')
+  );
+  details.className = 'reconstruction-details';
+  summary.textContent = '사업 정보';
+  detailList.append(
+    makeDetailRow('사업 유형', item.projectType || '재건축'),
+    makeDetailRow('다음 이정표', item.milestone || '확인 중'),
+    makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요')
+  );
+  details.append(summary, detailList);
+  footer.className = 'reconstruction-card-actions';
+  source.href = item.sourceUrl || '#';
+  source.target = '_blank';
+  source.rel = 'noreferrer';
+  source.textContent = item.sourceLabel || '공식 출처';
+  mapButton.type = 'button';
+  mapButton.dataset.mapProject = item.id;
+  mapButton.textContent = '지도에서 보기';
+  footer.append(source, mapButton);
+  card.append(label, title, location, quickValues, details, footer);
+  return card;
+}
+
+function renderFilteredReconstruction({ resetPage = false } = {}) {
   const container = document.querySelector('#reconstruction-list');
+  const loadMore = document.querySelector('#reconstruction-load-more');
+  if (resetPage) visibleReconstructionCount = RECONSTRUCTION_PAGE_SIZE;
+  const filtered = filteredReconstructionItems();
+  const visibleItems = filtered.slice(0, visibleReconstructionCount);
+  container.replaceChildren();
+  setText('#reconstruction-filtered-count', '검색 결과 ' + filtered.length.toLocaleString('ko-KR') + '개 · ' + visibleItems.length.toLocaleString('ko-KR') + '개 표시');
+  if (!visibleItems.length) {
+    const card = document.createElement('article');
+    const title = document.createElement('h3');
+    const copy = document.createElement('p');
+    card.className = 'listing-empty';
+    title.textContent = '조건에 맞는 사업이 없어요.';
+    copy.textContent = '검색어나 필터를 바꿔 다시 확인해 주세요.';
+    card.append(title, copy);
+    container.append(card);
+  } else {
+    visibleItems.forEach((item) => container.append(makeReconstructionCard(item)));
+  }
+  loadMore.hidden = visibleItems.length >= filtered.length;
+  loadMore.textContent = '더 보기 (' + (filtered.length - visibleItems.length).toLocaleString('ko-KR') + '개 남음)';
+}
+
+function mapPopupContent(item) {
+  const wrapper = document.createElement('div');
+  const stage = document.createElement('span');
+  const title = document.createElement('b');
+  const location = document.createElement('small');
+  const link = document.createElement('a');
+  wrapper.className = 'map-popup';
+  stage.textContent = item.stage || '진행 단계 확인 중';
+  title.textContent = item.name || '재건축 사업';
+  location.textContent = item.location || '';
+  link.href = googleMapsUrl(item);
+  link.target = '_blank';
+  link.rel = 'noreferrer';
+  link.textContent = 'Google Maps에서 확인';
+  wrapper.append(stage, title, location, link);
+  return wrapper;
+}
+
+function initializePropertyMap() {
+  if (propertyMap || !window.L) return;
+  propertyMap = window.L.map('property-map', { scrollWheelZoom: false, zoomControl: true }).setView([37.32, 127.01], 10);
+  window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(propertyMap);
+  reconstructionMapLayer = window.L.layerGroup().addTo(propertyMap);
+  const homeIcon = window.L.divIcon({ className: 'home-map-marker', html: '<span aria-hidden="true">🏠</span>', iconSize: [36, 36], iconAnchor: [18, 31] });
+  homeMapMarker = window.L.marker(HOME_MAP_POINT, { icon: homeIcon, title: '힐스테이트 푸르지오 수원' }).addTo(propertyMap);
+  const homePopup = document.createElement('div');
+  const homeTitle = document.createElement('b');
+  const homeCopy = document.createElement('small');
+  const homeLink = document.createElement('a');
+  homePopup.className = 'map-popup';
+  homeTitle.textContent = '힐스테이트 푸르지오 수원';
+  homeCopy.textContent = '현재 우리집 · 전용 59㎡형';
+  homeLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('힐스테이트 푸르지오 수원');
+  homeLink.target = '_blank';
+  homeLink.rel = 'noreferrer';
+  homeLink.textContent = 'Google Maps에서 확인';
+  homePopup.append(homeTitle, homeCopy, homeLink);
+  homeMapMarker.bindPopup(homePopup);
+}
+
+function focusMapProject(item) {
+  showTab('map');
+  document.querySelector('#map-region-filter').value = 'all';
+  renderMapProjects();
+  const marker = reconstructionMarkers.get(item.id);
+  if (marker && propertyMap) {
+    propertyMap.setView(marker.getLatLng(), 14, { animate: true });
+    marker.openPopup();
+  }
+  const googleLink = document.querySelector('#selected-google-map-link');
+  googleLink.href = googleMapsUrl(item);
+  googleLink.textContent = item.name + ' · Google Maps';
+}
+
+function renderMapProjects() {
+  initializePropertyMap();
+  const list = document.querySelector('#map-project-list');
+  const region = document.querySelector('#map-region-filter').value;
+  const items = reconstructionItems.filter((item) => (region === 'all' || item.regionName === region) && item.mapPoint);
+  list.replaceChildren();
+  if (!propertyMap || !reconstructionMapLayer) {
+    const copy = document.createElement('p');
+    copy.textContent = '지도를 불러오지 못했어요. Google Maps 버튼을 이용해 주세요.';
+    list.append(copy);
+    return;
+  }
+  reconstructionMapLayer.clearLayers();
+  reconstructionMarkers.clear();
+  const bounds = window.L.latLngBounds([HOME_MAP_POINT]);
+  items.forEach((item) => {
+    const point = [item.mapPoint.latitude, item.mapPoint.longitude];
+    const marker = window.L.circleMarker(point, { radius: 7, color: '#ffffff', weight: 2, fillColor: '#ff6659', fillOpacity: 0.95 });
+    marker.bindPopup(mapPopupContent(item));
+    marker.addTo(reconstructionMapLayer);
+    reconstructionMarkers.set(item.id, marker);
+    bounds.extend(point);
+    const button = document.createElement('button');
+    const name = document.createElement('b');
+    const meta = document.createElement('small');
+    button.type = 'button';
+    button.dataset.mapProject = item.id;
+    name.textContent = item.name;
+    meta.textContent = [item.regionName, item.stage].filter(Boolean).join(' · ');
+    button.append(name, meta);
+    list.append(button);
+  });
+  setText('#map-pin-count', '우리집 1개 · 재건축 ' + items.length.toLocaleString('ko-KR') + '개 핀');
+  if (items.length) propertyMap.fitBounds(bounds, { padding: [28, 28], maxZoom: region === 'all' ? 10 : 12 });
+}
+
+function renderReconstruction(data) {
   const sync = data.sync || {};
   const syncedAt = sync.lastSuccessfulAt || null;
   const syncDot = document.querySelector('#reconstruction-sync-dot');
@@ -346,46 +627,13 @@ function renderReconstruction(data) {
   setText('#reconstruction-synced-at', syncedAt ? syncedAt + ' 기준' : (sync.message || '국토교통부 API 연결 후 갱신됩니다.'));
   syncDot.classList.toggle('is-synced', Boolean(syncedAt));
   syncDot.classList.toggle('is-error', data.status === 'error');
-  container.replaceChildren();
-  const items = data.items || [];
-  setText('#reconstruction-count', items.length ? items.length.toLocaleString('ko-KR') + '개 진행 단지' : '진행 단지');
-  if (!items.length) {
-    const card = document.createElement('article');
-    card.className = 'listing-empty';
-    const title = document.createElement('h3');
-    title.textContent = '재건축 정보를 불러오지 못했어요.';
-    card.append(title);
-    container.append(card);
-    return;
-  }
-  items.forEach((item) => {
-    const card = document.createElement('article');
-    card.className = 'reconstruction-card';
-    const label = document.createElement('span');
-    const title = document.createElement('h3');
-    const location = document.createElement('p');
-    const details = document.createElement('dl');
-    const source = document.createElement('a');
-    const transaction = item.latestTransaction || null;
-    label.className = 'card-label';
-    label.textContent = item.stage || '사업 단계 확인 중';
-    title.textContent = item.name || '재건축 단지';
-    location.className = 'location';
-    location.textContent = item.location || '';
-    details.append(
-      makeDetailRow('최근 실거래가', transaction ? formatPriceManwon(Number(transaction.priceManwon)) + ' · ' + transaction.contractDate : (item.priceMessage || '동기화 대기')),
-      makeDetailRow('사업 유형', item.projectType || '재건축'),
-      makeDetailRow('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요'),
-      makeDetailRow('다음 이정표', item.milestone || '확인 중'),
-      makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요')
-    );
-    source.href = item.sourceUrl || '#';
-    source.target = '_blank';
-    source.rel = 'noreferrer';
-    source.textContent = item.sourceLabel || '진행 정보 출처';
-    card.append(label, title, location, details, source);
-    container.append(card);
-  });
+  reconstructionItems = (data.items || []).map(normalizeReconstructionItem);
+  const countLabel = reconstructionItems.length ? reconstructionItems.length.toLocaleString('ko-KR') + '개 진행 사업' : '진행 사업';
+  setText('#reconstruction-count', countLabel);
+  setText('#reconstruction-shortcut-count', reconstructionItems.length ? '경기 남부 ' + reconstructionItems.length.toLocaleString('ko-KR') + '개 사업' : '공식 사업 목록 확인');
+  populateRegionFilters(reconstructionItems);
+  renderFilteredReconstruction({ resetPage: true });
+  renderMapProjects();
 }
 
 async function loadHomePrice() {
@@ -422,6 +670,34 @@ document.querySelector('#finance-reset').addEventListener('click', () => {
   fields.creditTerm.value = '5';
   fields.taxArea.value = '84';
   calculateFinance();
+});
+
+['#reconstruction-search', '#reconstruction-region-filter', '#reconstruction-stage-filter', '#reconstruction-sort', '#reconstruction-price-only'].forEach((selector) => {
+  const element = document.querySelector(selector);
+  element.addEventListener(element.type === 'search' ? 'input' : 'change', () => renderFilteredReconstruction({ resetPage: true }));
+});
+
+document.querySelector('#reconstruction-filter-reset').addEventListener('click', () => {
+  document.querySelector('#reconstruction-search').value = '';
+  document.querySelector('#reconstruction-region-filter').value = 'all';
+  document.querySelector('#reconstruction-stage-filter').value = 'all';
+  document.querySelector('#reconstruction-sort').value = 'progress';
+  document.querySelector('#reconstruction-price-only').checked = false;
+  renderFilteredReconstruction({ resetPage: true });
+});
+
+document.querySelector('#reconstruction-load-more').addEventListener('click', () => {
+  visibleReconstructionCount += RECONSTRUCTION_PAGE_SIZE;
+  renderFilteredReconstruction();
+});
+
+document.querySelector('#map-region-filter').addEventListener('change', renderMapProjects);
+
+document.addEventListener('click', (event) => {
+  const mapButton = event.target.closest('[data-map-project]');
+  if (!mapButton) return;
+  const item = reconstructionItems.find((project) => project.id === mapButton.dataset.mapProject);
+  if (item) focusMapProject(item);
 });
 
 calculateFinance();

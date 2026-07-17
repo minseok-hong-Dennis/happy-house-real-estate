@@ -8,7 +8,27 @@ const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMS
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
 const RECONSTRUCTION_CSV_URL = 'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003667489&fileDetailSn=1&insertDataPrcus=N';
 const RECONSTRUCTION_SOURCE_URL = 'https://www.data.go.kr/data/15160169/fileData.do';
-const SOUTHERN_GYEONGGI_CITIES = new Set(['수원시', '용인시', '성남시', '안양시', '과천시', '군포시', '의왕시', '안산시', '화성시', '오산시', '평택시', '광주시']);
+const SOUTHERN_GYEONGGI_CITIES = new Set([
+  '수원장안구', '수원권선구', '수원팔달구', '수원영통구',
+  '용인처인구', '용인기흥구', '용인수지구',
+  '성남수정구', '성남중원구', '성남분당구',
+  '안양만안구', '안양동안구', '안산상록구', '안산단원구',
+  '화성병점구', '과천시', '군포시', '의왕시', '오산시',
+  '평택시', '광명시', '시흥시'
+]);
+const REGION_CENTERS = new Map([
+  ['수원장안구', [37.3035, 127.0104]], ['수원권선구', [37.2577, 126.9718]],
+  ['수원팔달구', [37.2826, 127.02]], ['수원영통구', [37.2596, 127.0464]],
+  ['용인처인구', [37.2343, 127.2011]], ['용인기흥구', [37.2804, 127.1147]],
+  ['용인수지구', [37.3222, 127.0971]], ['성남수정구', [37.4504, 127.1456]],
+  ['성남중원구', [37.4307, 127.1373]], ['성남분당구', [37.3828, 127.1189]],
+  ['안양만안구', [37.3866, 126.9327]], ['안양동안구', [37.3943, 126.9568]],
+  ['안산상록구', [37.3014, 126.8469]], ['안산단원구', [37.3219, 126.8309]],
+  ['화성병점구', [37.2068, 127.0349]], ['과천시', [37.4292, 126.9876]],
+  ['군포시', [37.3617, 126.9352]], ['의왕시', [37.3449, 126.9683]],
+  ['오산시', [37.1498, 127.0772]], ['평택시', [36.9921, 127.1127]],
+  ['광명시', [37.4786, 126.8645]], ['시흥시', [37.38, 126.8029]]
+]);
 const HOME_APARTMENT = {
   name: '힐스테이트 푸르지오 수원',
   address: '경기도 수원시 팔달구 효원로93번길 33',
@@ -22,6 +42,9 @@ const CURATED_RECONSTRUCTION_TARGETS = [
     id: 'yeongtong-2',
     name: '영통2구역 · 매탄주공4단지',
     location: '수원시 영통구 매탄동',
+    regionName: '수원영통구',
+    mapPoint: { latitude: 37.2588, longitude: 127.0396, accuracy: '단지명 기준 추정 위치' },
+    mapQuery: '매탄주공4단지',
     lawdCd: '41117',
     matchNames: ['매탄주공4단지', '매탄주공4'],
     stage: '이주 · 철거 단계',
@@ -36,6 +59,9 @@ const CURATED_RECONSTRUCTION_TARGETS = [
     id: 'gwacheon-10',
     name: '과천주공10단지',
     location: '과천시 중앙동',
+    regionName: '과천시',
+    mapPoint: { latitude: 37.4322, longitude: 126.9917, accuracy: '단지명 기준 추정 위치' },
+    mapQuery: '과천주공10단지',
     lawdCd: '41290',
     matchNames: ['과천주공10단지', '주공10단지'],
     stage: '조합 운영 · 이주 준비',
@@ -51,6 +77,9 @@ const CURATED_RECONSTRUCTION_TARGETS = [
     id: 'sanbon-11',
     name: '산본11구역 · 산본주공11단지',
     location: '군포시 산본동',
+    regionName: '군포시',
+    mapPoint: { latitude: 37.3566, longitude: 126.9298, accuracy: '단지명 기준 추정 위치' },
+    mapQuery: '산본주공11단지',
     lawdCd: '41410',
     matchNames: ['산본주공11단지', '주공11단지'],
     stage: '주민대표회의 구성 승인',
@@ -66,6 +95,9 @@ const CURATED_RECONSTRUCTION_TARGETS = [
     id: 'bundang-yangji',
     name: '분당 양지마을 통합 · 금호1단지',
     location: '성남시 분당구 수내동',
+    regionName: '성남분당구',
+    mapPoint: { latitude: 37.3751, longitude: 127.1166, accuracy: '단지명 기준 추정 위치' },
+    mapQuery: '분당 양지마을 금호1단지',
     lawdCd: '41135',
     matchNames: ['양지마을1단지금호', '금호1단지'],
     stage: '통합 재건축 계획 조율',
@@ -363,6 +395,19 @@ function stageOrder(stage = '') {
   return 1;
 }
 
+function mapPointFor(city, zoneName) {
+  const center = REGION_CENTERS.get(city);
+  if (!center) return null;
+  const hash = Array.from(zoneName).reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 17);
+  const angle = (hash % 360) * Math.PI / 180;
+  const radius = 0.0025 + ((hash >>> 8) % 7) * 0.0012;
+  return {
+    latitude: Number((center[0] + Math.sin(angle) * radius).toFixed(6)),
+    longitude: Number((center[1] + Math.cos(angle) * radius).toFixed(6)),
+    accuracy: '시군구 중심 기준 추정 위치'
+  };
+}
+
 function officialReconstructionTargets(rows) {
   const targets = rows
     .filter((row) => row['시도'] === '경기도' && SOUTHERN_GYEONGGI_CITIES.has(row['시군구']) && String(row['사업유형']).includes('재건축'))
@@ -379,6 +424,9 @@ function officialReconstructionTargets(rows) {
         name: zoneName,
         officialZoneName: zoneName,
         location: '경기도 ' + city,
+        regionName: city,
+        mapPoint: mapPointFor(city, zoneName),
+        mapQuery: ['경기도', city, zoneName].join(' '),
         lawdCd: override.lawdCd || null,
         matchNames: override.matchNames || [],
         stage,
