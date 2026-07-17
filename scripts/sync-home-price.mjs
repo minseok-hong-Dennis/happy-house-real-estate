@@ -100,6 +100,14 @@ function tagValue(source, names) {
   return '';
 }
 
+function apiErrorDetail(response, body) {
+  const resultCode = tagValue(body, ['resultCode']);
+  const resultMessage = tagValue(body, ['resultMsg', 'resultMessage']);
+  if (resultCode || resultMessage) return [resultCode, resultMessage].filter(Boolean).join(' · ');
+  const plainBody = body.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return plainBody.slice(0, 160) || response.statusText || '응답 내용 없음';
+}
+
 function normalizedName(name = '') {
   return name.replace(/[\s·ㆍ-]/g, '').toLowerCase();
 }
@@ -145,7 +153,12 @@ function summarizeTransactions(records) {
 }
 
 async function fetchTransactions(serviceKey, target, monthCount = 3) {
-  const decodedKey = decodeURIComponent(serviceKey);
+  let decodedKey;
+  try {
+    decodedKey = decodeURIComponent(serviceKey.trim());
+  } catch {
+    throw new Error('MOLIT_SERVICE_KEY 형식이 올바르지 않습니다. 일반 인증키(Decoding)를 다시 등록해 주세요.');
+  }
   const cutoff = cutoffDate(monthCount);
   const responses = await Promise.all(recentMonths(monthCount).map(async (yearMonth) => {
     const url = new URL(SERVICE_URL);
@@ -156,7 +169,9 @@ async function fetchTransactions(serviceKey, target, monthCount = 3) {
     url.searchParams.set('pageNo', '1');
     const response = await fetch(url);
     const body = await response.text();
-    if (!response.ok || !/<resultCode>00<\/resultCode>/.test(body)) throw new Error('국토교통부 실거래가 API 요청에 실패했습니다.');
+    const resultCode = tagValue(body, ['resultCode']);
+    if (!response.ok) throw new Error('국토교통부 API HTTP ' + response.status + ': ' + apiErrorDetail(response, body));
+    if (resultCode !== '00') throw new Error('국토교통부 API 오류: ' + apiErrorDetail(response, body));
     return parseTransactions(body, target, cutoff);
   }));
   const records = responses.flat().sort((left, right) => right.contractDate.localeCompare(left.contractDate));
@@ -226,7 +241,8 @@ async function syncReconstruction(serviceKey, previous) {
     try {
       const trades = await fetchTransactions(serviceKey, target, 12);
       items.push({ ...target, priceStatus: trades.status, priceMessage: trades.message, latestTransaction: trades.records[0] || null });
-    } catch {
+    } catch (error) {
+      console.warn('[MOLIT] ' + target.name + ': ' + error.message);
       const previousItem = previous.items?.find((item) => item.id === target.id);
       items.push({ ...target, priceStatus: 'error', priceMessage: '최근 실거래가를 불러오지 못했어요.', latestTransaction: previousItem?.latestTransaction || null });
     }
@@ -242,24 +258,16 @@ async function syncReconstruction(serviceKey, previous) {
 async function main() {
   const previousHome = await readExistingData(HOME_DATA_PATH);
   const previousReconstruction = await readExistingData(RECONSTRUCTION_DATA_PATH);
-  const serviceKey = process.env.MOLIT_SERVICE_KEY;
-  let recentTransactions;
-  if (!serviceKey) {
-    recentTransactions = previousHome.recentTransactions?.records?.length ? previousHome.recentTransactions : { status: 'waiting_for_secret', message: '국토교통부 실거래가 API 키를 등록하면 최근 3개월 가격을 동기화합니다.', periodLabel: '동기화 후 최근 3개월 거래를 표시합니다.', summary: null, records: [] };
-  } else {
-    try {
-      recentTransactions = await fetchTransactions(serviceKey, HOME_APARTMENT);
-    } catch {
-      recentTransactions = { ...(previousHome.recentTransactions || {}), status: 'error', message: '공식 실거래가를 불러오지 못했어요. 다음 동기화 때 다시 시도합니다.' };
-    }
-  }
+  const serviceKey = process.env.MOLIT_SERVICE_KEY?.trim();
+  if (!serviceKey) throw new Error('MOLIT_SERVICE_KEY GitHub Secret이 비어 있습니다. 저장소 Actions Secret을 확인해 주세요.');
+  const recentTransactions = await fetchTransactions(serviceKey, HOME_APARTMENT);
+  console.log('[MOLIT] ' + HOME_APARTMENT.name + ': 최근 거래 ' + recentTransactions.records.length + '건 동기화');
 
   const reconstruction = await syncReconstruction(serviceKey, previousReconstruction);
   const currentListings = await fetchCurrentListings();
-  const didSyncOfficialTrades = Boolean(serviceKey) && recentTransactions.status !== 'error';
   const homeData = {
     apartment: HOME_APARTMENT,
-    sync: { schedule: '매일 14:00 KST', lastSuccessfulAt: didSyncOfficialTrades ? formatKstTimestamp() : previousHome.sync?.lastSuccessfulAt || null },
+    sync: { schedule: '매일 14:00 KST', lastSuccessfulAt: formatKstTimestamp() },
     recentTransactions,
     currentListings
   };
@@ -269,6 +277,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  console.error(error);
+  console.error('[sync-home-price] ' + error.message);
   process.exitCode = 1;
 });
