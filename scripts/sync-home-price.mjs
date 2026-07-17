@@ -342,8 +342,9 @@ function remainingEstimateForStage(stage = '') {
   if (/준공|이전고시/.test(stage)) return '사업 완료 또는 입주 단계';
   if (/착공/.test(stage)) return '준공까지 약 2~4년 추정';
   if (/관리처분/.test(stage)) return '준공까지 약 3~6년 추정';
+  if (/사업시행자지정/.test(stage)) return '준공까지 약 6~10년 추정';
   if (/사업시행/.test(stage)) return '준공까지 약 4~7년 추정';
-  if (/조합설립|사업시행자지정/.test(stage)) return '준공까지 약 6~10년 추정';
+  if (/조합설립/.test(stage)) return '준공까지 약 6~10년 추정';
   if (/추진위/.test(stage)) return '준공까지 약 8~12년 추정';
   if (/정비구역/.test(stage)) return '준공까지 약 9~13년 추정';
   return '사업 단계에 따라 10년 이상 걸릴 수 있음';
@@ -353,8 +354,9 @@ function stageOrder(stage = '') {
   if (/준공|이전고시/.test(stage)) return 8;
   if (/착공/.test(stage)) return 7;
   if (/관리처분/.test(stage)) return 6;
+  if (/사업시행자지정/.test(stage)) return 4;
   if (/사업시행/.test(stage)) return 5;
-  if (/조합설립|사업시행자지정/.test(stage)) return 4;
+  if (/조합설립/.test(stage)) return 4;
   if (/추진위/.test(stage)) return 3;
   if (/정비구역/.test(stage)) return 2;
   return 1;

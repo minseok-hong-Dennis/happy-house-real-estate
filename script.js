@@ -251,7 +251,7 @@ function renderTransactionRows(records) {
   }
   records.slice(0, 10).forEach((record) => {
     const row = document.createElement('tr');
-    const values = [record.contractDate || '-', formatPriceManwon(Number(record.priceManwon)), record.areaSqm ? Number(record.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 1 }) + '㎡' : '-', record.floor ? record.floor + '층' : '-'];
+    const values = [record.contractDate || '-', formatPriceManwon(Number(record.priceManwon)), record.areaSqm ? Number(record.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) + '㎡' : '-', record.floor ? record.floor + '층' : '-'];
     values.forEach((value) => { const cell = document.createElement('td'); cell.textContent = value; row.append(cell); });
     tbody.append(row);
   });
@@ -287,7 +287,7 @@ function renderListings(listingData) {
     label.textContent = item.tradeType || '매매';
     title.textContent = item.title || '현재 매물';
     price.textContent = formatPriceManwon(Number(item.priceManwon));
-    meta.textContent = [item.areaSqm ? Number(item.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 1 }) + '㎡' : '', item.floor ? item.floor + '층' : ''].filter(Boolean).join(' · ') || '상세 정보 없음';
+    meta.textContent = [item.areaSqm ? Number(item.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) + '㎡' : '', item.floor ? item.floor + '층' : ''].filter(Boolean).join(' · ') || '상세 정보 없음';
     card.append(label, title, price, meta);
     container.append(card);
   });
