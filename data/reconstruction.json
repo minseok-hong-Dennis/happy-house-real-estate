@@ -1,13 +1,14 @@
 {
-  "status": "error",
+  "status": "ok",
   "source": {
     "name": "국토교통부 전국 도시정비사업 통합 데이터",
-    "transport": "공식 CSV",
+    "transport": "저장된 공식 데이터",
+    "datasetDate": "2026-05-18",
     "url": "https://www.data.go.kr/data/15160169/fileData.do"
   },
   "sync": {
-    "lastSuccessfulAt": "2026-07-17 22:29 KST",
-    "message": "전국 정비사업 데이터를 불러오지 못해 기존 목록을 유지합니다."
+    "lastSuccessfulAt": "2026-07-17 22:39 KST",
+    "message": ""
   },
   "items": [
     {
@@ -165,33 +166,6 @@
       }
     },
     {
-      "id": "sanbon-11",
-      "name": "산본11구역 · 산본주공11단지",
-      "officialZoneName": "군포산본11",
-      "location": "군포시 산본동",
-      "lawdCd": "41410",
-      "matchNames": [
-        "산본주공11단지",
-        "주공11단지"
-      ],
-      "stage": "사업시행자지정",
-      "milestone": "재건축(공동주택) · 공공(LH,SH,GH)",
-      "remainingEstimate": "준공까지 약 4~7년 추정",
-      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
-      "sourceLabel": "국토교통부 공식 데이터",
-      "projectType": "재건축(공동주택)",
-      "supplyHouseholds": 3892,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공11",
-        "contractDate": "2026-07-11",
-        "priceManwon": 41500,
-        "areaSqm": 41.3,
-        "floor": 15
-      }
-    },
-    {
       "id": "gwacheon-10",
       "name": "과천주공10단지",
       "officialZoneName": "주공10단지구역",
@@ -216,6 +190,33 @@
         "priceManwon": 300000,
         "areaSqm": 124.45,
         "floor": 1
+      }
+    },
+    {
+      "id": "sanbon-11",
+      "name": "산본11구역 · 산본주공11단지",
+      "officialZoneName": "군포산본11",
+      "location": "군포시 산본동",
+      "lawdCd": "41410",
+      "matchNames": [
+        "산본주공11단지",
+        "주공11단지"
+      ],
+      "stage": "사업시행자지정",
+      "milestone": "재건축(공동주택) · 공공(LH,SH,GH)",
+      "remainingEstimate": "준공까지 약 6~10년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 3892,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공11",
+        "contractDate": "2026-07-11",
+        "priceManwon": 41500,
+        "areaSqm": 41.3,
+        "floor": 15
       }
     },
     {
