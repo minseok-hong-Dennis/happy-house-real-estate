@@ -2,7 +2,10 @@
   "apartment": {
     "name": "힐스테이트 푸르지오 수원",
     "address": "경기도 수원시 팔달구 효원로93번길 33",
-    "lawdCd": "41115"
+    "lawdCd": "41115",
+    "matchNames": [
+      "힐스테이트푸르지오수원"
+    ]
   },
   "sync": {
     "schedule": "매일 14:00 KST",
@@ -18,7 +21,7 @@
   "currentListings": {
     "status": "not_configured",
     "sourceName": "허용된 매물 데이터 제공자 연결 대기",
-    "message": "반복 수집이 허용된 매물 데이터 API를 연결하면 현재 매물가를 표시합니다.",
+    "message": "반복 수집이 허용된 매물 데이터 API를 연결하면 최신 매물가를 표시합니다.",
     "syncedAt": null,
     "items": []
   }

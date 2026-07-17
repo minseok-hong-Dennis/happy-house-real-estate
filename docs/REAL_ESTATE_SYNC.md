@@ -8,11 +8,11 @@
 
 ## Official recent transaction prices
 
-The workflow uses the Ministry of Land, Infrastructure and Transport apartment transaction API for the last three months of reported apartment sales. Add the following GitHub Actions secret before the first successful sync:
+The workflow uses the Ministry of Land, Infrastructure and Transport apartment transaction API for the last three months of reported apartment sales. It also refreshes the latest reported transaction from the last 12 months for each Reconstruction target. Add the following GitHub Actions secret before the first successful sync:
 
 - `MOLIT_SERVICE_KEY`: A service key issued by the Public Data Portal for the Ministry of Land, Infrastructure and Transport apartment transaction API.
 
-The target apartment is `힐스테이트 푸르지오 수원` in `경기도 수원시 팔달구` (`LAWD_CD=41115`).
+The target apartment is `힐스테이트 푸르지오 수원` in `경기도 수원시 팔달구` (`LAWD_CD=41115`). Reconstruction price targets are managed in `data/reconstruction.json` and include the Suwon Yeongtong 2 district, Gwacheon Jugong 10, Sanbon 11 district, and Bundang Yangji village.
 
 ## Current listings
 

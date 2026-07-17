@@ -1,0 +1,81 @@
+{
+  "status": "waiting_for_secret",
+  "sync": {
+    "lastSuccessfulAt": null,
+    "message": "국토교통부 API 키를 등록하면 최근 12개월 실거래가를 동기화합니다."
+  },
+  "items": [
+    {
+      "id": "yeongtong-2",
+      "name": "영통2구역 · 매탄주공4단지",
+      "location": "수원시 영통구 매탄동",
+      "lawdCd": "41117",
+      "matchNames": [
+        "매탄주공4단지",
+        "매탄주공4"
+      ],
+      "stage": "이주 · 철거 단계",
+      "milestone": "이주·철거 마무리 단계 보도",
+      "remainingEstimate": "준공까지 약 2~4년 추정",
+      "sourceUrl": "https://wonnam.co.kr/yeongtong-2-district-xi-ipark-2026-location-analysis/",
+      "sourceLabel": "진행 정보 보기",
+      "priceStatus": "waiting_for_secret",
+      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "latestTransaction": null
+    },
+    {
+      "id": "gwacheon-10",
+      "name": "과천주공10단지",
+      "location": "과천시 중앙동",
+      "lawdCd": "41290",
+      "matchNames": [
+        "과천주공10단지",
+        "주공10단지"
+      ],
+      "stage": "조합 운영 · 이주 준비",
+      "milestone": "2027년 5월 이주 계획 보도",
+      "remainingEstimate": "이주까지 약 1년 · 입주는 이후 일정 확인",
+      "sourceUrl": "https://realty.chosun.com/site/data/html_dir/2025/04/03/2025040301944.html",
+      "sourceLabel": "진행 정보 보기",
+      "priceStatus": "waiting_for_secret",
+      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "latestTransaction": null
+    },
+    {
+      "id": "sanbon-11",
+      "name": "산본11구역 · 산본주공11단지",
+      "location": "군포시 산본동",
+      "lawdCd": "41410",
+      "matchNames": [
+        "산본주공11단지",
+        "주공11단지"
+      ],
+      "stage": "주민대표회의 구성 승인",
+      "milestone": "2026년 6월 구성 승인 보도",
+      "remainingEstimate": "준공까지 약 6~8년 이상 추정",
+      "sourceUrl": "https://newstown.co.kr/news/articleView.html?idxno=705409",
+      "sourceLabel": "진행 정보 보기",
+      "priceStatus": "waiting_for_secret",
+      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "latestTransaction": null
+    },
+    {
+      "id": "bundang-yangji",
+      "name": "분당 양지마을 통합 · 금호1단지",
+      "location": "성남시 분당구 수내동",
+      "lawdCd": "41135",
+      "matchNames": [
+        "양지마을1단지금호",
+        "금호1단지"
+      ],
+      "stage": "통합 재건축 계획 조율",
+      "milestone": "단지별 통합 방식 조율 진행",
+      "remainingEstimate": "준공까지 약 7~10년 이상 추정",
+      "sourceUrl": "https://v.daum.net/v/prfWglQ9Ww",
+      "sourceLabel": "진행 정보 보기",
+      "priceStatus": "waiting_for_secret",
+      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "latestTransaction": null
+    }
+  ]
+}

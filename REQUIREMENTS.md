@@ -28,3 +28,12 @@
 24. Show monthly payments and estimated actual monthly out-of-pocket cost from the loan execution date.
 25. Include additional credit-loan monthly payments in the overall monthly-cost calculation.
 26. Estimate apartment-purchase taxes together with the loan plan.
+27. Apply all reported company-loan terms without making the user select them individually.
+28. Reflect an annual pre-tax salary of approximately 100 million KRW when estimating tax on company-supported interest.
+29. Reflect a remaining mortgage balance of approximately 500 million KRW on the current home and calculate sale equity as sale price minus the mortgage.
+30. Calculate the new-home budget from the company loan, current-home sale proceeds, and additional credit loan.
+31. Show total move-related cost including purchase taxes and both sale and purchase brokerage-fee caps.
+32. Keep the Home tab simple and use it for high-level moving-budget, cost, and monthly-payment summaries only.
+33. Remove move countdown and contract-status content that was not requested.
+34. Add a Map tab with a Google Maps marker for Hillstate Prugio Suwon.
+35. Add a Reconstruction tab for selected ongoing reconstruction projects in southern metropolitan areas, including latest official transaction data when the scheduled sync is configured and an approximate remaining timeline.

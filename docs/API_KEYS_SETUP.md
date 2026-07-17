@@ -9,7 +9,7 @@
 3. `활용신청`을 선택하고, 안내에 따라 API 사용 신청을 완료합니다. 승인 후 `마이페이지 > 인증키`에서 서비스 키를 확인합니다.
 4. 이 저장소의 GitHub 페이지에서 `Settings > Secrets and variables > Actions`를 엽니다.
 5. `New repository secret`을 선택하고 이름을 `MOLIT_SERVICE_KEY`로 입력한 뒤, 서비스 키를 값으로 붙여 넣습니다.
-6. `Actions > Sync home price data > Run workflow`에서 수동 실행해 첫 동기화를 확인합니다. 이후에는 매일 14:00 KST에 실행됩니다.
+6. `Actions > Sync home price data > Run workflow`에서 수동 실행해 첫 동기화를 확인합니다. 이후에는 매일 14:00 KST에 실행되며, 우리집 가격과 재건축 탭의 실거래가를 함께 갱신합니다.
 
 공공데이터포털 키는 API 호출에만 사용합니다. 키가 노출되었다고 의심되면 포털에서 재발급하고 GitHub Secret도 즉시 교체합니다.
 
