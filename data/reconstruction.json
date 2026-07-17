@@ -7,7 +7,7 @@
     "url": "https://www.data.go.kr/data/15160169/fileData.do"
   },
   "sync": {
-    "lastSuccessfulAt": "2026-07-18 00:06 KST",
+    "lastSuccessfulAt": "2026-07-18 00:09 KST",
     "message": ""
   },
   "items": [
@@ -69,48 +69,48 @@
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
-        "apartmentName": "주공1",
+        "apartmentName": "주공10",
         "dongName": "하안동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 69000,
-        "areaSqm": 49.94,
-        "floor": 4
+        "contractDate": "2026-07-09",
+        "priceManwon": 79800,
+        "areaSqm": 59.39,
+        "floor": 10
       },
       "areaPrices": [
         {
           "areaTypeSqm": 36,
           "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 99,
-          "averagePriceManwon": 39832,
-          "minPriceManwon": 21000,
+          "representativeAreaSqm": 36.17,
+          "count": 18,
+          "averagePriceManwon": 39494,
+          "minPriceManwon": 34800,
           "maxPriceManwon": 55000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-07-03",
+          "latestPriceManwon": 54000,
+          "latestContractDate": "2026-06-20",
           "recentTransactions": [
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 50000,
+              "contractDate": "2026-06-20",
+              "priceManwon": 54000,
               "areaSqm": 36.16,
-              "floor": 8
+              "floor": 6
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 47800,
+              "contractDate": "2026-06-01",
+              "priceManwon": 55000,
               "areaSqm": 36.16,
-              "floor": 1
+              "floor": 10
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-06-26",
-              "priceManwon": 49800,
+              "contractDate": "2025-12-13",
+              "priceManwon": 39000,
               "areaSqm": 36.16,
-              "floor": 13
+              "floor": 14
             }
           ]
         },
@@ -118,34 +118,34 @@
           "areaTypeSqm": 41,
           "areaLabel": "전용 41㎡ · 약 12평",
           "representativeAreaSqm": 41.3,
-          "count": 85,
-          "averagePriceManwon": 44958,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 54700,
-          "latestPriceManwon": 54500,
-          "latestContractDate": "2026-06-23",
+          "count": 18,
+          "averagePriceManwon": 41883,
+          "minPriceManwon": 38000,
+          "maxPriceManwon": 45000,
+          "latestPriceManwon": 43000,
+          "latestContractDate": "2025-12-04",
           "recentTransactions": [
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54500,
+              "contractDate": "2025-12-04",
+              "priceManwon": 43000,
               "areaSqm": 41.3,
-              "floor": 11
+              "floor": 10
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 54700,
+              "contractDate": "2025-10-15",
+              "priceManwon": 41000,
               "areaSqm": 41.3,
               "floor": 9
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-05-26",
-              "priceManwon": 53500,
+              "contractDate": "2025-10-13",
+              "priceManwon": 45000,
               "areaSqm": 41.3,
               "floor": 13
             }
@@ -192,36 +192,36 @@
           "areaTypeSqm": 49,
           "areaLabel": "전용 49㎡ · 약 15평",
           "representativeAreaSqm": 49.94,
-          "count": 112,
-          "averagePriceManwon": 58770,
-          "minPriceManwon": 45000,
+          "count": 17,
+          "averagePriceManwon": 62035,
+          "minPriceManwon": 53000,
           "maxPriceManwon": 74000,
-          "latestPriceManwon": 69000,
-          "latestContractDate": "2026-07-11",
+          "latestPriceManwon": 73000,
+          "latestContractDate": "2026-05-21",
           "recentTransactions": [
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 69000,
-              "areaSqm": 49.94,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 71800,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 60000,
+              "contractDate": "2026-05-21",
+              "priceManwon": 73000,
               "areaSqm": 49.94,
               "floor": 12
+            },
+            {
+              "apartmentName": "주공11",
+              "dongName": "하안동",
+              "contractDate": "2026-05-20",
+              "priceManwon": 73300,
+              "areaSqm": 49.94,
+              "floor": 8
+            },
+            {
+              "apartmentName": "주공11",
+              "dongName": "하안동",
+              "contractDate": "2026-05-19",
+              "priceManwon": 74000,
+              "areaSqm": 49.94,
+              "floor": 15
             }
           ]
         },
@@ -326,92 +326,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 3804,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공9",
-        "dongName": "하안동",
-        "contractDate": "2026-06-27",
-        "priceManwon": 80000,
-        "areaSqm": 59.39,
-        "floor": 6
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 46,
-          "areaLabel": "전용 46㎡ · 약 14평",
-          "representativeAreaSqm": 45.77,
-          "count": 21,
-          "averagePriceManwon": 45512,
-          "minPriceManwon": 35000,
-          "maxPriceManwon": 60000,
-          "latestPriceManwon": 58000,
-          "latestContractDate": "2026-06-12",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-06-12",
-              "priceManwon": 58000,
-              "areaSqm": 45.77,
-              "floor": 10
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-05-09",
-              "priceManwon": 57000,
-              "areaSqm": 45.77,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 60000,
-              "areaSqm": 45.77,
-              "floor": 11
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.64,
-          "count": 24,
-          "averagePriceManwon": 58663,
-          "minPriceManwon": 37000,
-          "maxPriceManwon": 80000,
-          "latestPriceManwon": 80000,
-          "latestContractDate": "2026-06-27",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 80000,
-              "areaSqm": 59.39,
-              "floor": 6
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-04-17",
-              "priceManwon": 68800,
-              "areaSqm": 58.01,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-03-25",
-              "priceManwon": 69500,
-              "areaSqm": 58.01,
-              "floor": 3
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-시흥시대야3(시흥영남2차아파트)",
@@ -511,92 +429,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 1051,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공5",
-        "dongName": "고잔동",
-        "contractDate": "2026-07-04",
-        "priceManwon": 58000,
-        "areaSqm": 46.74,
-        "floor": 4
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 39,
-          "areaLabel": "전용 39㎡ · 약 12평",
-          "representativeAreaSqm": 39.72,
-          "count": 12,
-          "averagePriceManwon": 45566,
-          "minPriceManwon": 40000,
-          "maxPriceManwon": 49186,
-          "latestPriceManwon": 47300,
-          "latestContractDate": "2026-05-01",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-05-01",
-              "priceManwon": 47300,
-              "areaSqm": 39.72,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-03-06",
-              "priceManwon": 40000,
-              "areaSqm": 39.72,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-02-23",
-              "priceManwon": 43500,
-              "areaSqm": 39.72,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 47,
-          "areaLabel": "전용 47㎡ · 약 14평",
-          "representativeAreaSqm": 46.91,
-          "count": 19,
-          "averagePriceManwon": 51232,
-          "minPriceManwon": 43000,
-          "maxPriceManwon": 58000,
-          "latestPriceManwon": 58000,
-          "latestContractDate": "2026-07-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-07-04",
-              "priceManwon": 58000,
-              "areaSqm": 46.74,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-06-15",
-              "priceManwon": 48000,
-              "areaSqm": 46.74,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-06-02",
-              "priceManwon": 49800,
-              "areaSqm": 47.1,
-              "floor": 4
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안산단원구고잔연립9",
@@ -738,92 +574,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 1918,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공",
-        "dongName": "팽성읍 안정리",
-        "contractDate": "2026-06-17",
-        "priceManwon": 5450,
-        "areaSqm": 39.27,
-        "floor": 5
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 39,
-          "areaLabel": "전용 39㎡ · 약 12평",
-          "representativeAreaSqm": 39.39,
-          "count": 10,
-          "averagePriceManwon": 6055,
-          "minPriceManwon": 5300,
-          "maxPriceManwon": 7000,
-          "latestPriceManwon": 5450,
-          "latestContractDate": "2026-06-17",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-06-17",
-              "priceManwon": 5450,
-              "areaSqm": 39.27,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-05-19",
-              "priceManwon": 5400,
-              "areaSqm": 39.66,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-04-27",
-              "priceManwon": 5500,
-              "areaSqm": 39.27,
-              "floor": 5
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 47,
-          "areaLabel": "전용 47㎡ · 약 14평",
-          "representativeAreaSqm": 46.93,
-          "count": 6,
-          "averagePriceManwon": 7600,
-          "minPriceManwon": 6400,
-          "maxPriceManwon": 8800,
-          "latestPriceManwon": 8300,
-          "latestContractDate": "2026-06-02",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-06-02",
-              "priceManwon": 8300,
-              "areaSqm": 46.98,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-06-01",
-              "priceManwon": 8800,
-              "areaSqm": 46.98,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-02-06",
-              "priceManwon": 6800,
-              "areaSqm": 46.98,
-              "floor": 3
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-과천시주공8,9단지구역",
@@ -1112,126 +866,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 836,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "성지",
-        "dongName": "상대원동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 31000,
-        "areaSqm": 38.25,
-        "floor": 5
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 35.64,
-          "count": 3,
-          "averagePriceManwon": 28333,
-          "minPriceManwon": 28000,
-          "maxPriceManwon": 29000,
-          "latestPriceManwon": 29000,
-          "latestContractDate": "2026-06-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "성지",
-              "dongName": "상대원동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 29000,
-              "areaSqm": 35.64,
-              "floor": 4
-            },
-            {
-              "apartmentName": "성지",
-              "dongName": "상대원동",
-              "contractDate": "2026-06-10",
-              "priceManwon": 28000,
-              "areaSqm": 35.64,
-              "floor": 6
-            },
-            {
-              "apartmentName": "성지",
-              "dongName": "상대원동",
-              "contractDate": "2025-10-15",
-              "priceManwon": 28000,
-              "areaSqm": 35.64,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 39,
-          "areaLabel": "전용 39㎡ · 약 12평",
-          "representativeAreaSqm": 38.25,
-          "count": 2,
-          "averagePriceManwon": 30500,
-          "minPriceManwon": 30000,
-          "maxPriceManwon": 31000,
-          "latestPriceManwon": 31000,
-          "latestContractDate": "2026-07-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "성지",
-              "dongName": "상대원동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 31000,
-              "areaSqm": 38.25,
-              "floor": 5
-            },
-            {
-              "apartmentName": "성지",
-              "dongName": "상대원동",
-              "contractDate": "2025-10-15",
-              "priceManwon": 30000,
-              "areaSqm": 38.25,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 44,
-          "areaLabel": "전용 44㎡ · 약 13평",
-          "representativeAreaSqm": 44.28,
-          "count": 1,
-          "averagePriceManwon": 37000,
-          "minPriceManwon": 37000,
-          "maxPriceManwon": 37000,
-          "latestPriceManwon": 37000,
-          "latestContractDate": "2025-10-13",
-          "recentTransactions": [
-            {
-              "apartmentName": "궁전",
-              "dongName": "상대원동",
-              "contractDate": "2025-10-13",
-              "priceManwon": 37000,
-              "areaSqm": 44.28,
-              "floor": 1
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.14,
-          "count": 1,
-          "averagePriceManwon": 40400,
-          "minPriceManwon": 40400,
-          "maxPriceManwon": 40400,
-          "latestPriceManwon": 40400,
-          "latestContractDate": "2026-04-09",
-          "recentTransactions": [
-            {
-              "apartmentName": "궁전",
-              "dongName": "상대원동",
-              "contractDate": "2026-04-09",
-              "priceManwon": 40400,
-              "areaSqm": 49.14,
-              "floor": 1
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-성남중원구은행주공아파트",
@@ -1681,7 +1319,8 @@
       "mapQuery": "경기도 수원영통구 영통2구역(매탄주공4,5단지)",
       "lawdCd": "41117",
       "matchNames": [
-        "매탄주공4,5단지"
+        "매탄주공4단지",
+        "매탄주공5단지"
       ],
       "matchMethod": "name-derived",
       "stage": "관리처분인가",
@@ -1691,203 +1330,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 3642,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공",
-        "dongName": "원천동",
-        "contractDate": "2026-06-25",
-        "priceManwon": 35000,
-        "areaSqm": 41.3,
-        "floor": 11
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 32,
-          "areaLabel": "전용 32㎡ · 약 10평",
-          "representativeAreaSqm": 32.39,
-          "count": 19,
-          "averagePriceManwon": 26916,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 29000,
-          "latestPriceManwon": 24500,
-          "latestContractDate": "2026-05-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-25",
-              "priceManwon": 24500,
-              "areaSqm": 32.39,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-23",
-              "priceManwon": 26500,
-              "areaSqm": 32.39,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-12",
-              "priceManwon": 28000,
-              "areaSqm": 32.39,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 28,
-          "averagePriceManwon": 34450,
-          "minPriceManwon": 27000,
-          "maxPriceManwon": 37000,
-          "latestPriceManwon": 35000,
-          "latestContractDate": "2026-06-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-25",
-              "priceManwon": 35000,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-15",
-              "priceManwon": 34400,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-13",
-              "priceManwon": 36500,
-              "areaSqm": 41.3,
-              "floor": 7
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 12,
-          "averagePriceManwon": 40992,
-          "minPriceManwon": 38000,
-          "maxPriceManwon": 44000,
-          "latestPriceManwon": 41000,
-          "latestContractDate": "2026-04-24",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-24",
-              "priceManwon": 41000,
-              "areaSqm": 49.94,
-              "floor": 14
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-13",
-              "priceManwon": 40000,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-06",
-              "priceManwon": 40000,
-              "areaSqm": 49.94,
-              "floor": 14
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 62,
-          "areaLabel": "전용 62㎡ · 약 19평",
-          "representativeAreaSqm": 61.52,
-          "count": 3,
-          "averagePriceManwon": 48000,
-          "minPriceManwon": 36000,
-          "maxPriceManwon": 56000,
-          "latestPriceManwon": 56000,
-          "latestContractDate": "2026-06-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-03",
-              "priceManwon": 56000,
-              "areaSqm": 61.52,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 36000,
-              "areaSqm": 61.52,
-              "floor": 13
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-07",
-              "priceManwon": 52000,
-              "areaSqm": 61.52,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 67,
-          "areaLabel": "전용 67㎡ · 약 20평",
-          "representativeAreaSqm": 66.56,
-          "count": 3,
-          "averagePriceManwon": 57467,
-          "minPriceManwon": 56900,
-          "maxPriceManwon": 58500,
-          "latestPriceManwon": 56900,
-          "latestContractDate": "2026-02-28",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-02-28",
-              "priceManwon": 56900,
-              "areaSqm": 66.56,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-02-24",
-              "priceManwon": 58500,
-              "areaSqm": 66.56,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-01-19",
-              "priceManwon": 57000,
-              "areaSqm": 66.56,
-              "floor": 5
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-수원팔달구11512",
@@ -1969,92 +1415,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 902,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공5",
-        "dongName": "고잔동",
-        "contractDate": "2026-07-04",
-        "priceManwon": 58000,
-        "areaSqm": 46.74,
-        "floor": 4
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 39,
-          "areaLabel": "전용 39㎡ · 약 12평",
-          "representativeAreaSqm": 39.72,
-          "count": 12,
-          "averagePriceManwon": 45566,
-          "minPriceManwon": 40000,
-          "maxPriceManwon": 49186,
-          "latestPriceManwon": 47300,
-          "latestContractDate": "2026-05-01",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-05-01",
-              "priceManwon": 47300,
-              "areaSqm": 39.72,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-03-06",
-              "priceManwon": 40000,
-              "areaSqm": 39.72,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-02-23",
-              "priceManwon": 43500,
-              "areaSqm": 39.72,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 47,
-          "areaLabel": "전용 47㎡ · 약 14평",
-          "representativeAreaSqm": 46.91,
-          "count": 19,
-          "averagePriceManwon": 51232,
-          "minPriceManwon": 43000,
-          "maxPriceManwon": 58000,
-          "latestPriceManwon": 58000,
-          "latestContractDate": "2026-07-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-07-04",
-              "priceManwon": 58000,
-              "areaSqm": 46.74,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-06-15",
-              "priceManwon": 48000,
-              "areaSqm": 46.74,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "고잔동",
-              "contractDate": "2026-06-02",
-              "priceManwon": 49800,
-              "areaSqm": 47.1,
-              "floor": 4
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안양동안구미륭아파트",
@@ -2135,134 +1499,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 259,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "현대",
-        "dongName": "비전동",
-        "contractDate": "2026-06-30",
-        "priceManwon": 7500,
-        "areaSqm": 58.96,
-        "floor": 1
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.96,
-          "count": 1,
-          "averagePriceManwon": 7500,
-          "minPriceManwon": 7500,
-          "maxPriceManwon": 7500,
-          "latestPriceManwon": 7500,
-          "latestContractDate": "2026-06-30",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "비전동",
-              "contractDate": "2026-06-30",
-              "priceManwon": 7500,
-              "areaSqm": 58.96,
-              "floor": 1
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 63,
-          "areaLabel": "전용 63㎡ · 약 19평",
-          "representativeAreaSqm": 63.29,
-          "count": 3,
-          "averagePriceManwon": 16167,
-          "minPriceManwon": 14500,
-          "maxPriceManwon": 18000,
-          "latestPriceManwon": 14500,
-          "latestContractDate": "2026-06-30",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2026-06-30",
-              "priceManwon": 14500,
-              "areaSqm": 63.29,
-              "floor": 13
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2026-01-08",
-              "priceManwon": 18000,
-              "areaSqm": 63.29,
-              "floor": 11
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2025-10-25",
-              "priceManwon": 16000,
-              "areaSqm": 63.29,
-              "floor": 4
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 77,
-          "areaLabel": "전용 77㎡ · 약 23평",
-          "representativeAreaSqm": 76.61,
-          "count": 1,
-          "averagePriceManwon": 21000,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 21000,
-          "latestPriceManwon": 21000,
-          "latestContractDate": "2026-02-10",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2026-02-10",
-              "priceManwon": 21000,
-              "areaSqm": 76.61,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 84,
-          "areaLabel": "전용 84㎡ · 약 25평",
-          "representativeAreaSqm": 84.98,
-          "count": 10,
-          "averagePriceManwon": 21240,
-          "minPriceManwon": 18200,
-          "maxPriceManwon": 23900,
-          "latestPriceManwon": 19000,
-          "latestContractDate": "2026-06-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2026-06-04",
-              "priceManwon": 19000,
-              "areaSqm": 84.98,
-              "floor": 7
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2026-06-01",
-              "priceManwon": 22000,
-              "areaSqm": 84.98,
-              "floor": 6
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "동삭동",
-              "contractDate": "2026-04-27",
-              "priceManwon": 21500,
-              "areaSqm": 84.98,
-              "floor": 11
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-수원권선구권선2구역(성일아파트)",
@@ -2556,203 +1796,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 1727,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "삼환",
-        "dongName": "구운동",
-        "contractDate": "2026-07-14",
-        "priceManwon": 40800,
-        "areaSqm": 54.66,
-        "floor": 5
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 55,
-          "areaLabel": "전용 55㎡ · 약 17평",
-          "representativeAreaSqm": 54.66,
-          "count": 42,
-          "averagePriceManwon": 36793,
-          "minPriceManwon": 31500,
-          "maxPriceManwon": 47000,
-          "latestPriceManwon": 40800,
-          "latestContractDate": "2026-07-14",
-          "recentTransactions": [
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-14",
-              "priceManwon": 40800,
-              "areaSqm": 54.66,
-              "floor": 5
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-13",
-              "priceManwon": 47000,
-              "areaSqm": 54.66,
-              "floor": 15
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-07",
-              "priceManwon": 40800,
-              "areaSqm": 54.66,
-              "floor": 1
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 64,
-          "areaLabel": "전용 64㎡ · 약 19평",
-          "representativeAreaSqm": 64.38,
-          "count": 9,
-          "averagePriceManwon": 42567,
-          "minPriceManwon": 38400,
-          "maxPriceManwon": 49300,
-          "latestPriceManwon": 49300,
-          "latestContractDate": "2026-07-14",
-          "recentTransactions": [
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-14",
-              "priceManwon": 49300,
-              "areaSqm": 64.38,
-              "floor": 9
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-06-30",
-              "priceManwon": 45500,
-              "areaSqm": 64.38,
-              "floor": 5
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-04-18",
-              "priceManwon": 46000,
-              "areaSqm": 64.38,
-              "floor": 4
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 74,
-          "areaLabel": "전용 74㎡ · 약 22평",
-          "representativeAreaSqm": 73.62,
-          "count": 47,
-          "averagePriceManwon": 46395,
-          "minPriceManwon": 35000,
-          "maxPriceManwon": 51700,
-          "latestPriceManwon": 51700,
-          "latestContractDate": "2026-07-13",
-          "recentTransactions": [
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-13",
-              "priceManwon": 51700,
-              "areaSqm": 73.62,
-              "floor": 5
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-07",
-              "priceManwon": 50500,
-              "areaSqm": 73.62,
-              "floor": 12
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-01",
-              "priceManwon": 50700,
-              "areaSqm": 73.62,
-              "floor": 9
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 84,
-          "areaLabel": "전용 84㎡ · 약 25평",
-          "representativeAreaSqm": 84.9,
-          "count": 49,
-          "averagePriceManwon": 52856,
-          "minPriceManwon": 42000,
-          "maxPriceManwon": 61000,
-          "latestPriceManwon": 59850,
-          "latestContractDate": "2026-07-08",
-          "recentTransactions": [
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-08",
-              "priceManwon": 59850,
-              "areaSqm": 84.9,
-              "floor": 3
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-06",
-              "priceManwon": 59800,
-              "areaSqm": 84.9,
-              "floor": 13
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-06-30",
-              "priceManwon": 58750,
-              "areaSqm": 84.9,
-              "floor": 15
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 110,
-          "areaLabel": "전용 110㎡ · 약 33평",
-          "representativeAreaSqm": 108.94,
-          "count": 7,
-          "averagePriceManwon": 59029,
-          "minPriceManwon": 51500,
-          "maxPriceManwon": 67000,
-          "latestPriceManwon": 67000,
-          "latestContractDate": "2026-07-09",
-          "recentTransactions": [
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 67000,
-              "areaSqm": 108.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-04-06",
-              "priceManwon": 62500,
-              "areaSqm": 108.94,
-              "floor": 6
-            },
-            {
-              "apartmentName": "삼환",
-              "dongName": "구운동",
-              "contractDate": "2026-03-02",
-              "priceManwon": 63500,
-              "areaSqm": 108.94,
-              "floor": 11
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-수원장안구파장1구역(삼익아파트)",
@@ -3143,92 +2190,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 1060,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공6",
-        "dongName": "고잔동",
-        "contractDate": "2026-07-04",
-        "priceManwon": 38000,
-        "areaSqm": 39.72,
-        "floor": 3
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 39,
-          "areaLabel": "전용 39㎡ · 약 12평",
-          "representativeAreaSqm": 39.72,
-          "count": 20,
-          "averagePriceManwon": 36050,
-          "minPriceManwon": 34700,
-          "maxPriceManwon": 38000,
-          "latestPriceManwon": 38000,
-          "latestContractDate": "2026-07-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공6",
-              "dongName": "고잔동",
-              "contractDate": "2026-07-04",
-              "priceManwon": 38000,
-              "areaSqm": 39.72,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "고잔동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 36500,
-              "areaSqm": 39.72,
-              "floor": 2
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "고잔동",
-              "contractDate": "2026-05-11",
-              "priceManwon": 37000,
-              "areaSqm": 39.72,
-              "floor": 1
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 47,
-          "areaLabel": "전용 47㎡ · 약 14평",
-          "representativeAreaSqm": 46.77,
-          "count": 8,
-          "averagePriceManwon": 44275,
-          "minPriceManwon": 43000,
-          "maxPriceManwon": 46000,
-          "latestPriceManwon": 45000,
-          "latestContractDate": "2026-03-10",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공6",
-              "dongName": "고잔동",
-              "contractDate": "2026-03-10",
-              "priceManwon": 45000,
-              "areaSqm": 46.74,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "고잔동",
-              "contractDate": "2026-02-14",
-              "priceManwon": 46000,
-              "areaSqm": 46.74,
-              "floor": 2
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "고잔동",
-              "contractDate": "2026-01-31",
-              "priceManwon": 45000,
-              "areaSqm": 46.74,
-              "floor": 5
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안산상록구현대1차아파트",
@@ -3282,117 +2247,6 @@
               "contractDate": "2025-08-08",
               "priceManwon": 26300,
               "areaSqm": 56.275,
-              "floor": 2
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 57,
-          "areaLabel": "전용 57㎡ · 약 17평",
-          "representativeAreaSqm": 56.86,
-          "count": 11,
-          "averagePriceManwon": 19545,
-          "minPriceManwon": 18100,
-          "maxPriceManwon": 21800,
-          "latestPriceManwon": 20000,
-          "latestContractDate": "2026-06-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-06-11",
-              "priceManwon": 20000,
-              "areaSqm": 56.8596,
-              "floor": 16
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-05-03",
-              "priceManwon": 18100,
-              "areaSqm": 56.8596,
-              "floor": 13
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-05-03",
-              "priceManwon": 18100,
-              "areaSqm": 56.8596,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 67,
-          "areaLabel": "전용 67㎡ · 약 20평",
-          "representativeAreaSqm": 67.39,
-          "count": 6,
-          "averagePriceManwon": 23733,
-          "minPriceManwon": 22500,
-          "maxPriceManwon": 25700,
-          "latestPriceManwon": 23500,
-          "latestContractDate": "2026-06-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-06-11",
-              "priceManwon": 23500,
-              "areaSqm": 67.3871,
-              "floor": 7
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-03-26",
-              "priceManwon": 24200,
-              "areaSqm": 67.3871,
-              "floor": 14
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2025-11-01",
-              "priceManwon": 24000,
-              "areaSqm": 67.3871,
-              "floor": 9
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 79,
-          "areaLabel": "전용 79㎡ · 약 24평",
-          "representativeAreaSqm": 79.38,
-          "count": 4,
-          "averagePriceManwon": 29125,
-          "minPriceManwon": 24500,
-          "maxPriceManwon": 31500,
-          "latestPriceManwon": 31500,
-          "latestContractDate": "2026-01-21",
-          "recentTransactions": [
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-01-21",
-              "priceManwon": 31500,
-              "areaSqm": 79.3784,
-              "floor": 2
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2026-01-21",
-              "priceManwon": 31500,
-              "areaSqm": 79.3784,
-              "floor": 2
-            },
-            {
-              "apartmentName": "현대",
-              "dongName": "사사동",
-              "contractDate": "2025-12-20",
-              "priceManwon": 24500,
-              "areaSqm": 79.3784,
               "floor": 2
             }
           ]
@@ -3547,55 +2401,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 851,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "한성",
-        "dongName": "풍덕천동",
-        "contractDate": "2026-05-29",
-        "priceManwon": 117000,
-        "areaSqm": 59.54,
-        "floor": 9
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 59.54,
-          "count": 32,
-          "averagePriceManwon": 90516,
-          "minPriceManwon": 78500,
-          "maxPriceManwon": 117000,
-          "latestPriceManwon": 117000,
-          "latestContractDate": "2026-05-29",
-          "recentTransactions": [
-            {
-              "apartmentName": "한성",
-              "dongName": "풍덕천동",
-              "contractDate": "2026-05-29",
-              "priceManwon": 117000,
-              "areaSqm": 59.54,
-              "floor": 9
-            },
-            {
-              "apartmentName": "한성",
-              "dongName": "풍덕천동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 114500,
-              "areaSqm": 59.54,
-              "floor": 11
-            },
-            {
-              "apartmentName": "한성",
-              "dongName": "풍덕천동",
-              "contractDate": "2026-03-19",
-              "priceManwon": 97000,
-              "areaSqm": 59.54,
-              "floor": 1
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-용인수지구수지3(수지삼성2차)",
@@ -4091,88 +2900,14 @@
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
-        "apartmentName": "주공1",
-        "dongName": "하안동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 69000,
-        "areaSqm": 49.94,
-        "floor": 4
+        "apartmentName": "주공12",
+        "dongName": "철산동",
+        "contractDate": "2026-07-03",
+        "priceManwon": 153000,
+        "areaSqm": 84.97,
+        "floor": 13
       },
       "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 81,
-          "averagePriceManwon": 39907,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 50000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-07-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 50000,
-              "areaSqm": 36.16,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 47800,
-              "areaSqm": 36.16,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-26",
-              "priceManwon": 49800,
-              "areaSqm": 36.16,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 67,
-          "averagePriceManwon": 45783,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 54700,
-          "latestPriceManwon": 54500,
-          "latestContractDate": "2026-06-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54500,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 54700,
-              "areaSqm": 41.3,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-05-26",
-              "priceManwon": 53500,
-              "areaSqm": 41.3,
-              "floor": 13
-            }
-          ]
-        },
         {
           "areaTypeSqm": 45,
           "areaLabel": "전용 45㎡ · 약 14평",
@@ -4207,43 +2942,6 @@
               "priceManwon": 63800,
               "areaSqm": 44.89,
               "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 95,
-          "averagePriceManwon": 58186,
-          "minPriceManwon": 45000,
-          "maxPriceManwon": 71800,
-          "latestPriceManwon": 69000,
-          "latestContractDate": "2026-07-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 69000,
-              "areaSqm": 49.94,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 71800,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 60000,
-              "areaSqm": 49.94,
-              "floor": 12
             }
           ]
         },
@@ -4498,125 +3196,14 @@
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
-        "apartmentName": "주공1",
-        "dongName": "하안동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 69000,
-        "areaSqm": 49.94,
-        "floor": 4
+        "apartmentName": "주공13",
+        "dongName": "철산동",
+        "contractDate": "2026-07-08",
+        "priceManwon": 155000,
+        "areaSqm": 83.7,
+        "floor": 10
       },
       "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 81,
-          "averagePriceManwon": 39907,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 50000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-07-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 50000,
-              "areaSqm": 36.16,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 47800,
-              "areaSqm": 36.16,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-26",
-              "priceManwon": 49800,
-              "areaSqm": 36.16,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 67,
-          "averagePriceManwon": 45783,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 54700,
-          "latestPriceManwon": 54500,
-          "latestContractDate": "2026-06-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54500,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 54700,
-              "areaSqm": 41.3,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-05-26",
-              "priceManwon": 53500,
-              "areaSqm": 41.3,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 95,
-          "averagePriceManwon": 58186,
-          "minPriceManwon": 45000,
-          "maxPriceManwon": 71800,
-          "latestPriceManwon": 69000,
-          "latestContractDate": "2026-07-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 69000,
-              "areaSqm": 49.94,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 71800,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 60000,
-              "areaSqm": 49.94,
-              "floor": 12
-            }
-          ]
-        },
         {
           "areaTypeSqm": 74,
           "areaLabel": "전용 74㎡ · 약 22평",
@@ -4784,277 +3371,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 3407,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공1",
-        "dongName": "하안동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 69000,
-        "areaSqm": 49.94,
-        "floor": 4
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 81,
-          "averagePriceManwon": 39907,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 50000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-07-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 50000,
-              "areaSqm": 36.16,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 47800,
-              "areaSqm": 36.16,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-26",
-              "priceManwon": 49800,
-              "areaSqm": 36.16,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 67,
-          "averagePriceManwon": 45783,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 54700,
-          "latestPriceManwon": 54500,
-          "latestContractDate": "2026-06-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54500,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 54700,
-              "areaSqm": 41.3,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-05-26",
-              "priceManwon": 53500,
-              "areaSqm": 41.3,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 46,
-          "areaLabel": "전용 46㎡ · 약 14평",
-          "representativeAreaSqm": 45.77,
-          "count": 20,
-          "averagePriceManwon": 49045,
-          "minPriceManwon": 38000,
-          "maxPriceManwon": 64700,
-          "latestPriceManwon": 64700,
-          "latestContractDate": "2026-07-10",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-07-10",
-              "priceManwon": 64700,
-              "areaSqm": 45.77,
-              "floor": 6
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-05-28",
-              "priceManwon": 51500,
-              "areaSqm": 45.77,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-05-23",
-              "priceManwon": 57000,
-              "areaSqm": 45.77,
-              "floor": 14
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 95,
-          "averagePriceManwon": 58186,
-          "minPriceManwon": 45000,
-          "maxPriceManwon": 71800,
-          "latestPriceManwon": 69000,
-          "latestContractDate": "2026-07-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 69000,
-              "areaSqm": 49.94,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 71800,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 60000,
-              "areaSqm": 49.94,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.88,
-          "count": 27,
-          "averagePriceManwon": 62278,
-          "minPriceManwon": 52000,
-          "maxPriceManwon": 74000,
-          "latestPriceManwon": 74000,
-          "latestContractDate": "2026-07-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 74000,
-              "areaSqm": 59.39,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-05-11",
-              "priceManwon": 66000,
-              "areaSqm": 58.01,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-05-09",
-              "priceManwon": 66000,
-              "areaSqm": 59.39,
-              "floor": 11
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 62,
-          "areaLabel": "전용 62㎡ · 약 19평",
-          "representativeAreaSqm": 61.52,
-          "count": 8,
-          "averagePriceManwon": 63325,
-          "minPriceManwon": 55800,
-          "maxPriceManwon": 69000,
-          "latestPriceManwon": 67500,
-          "latestContractDate": "2026-05-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-05-11",
-              "priceManwon": 67500,
-              "areaSqm": 61.52,
-              "floor": 12
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-03-14",
-              "priceManwon": 68200,
-              "areaSqm": 61.52,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-01-22",
-              "priceManwon": 69000,
-              "areaSqm": 61.52,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 67,
-          "areaLabel": "전용 67㎡ · 약 20평",
-          "representativeAreaSqm": 66.56,
-          "count": 8,
-          "averagePriceManwon": 70000,
-          "minPriceManwon": 50000,
-          "maxPriceManwon": 77500,
-          "latestPriceManwon": 76500,
-          "latestContractDate": "2026-05-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-05-04",
-              "priceManwon": 76500,
-              "areaSqm": 66.56,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-04-22",
-              "priceManwon": 50000,
-              "areaSqm": 66.56,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공2",
-              "dongName": "하안동",
-              "contractDate": "2026-03-27",
-              "priceManwon": 55000,
-              "areaSqm": 66.56,
-              "floor": 4
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-수원영통구영통3구역(원천주공)",
@@ -5080,203 +3400,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 1333,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공",
-        "dongName": "원천동",
-        "contractDate": "2026-06-25",
-        "priceManwon": 35000,
-        "areaSqm": 41.3,
-        "floor": 11
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 32,
-          "areaLabel": "전용 32㎡ · 약 10평",
-          "representativeAreaSqm": 32.39,
-          "count": 19,
-          "averagePriceManwon": 26916,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 29000,
-          "latestPriceManwon": 24500,
-          "latestContractDate": "2026-05-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-25",
-              "priceManwon": 24500,
-              "areaSqm": 32.39,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-23",
-              "priceManwon": 26500,
-              "areaSqm": 32.39,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-12",
-              "priceManwon": 28000,
-              "areaSqm": 32.39,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 28,
-          "averagePriceManwon": 34450,
-          "minPriceManwon": 27000,
-          "maxPriceManwon": 37000,
-          "latestPriceManwon": 35000,
-          "latestContractDate": "2026-06-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-25",
-              "priceManwon": 35000,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-15",
-              "priceManwon": 34400,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-13",
-              "priceManwon": 36500,
-              "areaSqm": 41.3,
-              "floor": 7
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 12,
-          "averagePriceManwon": 40992,
-          "minPriceManwon": 38000,
-          "maxPriceManwon": 44000,
-          "latestPriceManwon": 41000,
-          "latestContractDate": "2026-04-24",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-24",
-              "priceManwon": 41000,
-              "areaSqm": 49.94,
-              "floor": 14
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-13",
-              "priceManwon": 40000,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-06",
-              "priceManwon": 40000,
-              "areaSqm": 49.94,
-              "floor": 14
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 62,
-          "areaLabel": "전용 62㎡ · 약 19평",
-          "representativeAreaSqm": 61.52,
-          "count": 3,
-          "averagePriceManwon": 48000,
-          "minPriceManwon": 36000,
-          "maxPriceManwon": 56000,
-          "latestPriceManwon": 56000,
-          "latestContractDate": "2026-06-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-03",
-              "priceManwon": 56000,
-              "areaSqm": 61.52,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 36000,
-              "areaSqm": 61.52,
-              "floor": 13
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-07",
-              "priceManwon": 52000,
-              "areaSqm": 61.52,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 67,
-          "areaLabel": "전용 67㎡ · 약 20평",
-          "representativeAreaSqm": 66.56,
-          "count": 3,
-          "averagePriceManwon": 57467,
-          "minPriceManwon": 56900,
-          "maxPriceManwon": 58500,
-          "latestPriceManwon": 56900,
-          "latestContractDate": "2026-02-28",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-02-28",
-              "priceManwon": 56900,
-              "areaSqm": 66.56,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-02-24",
-              "priceManwon": 58500,
-              "areaSqm": 66.56,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-01-19",
-              "priceManwon": 57000,
-              "areaSqm": 66.56,
-              "floor": 5
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안산단원구고잔연립4",
@@ -5507,166 +3634,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "예술인",
-        "dongName": "성포동",
-        "contractDate": "2026-07-14",
-        "priceManwon": 40000,
-        "areaSqm": 84.87,
-        "floor": 12
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 61,
-          "areaLabel": "전용 61㎡ · 약 18평",
-          "representativeAreaSqm": 61.38,
-          "count": 3,
-          "averagePriceManwon": 27883,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 31650,
-          "latestPriceManwon": 26000,
-          "latestContractDate": "2026-05-22",
-          "recentTransactions": [
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-05-22",
-              "priceManwon": 26000,
-              "areaSqm": 61.385,
-              "floor": 11
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2025-12-18",
-              "priceManwon": 31650,
-              "areaSqm": 61.385,
-              "floor": 8
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2025-10-16",
-              "priceManwon": 26000,
-              "areaSqm": 61.385,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 62,
-          "areaLabel": "전용 62㎡ · 약 19평",
-          "representativeAreaSqm": 61.65,
-          "count": 3,
-          "averagePriceManwon": 30333,
-          "minPriceManwon": 29000,
-          "maxPriceManwon": 32000,
-          "latestPriceManwon": 30000,
-          "latestContractDate": "2026-05-12",
-          "recentTransactions": [
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-05-12",
-              "priceManwon": 30000,
-              "areaSqm": 61.65,
-              "floor": 11
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2025-12-15",
-              "priceManwon": 29000,
-              "areaSqm": 61.65,
-              "floor": 4
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2025-12-10",
-              "priceManwon": 32000,
-              "areaSqm": 61.65,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 74,
-          "areaLabel": "전용 74㎡ · 약 22평",
-          "representativeAreaSqm": 74.05,
-          "count": 13,
-          "averagePriceManwon": 34669,
-          "minPriceManwon": 33000,
-          "maxPriceManwon": 36500,
-          "latestPriceManwon": 33000,
-          "latestContractDate": "2026-06-15",
-          "recentTransactions": [
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-06-15",
-              "priceManwon": 33000,
-              "areaSqm": 73.71,
-              "floor": 12
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-06-08",
-              "priceManwon": 34000,
-              "areaSqm": 73.71,
-              "floor": 1
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-05-19",
-              "priceManwon": 33500,
-              "areaSqm": 73.71,
-              "floor": 14
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 84,
-          "areaLabel": "전용 84㎡ · 약 25평",
-          "representativeAreaSqm": 84.86,
-          "count": 13,
-          "averagePriceManwon": 40728,
-          "minPriceManwon": 38800,
-          "maxPriceManwon": 43000,
-          "latestPriceManwon": 40000,
-          "latestContractDate": "2026-07-14",
-          "recentTransactions": [
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-07-14",
-              "priceManwon": 40000,
-              "areaSqm": 84.87,
-              "floor": 12
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-03-31",
-              "priceManwon": 39300,
-              "areaSqm": 84.87,
-              "floor": 8
-            },
-            {
-              "apartmentName": "예술인",
-              "dongName": "성포동",
-              "contractDate": "2026-03-26",
-              "priceManwon": 42370,
-              "areaSqm": 84.87,
-              "floor": 8
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안산상록구주공4단지",
@@ -5832,240 +3803,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "선경",
-        "dongName": "성포동",
-        "contractDate": "2026-07-03",
-        "priceManwon": 45000,
-        "areaSqm": 84.93,
-        "floor": 6
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 57,
-          "areaLabel": "전용 57㎡ · 약 17평",
-          "representativeAreaSqm": 57.19,
-          "count": 3,
-          "averagePriceManwon": 31267,
-          "minPriceManwon": 30500,
-          "maxPriceManwon": 31800,
-          "latestPriceManwon": 30500,
-          "latestContractDate": "2026-06-12",
-          "recentTransactions": [
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-06-12",
-              "priceManwon": 30500,
-              "areaSqm": 57.19,
-              "floor": 15
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-03-24",
-              "priceManwon": 31500,
-              "areaSqm": 57.19,
-              "floor": 16
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2025-09-02",
-              "priceManwon": 31800,
-              "areaSqm": 57.19,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 62,
-          "areaLabel": "전용 62㎡ · 약 19평",
-          "representativeAreaSqm": 62.34,
-          "count": 6,
-          "averagePriceManwon": 34333,
-          "minPriceManwon": 33000,
-          "maxPriceManwon": 35500,
-          "latestPriceManwon": 33000,
-          "latestContractDate": "2026-05-30",
-          "recentTransactions": [
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-05-30",
-              "priceManwon": 33000,
-              "areaSqm": 62.34,
-              "floor": 9
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-03-26",
-              "priceManwon": 35500,
-              "areaSqm": 62.34,
-              "floor": 17
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-03-10",
-              "priceManwon": 35500,
-              "areaSqm": 62.34,
-              "floor": 17
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 74,
-          "areaLabel": "전용 74㎡ · 약 22평",
-          "representativeAreaSqm": 73.24,
-          "count": 3,
-          "averagePriceManwon": 37333,
-          "minPriceManwon": 37000,
-          "maxPriceManwon": 38000,
-          "latestPriceManwon": 37000,
-          "latestContractDate": "2026-05-18",
-          "recentTransactions": [
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-05-18",
-              "priceManwon": 37000,
-              "areaSqm": 73.24,
-              "floor": 5
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-04-08",
-              "priceManwon": 37000,
-              "areaSqm": 73.24,
-              "floor": 17
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2025-09-16",
-              "priceManwon": 38000,
-              "areaSqm": 73.24,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 84,
-          "areaLabel": "전용 84㎡ · 약 25평",
-          "representativeAreaSqm": 84.94,
-          "count": 45,
-          "averagePriceManwon": 42871,
-          "minPriceManwon": 29500,
-          "maxPriceManwon": 47000,
-          "latestPriceManwon": 45000,
-          "latestContractDate": "2026-07-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 45000,
-              "areaSqm": 84.93,
-              "floor": 6
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-06-12",
-              "priceManwon": 43000,
-              "areaSqm": 84.96,
-              "floor": 10
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 46000,
-              "areaSqm": 84.93,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 129,
-          "areaLabel": "전용 129㎡ · 약 39평",
-          "representativeAreaSqm": 129.46,
-          "count": 9,
-          "averagePriceManwon": 52278,
-          "minPriceManwon": 50000,
-          "maxPriceManwon": 54500,
-          "latestPriceManwon": 52000,
-          "latestContractDate": "2026-05-14",
-          "recentTransactions": [
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-05-14",
-              "priceManwon": 52000,
-              "areaSqm": 129.46,
-              "floor": 15
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 54500,
-              "areaSqm": 129.46,
-              "floor": 12
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-04-07",
-              "priceManwon": 52000,
-              "areaSqm": 129.46,
-              "floor": 10
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 139,
-          "areaLabel": "전용 139㎡ · 약 42평",
-          "representativeAreaSqm": 139.26,
-          "count": 3,
-          "averagePriceManwon": 58667,
-          "minPriceManwon": 50000,
-          "maxPriceManwon": 64000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-04-27",
-          "recentTransactions": [
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-04-27",
-              "priceManwon": 50000,
-              "areaSqm": 139.26,
-              "floor": 6
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2026-04-24",
-              "priceManwon": 64000,
-              "areaSqm": 139.26,
-              "floor": 15
-            },
-            {
-              "apartmentName": "선경",
-              "dongName": "성포동",
-              "contractDate": "2025-11-20",
-              "priceManwon": 62000,
-              "areaSqm": 139.26,
-              "floor": 22
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안산상록구한양상록수",
@@ -6091,266 +3832,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "한양",
-        "dongName": "월피동",
-        "contractDate": "2026-07-06",
-        "priceManwon": 13000,
-        "areaSqm": 34.92,
-        "floor": 1
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 35,
-          "areaLabel": "전용 35㎡ · 약 11평",
-          "representativeAreaSqm": 34.92,
-          "count": 2,
-          "averagePriceManwon": 13000,
-          "minPriceManwon": 13000,
-          "maxPriceManwon": 13000,
-          "latestPriceManwon": 13000,
-          "latestContractDate": "2026-07-06",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-07-06",
-              "priceManwon": 13000,
-              "areaSqm": 34.92,
-              "floor": 1
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-06-16",
-              "priceManwon": 13000,
-              "areaSqm": 34.92,
-              "floor": 1
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 59.54,
-          "count": 25,
-          "averagePriceManwon": 23396,
-          "minPriceManwon": 19500,
-          "maxPriceManwon": 27300,
-          "latestPriceManwon": 23000,
-          "latestContractDate": "2026-06-17",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-06-17",
-              "priceManwon": 23000,
-              "areaSqm": 57.92,
-              "floor": 2
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-05-29",
-              "priceManwon": 24000,
-              "areaSqm": 60.3,
-              "floor": 10
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-05-21",
-              "priceManwon": 24000,
-              "areaSqm": 60.3,
-              "floor": 11
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 66,
-          "areaLabel": "전용 66㎡ · 약 20평",
-          "representativeAreaSqm": 66.4,
-          "count": 3,
-          "averagePriceManwon": 27200,
-          "minPriceManwon": 27000,
-          "maxPriceManwon": 27300,
-          "latestPriceManwon": 27300,
-          "latestContractDate": "2026-02-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-02-25",
-              "priceManwon": 27300,
-              "areaSqm": 66.4,
-              "floor": 1
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-01-18",
-              "priceManwon": 27000,
-              "areaSqm": 66.4,
-              "floor": 1
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2025-12-29",
-              "priceManwon": 27300,
-              "areaSqm": 66.4,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 67,
-          "areaLabel": "전용 67㎡ · 약 20평",
-          "representativeAreaSqm": 67.11,
-          "count": 1,
-          "averagePriceManwon": 22000,
-          "minPriceManwon": 22000,
-          "maxPriceManwon": 22000,
-          "latestPriceManwon": 22000,
-          "latestContractDate": "2026-05-27",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-05-27",
-              "priceManwon": 22000,
-              "areaSqm": 67.11,
-              "floor": 1
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 71,
-          "areaLabel": "전용 71㎡ · 약 21평",
-          "representativeAreaSqm": 70.83,
-          "count": 1,
-          "averagePriceManwon": 28000,
-          "minPriceManwon": 28000,
-          "maxPriceManwon": 28000,
-          "latestPriceManwon": 28000,
-          "latestContractDate": "2026-01-31",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-01-31",
-              "priceManwon": 28000,
-              "areaSqm": 70.83,
-              "floor": 10
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 78,
-          "areaLabel": "전용 78㎡ · 약 24평",
-          "representativeAreaSqm": 77.84,
-          "count": 9,
-          "averagePriceManwon": 29822,
-          "minPriceManwon": 27000,
-          "maxPriceManwon": 31500,
-          "latestPriceManwon": 31000,
-          "latestContractDate": "2026-06-02",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-06-02",
-              "priceManwon": 31000,
-              "areaSqm": 77.84,
-              "floor": 11
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-04-23",
-              "priceManwon": 31500,
-              "areaSqm": 77.84,
-              "floor": 9
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-04-02",
-              "priceManwon": 30000,
-              "areaSqm": 77.84,
-              "floor": 5
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 84,
-          "areaLabel": "전용 84㎡ · 약 25평",
-          "representativeAreaSqm": 84.16,
-          "count": 5,
-          "averagePriceManwon": 34680,
-          "minPriceManwon": 30000,
-          "maxPriceManwon": 38000,
-          "latestPriceManwon": 38000,
-          "latestContractDate": "2026-05-22",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-05-22",
-              "priceManwon": 38000,
-              "areaSqm": 84.16,
-              "floor": 19
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-04-20",
-              "priceManwon": 35900,
-              "areaSqm": 84.16,
-              "floor": 10
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-03-10",
-              "priceManwon": 35000,
-              "areaSqm": 84.16,
-              "floor": 15
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 110,
-          "areaLabel": "전용 110㎡ · 약 33평",
-          "representativeAreaSqm": 108.78,
-          "count": 2,
-          "averagePriceManwon": 40500,
-          "minPriceManwon": 40000,
-          "maxPriceManwon": 41000,
-          "latestPriceManwon": 40000,
-          "latestContractDate": "2026-06-05",
-          "recentTransactions": [
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 40000,
-              "areaSqm": 108.78,
-              "floor": 15
-            },
-            {
-              "apartmentName": "한양",
-              "dongName": "월피동",
-              "contractDate": "2026-03-11",
-              "priceManwon": 41000,
-              "areaSqm": 108.78,
-              "floor": 7
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안양동안구호계럭키아파트",
@@ -6487,216 +3972,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 810,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "럭키",
-        "dongName": "석수동",
-        "contractDate": "2026-06-23",
-        "priceManwon": 54400,
-        "areaSqm": 85,
-        "floor": 8
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 57,
-          "areaLabel": "전용 57㎡ · 약 17평",
-          "representativeAreaSqm": 56.7,
-          "count": 3,
-          "averagePriceManwon": 30367,
-          "minPriceManwon": 29300,
-          "maxPriceManwon": 31500,
-          "latestPriceManwon": 29300,
-          "latestContractDate": "2026-04-30",
-          "recentTransactions": [
-            {
-              "apartmentName": "석수",
-              "dongName": "석수동",
-              "contractDate": "2026-04-30",
-              "priceManwon": 29300,
-              "areaSqm": 56.7,
-              "floor": 3
-            },
-            {
-              "apartmentName": "석수",
-              "dongName": "석수동",
-              "contractDate": "2026-04-16",
-              "priceManwon": 31500,
-              "areaSqm": 56.7,
-              "floor": 2
-            },
-            {
-              "apartmentName": "석수",
-              "dongName": "석수동",
-              "contractDate": "2026-01-23",
-              "priceManwon": 30300,
-              "areaSqm": 56.7,
-              "floor": 2
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.68,
-          "count": 4,
-          "averagePriceManwon": 40950,
-          "minPriceManwon": 39000,
-          "maxPriceManwon": 43500,
-          "latestPriceManwon": 43500,
-          "latestContractDate": "2026-06-22",
-          "recentTransactions": [
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-06-22",
-              "priceManwon": 43500,
-              "areaSqm": 58.68,
-              "floor": 9
-            },
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-06-11",
-              "priceManwon": 40000,
-              "areaSqm": 58.68,
-              "floor": 14
-            },
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-04-18",
-              "priceManwon": 41300,
-              "areaSqm": 58.68,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 64,
-          "areaLabel": "전용 64㎡ · 약 19평",
-          "representativeAreaSqm": 63.65,
-          "count": 2,
-          "averagePriceManwon": 29850,
-          "minPriceManwon": 27700,
-          "maxPriceManwon": 32000,
-          "latestPriceManwon": 27700,
-          "latestContractDate": "2026-03-08",
-          "recentTransactions": [
-            {
-              "apartmentName": "석수",
-              "dongName": "석수동",
-              "contractDate": "2026-03-08",
-              "priceManwon": 27700,
-              "areaSqm": 63.65,
-              "floor": 5
-            },
-            {
-              "apartmentName": "석수",
-              "dongName": "석수동",
-              "contractDate": "2025-11-21",
-              "priceManwon": 32000,
-              "areaSqm": 63.65,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 77,
-          "areaLabel": "전용 77㎡ · 약 23평",
-          "representativeAreaSqm": 76.61,
-          "count": 7,
-          "averagePriceManwon": 48464,
-          "minPriceManwon": 45500,
-          "maxPriceManwon": 50500,
-          "latestPriceManwon": 49500,
-          "latestContractDate": "2026-06-12",
-          "recentTransactions": [
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-06-12",
-              "priceManwon": 49500,
-              "areaSqm": 76.61,
-              "floor": 6
-            },
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-04-23",
-              "priceManwon": 49500,
-              "areaSqm": 76.61,
-              "floor": 7
-            },
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-03-23",
-              "priceManwon": 50500,
-              "areaSqm": 76.61,
-              "floor": 10
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 84,
-          "areaLabel": "전용 84㎡ · 약 25평",
-          "representativeAreaSqm": 85,
-          "count": 10,
-          "averagePriceManwon": 48080,
-          "minPriceManwon": 36000,
-          "maxPriceManwon": 54400,
-          "latestPriceManwon": 54400,
-          "latestContractDate": "2026-06-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54400,
-              "areaSqm": 85,
-              "floor": 8
-            },
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-06-16",
-              "priceManwon": 48000,
-              "areaSqm": 85,
-              "floor": 1
-            },
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2026-06-04",
-              "priceManwon": 36000,
-              "areaSqm": 85,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 114,
-          "areaLabel": "전용 114㎡ · 약 34평",
-          "representativeAreaSqm": 114.65,
-          "count": 1,
-          "averagePriceManwon": 60500,
-          "minPriceManwon": 60500,
-          "maxPriceManwon": 60500,
-          "latestPriceManwon": 60500,
-          "latestContractDate": "2025-11-17",
-          "recentTransactions": [
-            {
-              "apartmentName": "럭키",
-              "dongName": "석수동",
-              "contractDate": "2025-11-17",
-              "priceManwon": 60500,
-              "areaSqm": 114.65,
-              "floor": 11
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안양만안구진흥5차아파트",
@@ -6722,129 +4001,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 462,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "진흥",
-        "dongName": "안양동",
-        "contractDate": "2026-05-23",
-        "priceManwon": 32500,
-        "areaSqm": 67.68,
-        "floor": 3
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 57,
-          "areaLabel": "전용 57㎡ · 약 17평",
-          "representativeAreaSqm": 57.01,
-          "count": 4,
-          "averagePriceManwon": 28475,
-          "minPriceManwon": 23500,
-          "maxPriceManwon": 30500,
-          "latestPriceManwon": 30500,
-          "latestContractDate": "2026-04-24",
-          "recentTransactions": [
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-04-24",
-              "priceManwon": 30500,
-              "areaSqm": 57.005,
-              "floor": 9
-            },
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-03-23",
-              "priceManwon": 23500,
-              "areaSqm": 57.005,
-              "floor": 4
-            },
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-02-06",
-              "priceManwon": 29900,
-              "areaSqm": 57.005,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 68,
-          "areaLabel": "전용 68㎡ · 약 21평",
-          "representativeAreaSqm": 67.68,
-          "count": 3,
-          "averagePriceManwon": 31667,
-          "minPriceManwon": 30000,
-          "maxPriceManwon": 32500,
-          "latestPriceManwon": 32500,
-          "latestContractDate": "2026-05-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-05-23",
-              "priceManwon": 32500,
-              "areaSqm": 67.68,
-              "floor": 3
-            },
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-05-23",
-              "priceManwon": 32500,
-              "areaSqm": 67.68,
-              "floor": 3
-            },
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-03-27",
-              "priceManwon": 30000,
-              "areaSqm": 67.68,
-              "floor": 5
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 74,
-          "areaLabel": "전용 74㎡ · 약 22평",
-          "representativeAreaSqm": 75.48,
-          "count": 3,
-          "averagePriceManwon": 38167,
-          "minPriceManwon": 35000,
-          "maxPriceManwon": 43500,
-          "latestPriceManwon": 35000,
-          "latestContractDate": "2026-02-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-02-25",
-              "priceManwon": 35000,
-              "areaSqm": 75.48,
-              "floor": 6
-            },
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-02-22",
-              "priceManwon": 43500,
-              "areaSqm": 75.48,
-              "floor": 9
-            },
-            {
-              "apartmentName": "진흥",
-              "dongName": "안양동",
-              "contractDate": "2026-02-10",
-              "priceManwon": 36000,
-              "areaSqm": 75.48,
-              "floor": 1
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-안양만안구뉴골든아파트",
@@ -7093,84 +4253,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "신안",
-        "dongName": "박달동",
-        "contractDate": "2026-06-09",
-        "priceManwon": 39000,
-        "areaSqm": 88.11,
-        "floor": 9
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 66,
-          "areaLabel": "전용 66㎡ · 약 20평",
-          "representativeAreaSqm": 65.52,
-          "count": 7,
-          "averagePriceManwon": 32329,
-          "minPriceManwon": 30500,
-          "maxPriceManwon": 35000,
-          "latestPriceManwon": 30800,
-          "latestContractDate": "2026-05-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "신안",
-              "dongName": "박달동",
-              "contractDate": "2026-05-03",
-              "priceManwon": 30800,
-              "areaSqm": 65.52,
-              "floor": 9
-            },
-            {
-              "apartmentName": "신안",
-              "dongName": "박달동",
-              "contractDate": "2026-03-22",
-              "priceManwon": 33500,
-              "areaSqm": 65.52,
-              "floor": 11
-            },
-            {
-              "apartmentName": "신안",
-              "dongName": "박달동",
-              "contractDate": "2025-11-27",
-              "priceManwon": 35000,
-              "areaSqm": 65.52,
-              "floor": 5
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 88,
-          "areaLabel": "전용 88㎡ · 약 27평",
-          "representativeAreaSqm": 88.11,
-          "count": 2,
-          "averagePriceManwon": 39500,
-          "minPriceManwon": 39000,
-          "maxPriceManwon": 40000,
-          "latestPriceManwon": 39000,
-          "latestContractDate": "2026-06-09",
-          "recentTransactions": [
-            {
-              "apartmentName": "신안",
-              "dongName": "박달동",
-              "contractDate": "2026-06-09",
-              "priceManwon": 39000,
-              "areaSqm": 88.11,
-              "floor": 9
-            },
-            {
-              "apartmentName": "신안",
-              "dongName": "박달동",
-              "contractDate": "2025-10-20",
-              "priceManwon": 40000,
-              "areaSqm": 88.11,
-              "floor": 8
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-오산시오산원동주공아파트재건축정비구역",
@@ -7557,129 +4643,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공",
-        "dongName": "팽성읍 안정리",
-        "contractDate": "2026-06-17",
-        "priceManwon": 5450,
-        "areaSqm": 39.27,
-        "floor": 5
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 32,
-          "areaLabel": "전용 32㎡ · 약 10평",
-          "representativeAreaSqm": 32.4,
-          "count": 8,
-          "averagePriceManwon": 10963,
-          "minPriceManwon": 10000,
-          "maxPriceManwon": 11500,
-          "latestPriceManwon": 10000,
-          "latestContractDate": "2026-06-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공3",
-              "dongName": "서정동",
-              "contractDate": "2026-06-04",
-              "priceManwon": 10000,
-              "areaSqm": 32.4,
-              "floor": 2
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "서정동",
-              "contractDate": "2026-04-17",
-              "priceManwon": 11500,
-              "areaSqm": 32.4,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "서정동",
-              "contractDate": "2026-03-26",
-              "priceManwon": 10700,
-              "areaSqm": 32.4,
-              "floor": 2
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 39,
-          "areaLabel": "전용 39㎡ · 약 12평",
-          "representativeAreaSqm": 39.47,
-          "count": 17,
-          "averagePriceManwon": 9100,
-          "minPriceManwon": 5300,
-          "maxPriceManwon": 14500,
-          "latestPriceManwon": 5450,
-          "latestContractDate": "2026-06-17",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-06-17",
-              "priceManwon": 5450,
-              "areaSqm": 39.27,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-05-19",
-              "priceManwon": 5400,
-              "areaSqm": 39.66,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-04-27",
-              "priceManwon": 5500,
-              "areaSqm": 39.27,
-              "floor": 5
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 47,
-          "areaLabel": "전용 47㎡ · 약 14평",
-          "representativeAreaSqm": 46.93,
-          "count": 6,
-          "averagePriceManwon": 7600,
-          "minPriceManwon": 6400,
-          "maxPriceManwon": 8800,
-          "latestPriceManwon": 8300,
-          "latestContractDate": "2026-06-02",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-06-02",
-              "priceManwon": 8300,
-              "areaSqm": 46.98,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-06-01",
-              "priceManwon": 8800,
-              "areaSqm": 46.98,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "팽성읍 안정리",
-              "contractDate": "2026-02-06",
-              "priceManwon": 6800,
-              "areaSqm": 46.98,
-              "floor": 3
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-광명시하안주공5단지",
@@ -7705,129 +4672,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 2810,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공5",
-        "dongName": "하안동",
-        "contractDate": "2026-06-05",
-        "priceManwon": 70000,
-        "areaSqm": 59.39,
-        "floor": 10
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 46,
-          "areaLabel": "전용 46㎡ · 약 14평",
-          "representativeAreaSqm": 45.77,
-          "count": 12,
-          "averagePriceManwon": 37854,
-          "minPriceManwon": 34900,
-          "maxPriceManwon": 41700,
-          "latestPriceManwon": 41700,
-          "latestContractDate": "2026-01-05",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2026-01-05",
-              "priceManwon": 41700,
-              "areaSqm": 45.77,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2025-11-25",
-              "priceManwon": 38500,
-              "areaSqm": 45.77,
-              "floor": 12
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2025-10-14",
-              "priceManwon": 40000,
-              "areaSqm": 45.77,
-              "floor": 9
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.68,
-          "count": 35,
-          "averagePriceManwon": 54777,
-          "minPriceManwon": 41800,
-          "maxPriceManwon": 70000,
-          "latestPriceManwon": 70000,
-          "latestContractDate": "2026-06-05",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 70000,
-              "areaSqm": 59.39,
-              "floor": 10
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2026-05-30",
-              "priceManwon": 69000,
-              "areaSqm": 58.01,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2026-05-19",
-              "priceManwon": 41800,
-              "areaSqm": 59.39,
-              "floor": 8
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 79,
-          "areaLabel": "전용 79㎡ · 약 24평",
-          "representativeAreaSqm": 79.07,
-          "count": 12,
-          "averagePriceManwon": 67458,
-          "minPriceManwon": 57000,
-          "maxPriceManwon": 83000,
-          "latestPriceManwon": 83000,
-          "latestContractDate": "2026-04-04",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2026-04-04",
-              "priceManwon": 83000,
-              "areaSqm": 79.07,
-              "floor": 10
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2025-11-17",
-              "priceManwon": 77000,
-              "areaSqm": 79.07,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공5",
-              "dongName": "하안동",
-              "contractDate": "2025-10-15",
-              "priceManwon": 57000,
-              "areaSqm": 79.07,
-              "floor": 4
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-광명시하안주공3,4단지",
@@ -7854,203 +4702,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 4119,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공4",
-        "dongName": "하안동",
-        "contractDate": "2026-07-10",
-        "priceManwon": 83500,
-        "areaSqm": 58.01,
-        "floor": 9
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.17,
-          "count": 16,
-          "averagePriceManwon": 39031,
-          "minPriceManwon": 32000,
-          "maxPriceManwon": 51000,
-          "latestPriceManwon": 51000,
-          "latestContractDate": "2026-06-24",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-06-24",
-              "priceManwon": 51000,
-              "areaSqm": 36.16,
-              "floor": 13
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-04-22",
-              "priceManwon": 48000,
-              "areaSqm": 36.16,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-03-20",
-              "priceManwon": 48000,
-              "areaSqm": 36.16,
-              "floor": 8
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 19,
-          "averagePriceManwon": 40626,
-          "minPriceManwon": 27600,
-          "maxPriceManwon": 58000,
-          "latestPriceManwon": 58000,
-          "latestContractDate": "2026-06-02",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-06-02",
-              "priceManwon": 58000,
-              "areaSqm": 41.3,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-01-05",
-              "priceManwon": 51000,
-              "areaSqm": 41.3,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2025-10-15",
-              "priceManwon": 40500,
-              "areaSqm": 41.3,
-              "floor": 2
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 46,
-          "areaLabel": "전용 46㎡ · 약 14평",
-          "representativeAreaSqm": 45.75,
-          "count": 22,
-          "averagePriceManwon": 42823,
-          "minPriceManwon": 39500,
-          "maxPriceManwon": 52500,
-          "latestPriceManwon": 52500,
-          "latestContractDate": "2026-06-02",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공4",
-              "dongName": "하안동",
-              "contractDate": "2026-06-02",
-              "priceManwon": 52500,
-              "areaSqm": 45.77,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공4",
-              "dongName": "하안동",
-              "contractDate": "2026-02-01",
-              "priceManwon": 45000,
-              "areaSqm": 45.77,
-              "floor": 12
-            },
-            {
-              "apartmentName": "주공4",
-              "dongName": "하안동",
-              "contractDate": "2025-12-10",
-              "priceManwon": 45000,
-              "areaSqm": 45.77,
-              "floor": 3
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 19,
-          "averagePriceManwon": 54679,
-          "minPriceManwon": 45000,
-          "maxPriceManwon": 70000,
-          "latestPriceManwon": 67900,
-          "latestContractDate": "2026-06-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-06-11",
-              "priceManwon": 67900,
-              "areaSqm": 49.94,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-06-01",
-              "priceManwon": 70000,
-              "areaSqm": 49.94,
-              "floor": 13
-            },
-            {
-              "apartmentName": "주공3",
-              "dongName": "하안동",
-              "contractDate": "2026-04-10",
-              "priceManwon": 66000,
-              "areaSqm": 49.94,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.81,
-          "count": 12,
-          "averagePriceManwon": 62517,
-          "minPriceManwon": 45000,
-          "maxPriceManwon": 83500,
-          "latestPriceManwon": 83500,
-          "latestContractDate": "2026-07-10",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공4",
-              "dongName": "하안동",
-              "contractDate": "2026-07-10",
-              "priceManwon": 83500,
-              "areaSqm": 58.01,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공4",
-              "dongName": "하안동",
-              "contractDate": "2026-04-25",
-              "priceManwon": 70000,
-              "areaSqm": 59.39,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공4",
-              "dongName": "하안동",
-              "contractDate": "2026-02-20",
-              "priceManwon": 69500,
-              "areaSqm": 58.01,
-              "floor": 15
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-광명시하안주공6,7단지",
@@ -8077,240 +4732,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 3263,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공7",
-        "dongName": "하안동",
-        "contractDate": "2026-06-13",
-        "priceManwon": 74000,
-        "areaSqm": 58.01,
-        "floor": 5
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 25,
-          "averagePriceManwon": 36912,
-          "minPriceManwon": 24000,
-          "maxPriceManwon": 50000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-05-20",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2026-05-20",
-              "priceManwon": 50000,
-              "areaSqm": 36.16,
-              "floor": 6
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 49000,
-              "areaSqm": 36.16,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2025-11-19",
-              "priceManwon": 36000,
-              "areaSqm": 36.16,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 9,
-          "averagePriceManwon": 42433,
-          "minPriceManwon": 38000,
-          "maxPriceManwon": 46000,
-          "latestPriceManwon": 46000,
-          "latestContractDate": "2026-01-13",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2026-01-13",
-              "priceManwon": 46000,
-              "areaSqm": 41.3,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2025-10-17",
-              "priceManwon": 39100,
-              "areaSqm": 41.3,
-              "floor": 14
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2025-10-15",
-              "priceManwon": 45000,
-              "areaSqm": 41.3,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 46,
-          "areaLabel": "전용 46㎡ · 약 14평",
-          "representativeAreaSqm": 45.77,
-          "count": 14,
-          "averagePriceManwon": 45643,
-          "minPriceManwon": 38000,
-          "maxPriceManwon": 61500,
-          "latestPriceManwon": 61500,
-          "latestContractDate": "2026-06-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2026-06-11",
-              "priceManwon": 61500,
-              "areaSqm": 45.77,
-              "floor": 10
-            },
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2026-03-27",
-              "priceManwon": 59000,
-              "areaSqm": 45.77,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2026-02-19",
-              "priceManwon": 55000,
-              "areaSqm": 45.77,
-              "floor": 10
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 10,
-          "averagePriceManwon": 51890,
-          "minPriceManwon": 36000,
-          "maxPriceManwon": 70000,
-          "latestPriceManwon": 70000,
-          "latestContractDate": "2026-04-28",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2026-04-28",
-              "priceManwon": 70000,
-              "areaSqm": 49.94,
-              "floor": 10
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2025-12-04",
-              "priceManwon": 55000,
-              "areaSqm": 49.94,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공6",
-              "dongName": "하안동",
-              "contractDate": "2025-10-19",
-              "priceManwon": 49900,
-              "areaSqm": 49.94,
-              "floor": 15
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.82,
-          "count": 17,
-          "averagePriceManwon": 60965,
-          "minPriceManwon": 52500,
-          "maxPriceManwon": 74000,
-          "latestPriceManwon": 74000,
-          "latestContractDate": "2026-06-13",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2026-06-13",
-              "priceManwon": 74000,
-              "areaSqm": 58.01,
-              "floor": 5
-            },
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2026-03-27",
-              "priceManwon": 72500,
-              "areaSqm": 58.01,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2026-02-19",
-              "priceManwon": 68000,
-              "areaSqm": 58.01,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 79,
-          "areaLabel": "전용 79㎡ · 약 24평",
-          "representativeAreaSqm": 79.07,
-          "count": 3,
-          "averagePriceManwon": 79000,
-          "minPriceManwon": 75000,
-          "maxPriceManwon": 85000,
-          "latestPriceManwon": 85000,
-          "latestContractDate": "2025-11-21",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2025-11-21",
-              "priceManwon": 85000,
-              "areaSqm": 79.07,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2025-08-26",
-              "priceManwon": 77000,
-              "areaSqm": 79.07,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공7",
-              "dongName": "하안동",
-              "contractDate": "2025-08-07",
-              "priceManwon": 75000,
-              "areaSqm": 79.07,
-              "floor": 12
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-광명시하안주공9단지",
@@ -8336,92 +4761,10 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": 2198,
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공9",
-        "dongName": "하안동",
-        "contractDate": "2026-06-27",
-        "priceManwon": 80000,
-        "areaSqm": 59.39,
-        "floor": 6
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 46,
-          "areaLabel": "전용 46㎡ · 약 14평",
-          "representativeAreaSqm": 45.77,
-          "count": 21,
-          "averagePriceManwon": 45512,
-          "minPriceManwon": 35000,
-          "maxPriceManwon": 60000,
-          "latestPriceManwon": 58000,
-          "latestContractDate": "2026-06-12",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-06-12",
-              "priceManwon": 58000,
-              "areaSqm": 45.77,
-              "floor": 10
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-05-09",
-              "priceManwon": 57000,
-              "areaSqm": 45.77,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 60000,
-              "areaSqm": 45.77,
-              "floor": 11
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 59,
-          "areaLabel": "전용 59㎡ · 약 18평",
-          "representativeAreaSqm": 58.64,
-          "count": 24,
-          "averagePriceManwon": 58663,
-          "minPriceManwon": 37000,
-          "maxPriceManwon": 80000,
-          "latestPriceManwon": 80000,
-          "latestContractDate": "2026-06-27",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 80000,
-              "areaSqm": 59.39,
-              "floor": 6
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-04-17",
-              "priceManwon": 68800,
-              "areaSqm": 58.01,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공9",
-              "dongName": "하안동",
-              "contractDate": "2026-03-25",
-              "priceManwon": 69500,
-              "areaSqm": 58.01,
-              "floor": 3
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     },
     {
       "id": "official-광명시하안주공1011단지",
@@ -8451,48 +4794,48 @@
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
-        "apartmentName": "주공1",
+        "apartmentName": "주공10",
         "dongName": "하안동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 69000,
-        "areaSqm": 49.94,
-        "floor": 4
+        "contractDate": "2026-07-09",
+        "priceManwon": 79800,
+        "areaSqm": 59.39,
+        "floor": 10
       },
       "areaPrices": [
         {
           "areaTypeSqm": 36,
           "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 99,
-          "averagePriceManwon": 39832,
-          "minPriceManwon": 21000,
+          "representativeAreaSqm": 36.17,
+          "count": 18,
+          "averagePriceManwon": 39494,
+          "minPriceManwon": 34800,
           "maxPriceManwon": 55000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-07-03",
+          "latestPriceManwon": 54000,
+          "latestContractDate": "2026-06-20",
           "recentTransactions": [
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 50000,
+              "contractDate": "2026-06-20",
+              "priceManwon": 54000,
               "areaSqm": 36.16,
-              "floor": 8
+              "floor": 6
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 47800,
+              "contractDate": "2026-06-01",
+              "priceManwon": 55000,
               "areaSqm": 36.16,
-              "floor": 1
+              "floor": 10
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-06-26",
-              "priceManwon": 49800,
+              "contractDate": "2025-12-13",
+              "priceManwon": 39000,
               "areaSqm": 36.16,
-              "floor": 13
+              "floor": 14
             }
           ]
         },
@@ -8500,34 +4843,34 @@
           "areaTypeSqm": 41,
           "areaLabel": "전용 41㎡ · 약 12평",
           "representativeAreaSqm": 41.3,
-          "count": 85,
-          "averagePriceManwon": 44958,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 54700,
-          "latestPriceManwon": 54500,
-          "latestContractDate": "2026-06-23",
+          "count": 18,
+          "averagePriceManwon": 41883,
+          "minPriceManwon": 38000,
+          "maxPriceManwon": 45000,
+          "latestPriceManwon": 43000,
+          "latestContractDate": "2025-12-04",
           "recentTransactions": [
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54500,
+              "contractDate": "2025-12-04",
+              "priceManwon": 43000,
               "areaSqm": 41.3,
-              "floor": 11
+              "floor": 10
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 54700,
+              "contractDate": "2025-10-15",
+              "priceManwon": 41000,
               "areaSqm": 41.3,
               "floor": 9
             },
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-05-26",
-              "priceManwon": 53500,
+              "contractDate": "2025-10-13",
+              "priceManwon": 45000,
               "areaSqm": 41.3,
               "floor": 13
             }
@@ -8574,36 +4917,36 @@
           "areaTypeSqm": 49,
           "areaLabel": "전용 49㎡ · 약 15평",
           "representativeAreaSqm": 49.94,
-          "count": 112,
-          "averagePriceManwon": 58770,
-          "minPriceManwon": 45000,
+          "count": 17,
+          "averagePriceManwon": 62035,
+          "minPriceManwon": 53000,
           "maxPriceManwon": 74000,
-          "latestPriceManwon": 69000,
-          "latestContractDate": "2026-07-11",
+          "latestPriceManwon": 73000,
+          "latestContractDate": "2026-05-21",
           "recentTransactions": [
             {
-              "apartmentName": "주공1",
+              "apartmentName": "주공11",
               "dongName": "하안동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 69000,
-              "areaSqm": 49.94,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 71800,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 60000,
+              "contractDate": "2026-05-21",
+              "priceManwon": 73000,
               "areaSqm": 49.94,
               "floor": 12
+            },
+            {
+              "apartmentName": "주공11",
+              "dongName": "하안동",
+              "contractDate": "2026-05-20",
+              "priceManwon": 73300,
+              "areaSqm": 49.94,
+              "floor": 8
+            },
+            {
+              "apartmentName": "주공11",
+              "dongName": "하안동",
+              "contractDate": "2026-05-19",
+              "priceManwon": 74000,
+              "areaSqm": 49.94,
+              "floor": 15
             }
           ]
         },
@@ -8710,88 +5053,14 @@
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
-        "apartmentName": "주공1",
-        "dongName": "하안동",
-        "contractDate": "2026-07-11",
-        "priceManwon": 69000,
-        "areaSqm": 49.94,
-        "floor": 4
+        "apartmentName": "주공12",
+        "dongName": "철산동",
+        "contractDate": "2026-07-03",
+        "priceManwon": 153000,
+        "areaSqm": 84.97,
+        "floor": 13
       },
       "areaPrices": [
-        {
-          "areaTypeSqm": 36,
-          "areaLabel": "전용 36㎡ · 약 11평",
-          "representativeAreaSqm": 36.19,
-          "count": 81,
-          "averagePriceManwon": 39907,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 50000,
-          "latestPriceManwon": 50000,
-          "latestContractDate": "2026-07-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-03",
-              "priceManwon": 50000,
-              "areaSqm": 36.16,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 47800,
-              "areaSqm": 36.16,
-              "floor": 1
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-26",
-              "priceManwon": 49800,
-              "areaSqm": 36.16,
-              "floor": 13
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 67,
-          "averagePriceManwon": 45783,
-          "minPriceManwon": 26000,
-          "maxPriceManwon": 54700,
-          "latestPriceManwon": 54500,
-          "latestContractDate": "2026-06-23",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-23",
-              "priceManwon": 54500,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-05",
-              "priceManwon": 54700,
-              "areaSqm": 41.3,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-05-26",
-              "priceManwon": 53500,
-              "areaSqm": 41.3,
-              "floor": 13
-            }
-          ]
-        },
         {
           "areaTypeSqm": 45,
           "areaLabel": "전용 45㎡ · 약 14평",
@@ -8826,43 +5095,6 @@
               "priceManwon": 63800,
               "areaSqm": 44.89,
               "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 95,
-          "averagePriceManwon": 58186,
-          "minPriceManwon": 45000,
-          "maxPriceManwon": 71800,
-          "latestPriceManwon": 69000,
-          "latestContractDate": "2026-07-11",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-11",
-              "priceManwon": 69000,
-              "areaSqm": 49.94,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-07-09",
-              "priceManwon": 71800,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공1",
-              "dongName": "하안동",
-              "contractDate": "2026-06-27",
-              "priceManwon": 60000,
-              "areaSqm": 49.94,
-              "floor": 12
             }
           ]
         },
@@ -9161,7 +5393,8 @@
       "mapQuery": "경기도 수원팔달구 우만1구역(우만주공1,2단지)",
       "lawdCd": "41115",
       "matchNames": [
-        "우만주공1,2단지"
+        "우만주공1단지",
+        "우만주공2단지"
       ],
       "matchMethod": "name-derived",
       "stage": "정비구역지정",
@@ -9171,10 +5404,298 @@
       "sourceLabel": "국토교통부 공식 데이터",
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
-      "priceStatus": "empty",
-      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
-      "latestTransaction": null,
-      "areaPrices": []
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "우만주공2단지",
+        "dongName": "우만동",
+        "contractDate": "2026-07-02",
+        "priceManwon": 46500,
+        "areaSqm": 49.94,
+        "floor": 2
+      },
+      "areaPrices": [
+        {
+          "areaTypeSqm": 39,
+          "areaLabel": "전용 39㎡ · 약 12평",
+          "representativeAreaSqm": 38.52,
+          "count": 7,
+          "averagePriceManwon": 34571,
+          "minPriceManwon": 32000,
+          "maxPriceManwon": 37000,
+          "latestPriceManwon": 35500,
+          "latestContractDate": "2026-06-20",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공1단지",
+              "dongName": "우만동",
+              "contractDate": "2026-06-20",
+              "priceManwon": 35500,
+              "areaSqm": 38.52,
+              "floor": 5
+            },
+            {
+              "apartmentName": "우만주공1단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-22",
+              "priceManwon": 34000,
+              "areaSqm": 38.52,
+              "floor": 3
+            },
+            {
+              "apartmentName": "우만주공1단지",
+              "dongName": "우만동",
+              "contractDate": "2026-04-30",
+              "priceManwon": 35500,
+              "areaSqm": 38.52,
+              "floor": 5
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 41,
+          "areaLabel": "전용 41㎡ · 약 12평",
+          "representativeAreaSqm": 41.3,
+          "count": 5,
+          "averagePriceManwon": 39200,
+          "minPriceManwon": 38000,
+          "maxPriceManwon": 40000,
+          "latestPriceManwon": 40000,
+          "latestContractDate": "2026-04-06",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-04-06",
+              "priceManwon": 40000,
+              "areaSqm": 41.3,
+              "floor": 4
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-03-28",
+              "priceManwon": 39000,
+              "areaSqm": 41.3,
+              "floor": 6
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-03-14",
+              "priceManwon": 40000,
+              "areaSqm": 41.3,
+              "floor": 11
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 46,
+          "areaLabel": "전용 46㎡ · 약 14평",
+          "representativeAreaSqm": 45.84,
+          "count": 7,
+          "averagePriceManwon": 40000,
+          "minPriceManwon": 37250,
+          "maxPriceManwon": 42000,
+          "latestPriceManwon": 40000,
+          "latestContractDate": "2026-06-20",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-06-20",
+              "priceManwon": 40000,
+              "areaSqm": 45.77,
+              "floor": 4
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-06-04",
+              "priceManwon": 38750,
+              "areaSqm": 45.77,
+              "floor": 8
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-04-12",
+              "priceManwon": 40000,
+              "areaSqm": 45.9,
+              "floor": 5
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 47,
+          "areaLabel": "전용 47㎡ · 약 14평",
+          "representativeAreaSqm": 47.25,
+          "count": 7,
+          "averagePriceManwon": 42714,
+          "minPriceManwon": 39000,
+          "maxPriceManwon": 44500,
+          "latestPriceManwon": 44000,
+          "latestContractDate": "2026-05-20",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공1단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-20",
+              "priceManwon": 44000,
+              "areaSqm": 47.25,
+              "floor": 3
+            },
+            {
+              "apartmentName": "우만주공1단지",
+              "dongName": "우만동",
+              "contractDate": "2026-04-22",
+              "priceManwon": 43500,
+              "areaSqm": 47.25,
+              "floor": 4
+            },
+            {
+              "apartmentName": "우만주공1단지",
+              "dongName": "우만동",
+              "contractDate": "2026-02-11",
+              "priceManwon": 44000,
+              "areaSqm": 47.25,
+              "floor": 4
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 49,
+          "areaLabel": "전용 49㎡ · 약 15평",
+          "representativeAreaSqm": 49.94,
+          "count": 22,
+          "averagePriceManwon": 45118,
+          "minPriceManwon": 29400,
+          "maxPriceManwon": 48300,
+          "latestPriceManwon": 46500,
+          "latestContractDate": "2026-07-02",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-07-02",
+              "priceManwon": 46500,
+              "areaSqm": 49.94,
+              "floor": 2
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-29",
+              "priceManwon": 46500,
+              "areaSqm": 49.94,
+              "floor": 15
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-01",
+              "priceManwon": 46500,
+              "areaSqm": 49.94,
+              "floor": 12
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 59,
+          "areaLabel": "전용 59㎡ · 약 18평",
+          "representativeAreaSqm": 58.32,
+          "count": 18,
+          "averagePriceManwon": 55339,
+          "minPriceManwon": 53000,
+          "maxPriceManwon": 57800,
+          "latestPriceManwon": 54000,
+          "latestContractDate": "2026-06-01",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-06-01",
+              "priceManwon": 54000,
+              "areaSqm": 58.01,
+              "floor": 3
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-27",
+              "priceManwon": 55000,
+              "areaSqm": 58.01,
+              "floor": 4
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-21",
+              "priceManwon": 56000,
+              "areaSqm": 58.01,
+              "floor": 15
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 62,
+          "areaLabel": "전용 62㎡ · 약 19평",
+          "representativeAreaSqm": 61.52,
+          "count": 2,
+          "averagePriceManwon": 53150,
+          "minPriceManwon": 51000,
+          "maxPriceManwon": 55300,
+          "latestPriceManwon": 55300,
+          "latestContractDate": "2026-05-27",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-05-27",
+              "priceManwon": 55300,
+              "areaSqm": 61.52,
+              "floor": 2
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2025-10-17",
+              "priceManwon": 51000,
+              "areaSqm": 61.52,
+              "floor": 3
+            }
+          ]
+        },
+        {
+          "areaTypeSqm": 67,
+          "areaLabel": "전용 67㎡ · 약 20평",
+          "representativeAreaSqm": 66.56,
+          "count": 2,
+          "averagePriceManwon": 61750,
+          "minPriceManwon": 58500,
+          "maxPriceManwon": 65000,
+          "latestPriceManwon": 65000,
+          "latestContractDate": "2026-03-30",
+          "recentTransactions": [
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2026-03-30",
+              "priceManwon": 65000,
+              "areaSqm": 66.56,
+              "floor": 6
+            },
+            {
+              "apartmentName": "우만주공2단지",
+              "dongName": "우만동",
+              "contractDate": "2025-12-21",
+              "priceManwon": 58500,
+              "areaSqm": 66.56,
+              "floor": 6
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "official-안산상록구월피연립1",
@@ -9372,203 +5893,10 @@
       "projectType": "재건축(공동주택)",
       "supplyHouseholds": null,
       "matchMethod": "verified",
-      "priceStatus": "ok",
-      "priceMessage": "",
-      "latestTransaction": {
-        "apartmentName": "주공",
-        "dongName": "원천동",
-        "contractDate": "2026-06-25",
-        "priceManwon": 35000,
-        "areaSqm": 41.3,
-        "floor": 11
-      },
-      "areaPrices": [
-        {
-          "areaTypeSqm": 32,
-          "areaLabel": "전용 32㎡ · 약 10평",
-          "representativeAreaSqm": 32.39,
-          "count": 19,
-          "averagePriceManwon": 26916,
-          "minPriceManwon": 21000,
-          "maxPriceManwon": 29000,
-          "latestPriceManwon": 24500,
-          "latestContractDate": "2026-05-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-25",
-              "priceManwon": 24500,
-              "areaSqm": 32.39,
-              "floor": 3
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-23",
-              "priceManwon": 26500,
-              "areaSqm": 32.39,
-              "floor": 9
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-12",
-              "priceManwon": 28000,
-              "areaSqm": 32.39,
-              "floor": 6
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 41,
-          "areaLabel": "전용 41㎡ · 약 12평",
-          "representativeAreaSqm": 41.3,
-          "count": 28,
-          "averagePriceManwon": 34450,
-          "minPriceManwon": 27000,
-          "maxPriceManwon": 37000,
-          "latestPriceManwon": 35000,
-          "latestContractDate": "2026-06-25",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-25",
-              "priceManwon": 35000,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-15",
-              "priceManwon": 34400,
-              "areaSqm": 41.3,
-              "floor": 11
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-13",
-              "priceManwon": 36500,
-              "areaSqm": 41.3,
-              "floor": 7
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 49,
-          "areaLabel": "전용 49㎡ · 약 15평",
-          "representativeAreaSqm": 49.94,
-          "count": 12,
-          "averagePriceManwon": 40992,
-          "minPriceManwon": 38000,
-          "maxPriceManwon": 44000,
-          "latestPriceManwon": 41000,
-          "latestContractDate": "2026-04-24",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-24",
-              "priceManwon": 41000,
-              "areaSqm": 49.94,
-              "floor": 14
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-13",
-              "priceManwon": 40000,
-              "areaSqm": 49.94,
-              "floor": 15
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-04-06",
-              "priceManwon": 40000,
-              "areaSqm": 49.94,
-              "floor": 14
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 62,
-          "areaLabel": "전용 62㎡ · 약 19평",
-          "representativeAreaSqm": 61.52,
-          "count": 3,
-          "averagePriceManwon": 48000,
-          "minPriceManwon": 36000,
-          "maxPriceManwon": 56000,
-          "latestPriceManwon": 56000,
-          "latestContractDate": "2026-06-03",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-06-03",
-              "priceManwon": 56000,
-              "areaSqm": 61.52,
-              "floor": 4
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-08",
-              "priceManwon": 36000,
-              "areaSqm": 61.52,
-              "floor": 13
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-05-07",
-              "priceManwon": 52000,
-              "areaSqm": 61.52,
-              "floor": 12
-            }
-          ]
-        },
-        {
-          "areaTypeSqm": 67,
-          "areaLabel": "전용 67㎡ · 약 20평",
-          "representativeAreaSqm": 66.56,
-          "count": 3,
-          "averagePriceManwon": 57467,
-          "minPriceManwon": 56900,
-          "maxPriceManwon": 58500,
-          "latestPriceManwon": 56900,
-          "latestContractDate": "2026-02-28",
-          "recentTransactions": [
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-02-28",
-              "priceManwon": 56900,
-              "areaSqm": 66.56,
-              "floor": 8
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-02-24",
-              "priceManwon": 58500,
-              "areaSqm": 66.56,
-              "floor": 7
-            },
-            {
-              "apartmentName": "주공",
-              "dongName": "원천동",
-              "contractDate": "2026-01-19",
-              "priceManwon": 57000,
-              "areaSqm": 66.56,
-              "floor": 5
-            }
-          ]
-        }
-      ]
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null,
+      "areaPrices": []
     }
   ]
 }
