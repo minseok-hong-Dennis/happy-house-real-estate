@@ -254,7 +254,13 @@ function matchesTarget(name, target) {
   const normalized = normalizedName(name);
   return target.matchNames.some((candidate) => {
     const expected = normalizedName(candidate);
-    return normalized === expected || normalized.includes(expected) || expected.includes(normalized);
+    if (normalized === expected || normalized.includes(expected)) return true;
+    if (!expected.includes(normalized)) return false;
+    const nameNumbers = normalized.match(/\d+/g) || [];
+    const expectedNumbers = expected.match(/\d+/g) || [];
+    if (nameNumbers.join(',') !== expectedNumbers.join(',')) return false;
+    const minimumLength = nameNumbers.length ? 3 : 4;
+    return normalized.length >= minimumLength && normalized.length / expected.length >= 0.45;
   });
 }
 
@@ -563,6 +569,13 @@ function deriveProjectMatchNames(zoneName) {
       .replace(/재건축정비구역|재건축사업|정비구역|재건축|구역$/g, '')
       .replace(/아파트$/g, '')
       .trim();
+    const paired = cleaned.match(/^(.+?)(\d+)\s*[,·ㆍ]\s*(\d+)(단지)?/);
+    if (paired) {
+      const suffix = paired[4] || '단지';
+      addCandidate(paired[1] + paired[2] + suffix);
+      addCandidate(paired[1] + paired[3] + suffix);
+      return;
+    }
     if (normalizedName(cleaned).length >= 4) candidates.push(cleaned);
   };
 
@@ -570,13 +583,7 @@ function deriveProjectMatchNames(zoneName) {
     match[1].split(/[+·ㆍ/]/).forEach(addCandidate);
   }
   const withoutParentheses = zoneName.replace(/\([^)]*\)/g, '').trim();
-  const paired = withoutParentheses.match(/^(.+?)(\d+)\s*[,·ㆍ]\s*(\d+)(단지)?/);
-  if (paired) {
-    addCandidate(paired[1] + paired[2] + (paired[4] || '단지'));
-    addCandidate(paired[1] + paired[3] + (paired[4] || '단지'));
-  } else {
-    addCandidate(withoutParentheses);
-  }
+  addCandidate(withoutParentheses);
   return [...new Set(candidates)];
 }
 
