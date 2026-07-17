@@ -1,8 +1,8 @@
 {
-  "status": "error",
+  "status": "ok",
   "sync": {
-    "lastSuccessfulAt": null,
-    "message": "일부 단지의 실거래가를 불러오지 못했어요."
+    "lastSuccessfulAt": "2026-07-17 20:39 KST",
+    "message": ""
   },
   "items": [
     {
@@ -19,9 +19,15 @@
       "remainingEstimate": "준공까지 약 2~4년 추정",
       "sourceUrl": "https://wonnam.co.kr/yeongtong-2-district-xi-ipark-2026-location-analysis/",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
-      "latestTransaction": null
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공",
+        "contractDate": "2026-06-25",
+        "priceManwon": 35000,
+        "areaSqm": 41.3,
+        "floor": 11
+      }
     },
     {
       "id": "gwacheon-10",
@@ -37,9 +43,15 @@
       "remainingEstimate": "이주까지 약 1년 · 입주는 이후 일정 확인",
       "sourceUrl": "https://realty.chosun.com/site/data/html_dir/2025/04/03/2025040301944.html",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
-      "latestTransaction": null
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공10",
+        "contractDate": "2026-05-23",
+        "priceManwon": 300000,
+        "areaSqm": 124.45,
+        "floor": 1
+      }
     },
     {
       "id": "sanbon-11",
@@ -55,9 +67,15 @@
       "remainingEstimate": "준공까지 약 6~8년 이상 추정",
       "sourceUrl": "https://newstown.co.kr/news/articleView.html?idxno=705409",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
-      "latestTransaction": null
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공11",
+        "contractDate": "2026-07-11",
+        "priceManwon": 41500,
+        "areaSqm": 41.3,
+        "floor": 15
+      }
     },
     {
       "id": "bundang-yangji",
@@ -73,8 +91,8 @@
       "remainingEstimate": "준공까지 약 7~10년 이상 추정",
       "sourceUrl": "https://v.daum.net/v/prfWglQ9Ww",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 단지명과 일치하는 신고 거래가 없어요.",
       "latestTransaction": null
     }
   ]
