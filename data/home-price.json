@@ -5,21 +5,26 @@
     "lawdCd": "41115",
     "matchNames": [
       "힐스테이트푸르지오수원"
-    ]
+    ],
+    "areaLabel": "전용 59㎡형",
+    "areaRangeSqm": {
+      "min": 59,
+      "max": 60
+    }
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-17 20:39 KST"
+    "lastSuccessfulAt": "2026-07-17 22:29 KST"
   },
   "recentTransactions": {
     "status": "ok",
     "message": "",
-    "periodLabel": "최근 3개월 계약일 기준 · 68건",
+    "periodLabel": "최근 3개월 계약일 기준 · 전용 59㎡형 · 28건",
     "summary": {
-      "count": 68,
-      "averagePriceManwon": 69918,
-      "minPriceManwon": 39200,
-      "maxPriceManwon": 108000,
+      "count": 28,
+      "averagePriceManwon": 75146,
+      "minPriceManwon": 64500,
+      "maxPriceManwon": 83000,
       "latestPriceManwon": 83000
     },
     "records": [
@@ -53,38 +58,10 @@
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-07-09",
-        "priceManwon": 93000,
-        "areaSqm": 84.91,
-        "floor": 14
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-07-08",
-        "priceManwon": 95000,
-        "areaSqm": 84.91,
-        "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-07-08",
-        "priceManwon": 39200,
-        "areaSqm": 39.74,
-        "floor": 2
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-07-04",
         "priceManwon": 79700,
         "areaSqm": 59.88,
         "floor": 4
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-07-02",
-        "priceManwon": 93000,
-        "areaSqm": 84.91,
-        "floor": 14
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -95,59 +72,10 @@
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-29",
-        "priceManwon": 91500,
-        "areaSqm": 84.91,
-        "floor": 6
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-27",
-        "priceManwon": 43500,
-        "areaSqm": 43.46,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-25",
-        "priceManwon": 46800,
-        "areaSqm": 43.46,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-06-24",
         "priceManwon": 80000,
         "areaSqm": 59.88,
         "floor": 11
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-24",
-        "priceManwon": 81000,
-        "areaSqm": 74.96,
-        "floor": 2
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-22",
-        "priceManwon": 43000,
-        "areaSqm": 39.74,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-22",
-        "priceManwon": 43000,
-        "areaSqm": 39.74,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-19",
-        "priceManwon": 85000,
-        "areaSqm": 74.96,
-        "floor": 7
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -158,45 +86,10 @@
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-11",
-        "priceManwon": 85000,
-        "areaSqm": 84.91,
-        "floor": 1
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-06-09",
         "priceManwon": 79000,
         "areaSqm": 59.95,
         "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-09",
-        "priceManwon": 44900,
-        "areaSqm": 39.74,
-        "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-08",
-        "priceManwon": 108000,
-        "areaSqm": 98.99,
-        "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-08",
-        "priceManwon": 108000,
-        "areaSqm": 98.99,
-        "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-06",
-        "priceManwon": 43000,
-        "areaSqm": 39.74,
-        "floor": 5
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -207,108 +100,10 @@
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-05",
-        "priceManwon": 84500,
-        "areaSqm": 74.96,
-        "floor": 11
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-03",
-        "priceManwon": 67000,
-        "areaSqm": 49.92,
-        "floor": 6
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-06-02",
-        "priceManwon": 89000,
-        "areaSqm": 84.91,
-        "floor": 11
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-31",
-        "priceManwon": 63500,
-        "areaSqm": 49.92,
-        "floor": 9
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-30",
-        "priceManwon": 41250,
-        "areaSqm": 43.46,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-30",
-        "priceManwon": 83000,
-        "areaSqm": 74.96,
-        "floor": 4
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-29",
-        "priceManwon": 44000,
-        "areaSqm": 39.74,
-        "floor": 8
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-29",
-        "priceManwon": 95000,
-        "areaSqm": 84.91,
-        "floor": 14
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-05-27",
         "priceManwon": 77000,
         "areaSqm": 59.88,
         "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-25",
-        "priceManwon": 61300,
-        "areaSqm": 49.92,
-        "floor": 9
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-25",
-        "priceManwon": 59800,
-        "areaSqm": 49.92,
-        "floor": 4
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-23",
-        "priceManwon": 42000,
-        "areaSqm": 43.46,
-        "floor": 2
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-23",
-        "priceManwon": 83500,
-        "areaSqm": 74.96,
-        "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-22",
-        "priceManwon": 84500,
-        "areaSqm": 84.91,
-        "floor": 3
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-21",
-        "priceManwon": 45400,
-        "areaSqm": 43.46,
-        "floor": 6
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -323,20 +118,6 @@
         "priceManwon": 79000,
         "areaSqm": 59.88,
         "floor": 11
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-18",
-        "priceManwon": 41500,
-        "areaSqm": 39.74,
-        "floor": 13
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-16",
-        "priceManwon": 39500,
-        "areaSqm": 43.46,
-        "floor": 1
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -368,20 +149,6 @@
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-13",
-        "priceManwon": 63000,
-        "areaSqm": 49.92,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-13",
-        "priceManwon": 46000,
-        "areaSqm": 49.92,
-        "floor": 12
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-05-11",
         "priceManwon": 72500,
         "areaSqm": 59.95,
@@ -389,31 +156,10 @@
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-11",
-        "priceManwon": 91000,
-        "areaSqm": 84.91,
-        "floor": 12
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-05-10",
         "priceManwon": 73700,
         "areaSqm": 59.88,
         "floor": 10
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-09",
-        "priceManwon": 45800,
-        "areaSqm": 43.46,
-        "floor": 8
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-09",
-        "priceManwon": 43100,
-        "areaSqm": 43.46,
-        "floor": 5
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -442,20 +188,6 @@
         "priceManwon": 72000,
         "areaSqm": 59.95,
         "floor": 14
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-06",
-        "priceManwon": 44000,
-        "areaSqm": 43.46,
-        "floor": 6
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-05",
-        "priceManwon": 64000,
-        "areaSqm": 49.92,
-        "floor": 2
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
@@ -488,13 +220,6 @@
       {
         "apartmentName": "힐스테이트푸르지오수원",
         "contractDate": "2026-05-01",
-        "priceManwon": 85800,
-        "areaSqm": 84.91,
-        "floor": 5
-      },
-      {
-        "apartmentName": "힐스테이트푸르지오수원",
-        "contractDate": "2026-05-01",
         "priceManwon": 75000,
         "areaSqm": 59.95,
         "floor": 13
@@ -507,5 +232,11 @@
     "message": "반복 수집이 허용된 매물 데이터 API를 연결하면 최신 매물가를 표시합니다.",
     "syncedAt": null,
     "items": []
+  },
+  "kbMarketPrice": {
+    "status": "not_available",
+    "sourceName": "KB부동산",
+    "message": "KB 시세 공개 API가 없어 현재는 직접 입력합니다.",
+    "syncedAt": null
   }
 }

@@ -1,48 +1,213 @@
 {
   "status": "ok",
+  "source": {
+    "name": "국토교통부 전국 도시정비사업 통합 데이터",
+    "transport": "공식 CSV",
+    "url": "https://www.data.go.kr/data/15160169/fileData.do"
+  },
   "sync": {
-    "lastSuccessfulAt": "2026-07-17 20:39 KST",
+    "lastSuccessfulAt": "2026-07-17 22:29 KST",
     "message": ""
   },
   "items": [
     {
-      "id": "yeongtong-2",
-      "name": "영통2구역 · 매탄주공4단지",
-      "location": "수원시 영통구 매탄동",
-      "lawdCd": "41117",
+      "id": "official-과천시주공4단지구역",
+      "name": "주공4단지구역",
+      "officialZoneName": "주공4단지구역",
+      "location": "경기도 과천시",
+      "lawdCd": "41290",
       "matchNames": [
-        "매탄주공4단지",
-        "매탄주공4"
+        "과천주공4단지",
+        "주공4단지"
       ],
-      "stage": "이주 · 철거 단계",
-      "milestone": "이주·철거 마무리 단계 보도",
+      "stage": "착공",
+      "milestone": "재건축(공동주택) · 조합",
       "remainingEstimate": "준공까지 약 2~4년 추정",
-      "sourceUrl": "https://wonnam.co.kr/yeongtong-2-district-xi-ipark-2026-location-analysis/",
-      "sourceLabel": "진행 정보 보기",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 1445,
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null
+    },
+    {
+      "id": "official-평택시합정주공",
+      "name": "합정주공",
+      "officialZoneName": "합정주공",
+      "location": "경기도 평택시",
+      "lawdCd": "41220",
+      "matchNames": [
+        "합정주공"
+      ],
+      "stage": "착공",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 2~4년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 1918,
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
         "apartmentName": "주공",
-        "contractDate": "2026-06-25",
-        "priceManwon": 35000,
+        "contractDate": "2026-06-17",
+        "priceManwon": 5450,
+        "areaSqm": 39.27,
+        "floor": 5
+      }
+    },
+    {
+      "id": "official-과천시주공8,9단지구역",
+      "name": "주공8,9단지구역",
+      "officialZoneName": "주공8,9단지구역",
+      "location": "경기도 과천시",
+      "lawdCd": "41290",
+      "matchNames": [
+        "주공8단지",
+        "주공9단지"
+      ],
+      "stage": "관리처분인가",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 3~6년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 2829,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공9",
+        "contractDate": "2026-02-12",
+        "priceManwon": 235000,
+        "areaSqm": 54.48,
+        "floor": 3
+      }
+    },
+    {
+      "id": "official-과천시과천주공5단지",
+      "name": "과천주공5단지",
+      "officialZoneName": "과천주공5단지",
+      "location": "경기도 과천시",
+      "lawdCd": "41290",
+      "matchNames": [
+        "과천주공5단지",
+        "주공5단지"
+      ],
+      "stage": "관리처분인가",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 3~6년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 1242,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공5",
+        "contractDate": "2025-10-15",
+        "priceManwon": 295000,
+        "areaSqm": 124.03,
+        "floor": 4
+      }
+    },
+    {
+      "id": "official-평택시송원,현대연립",
+      "name": "송원,현대연립",
+      "officialZoneName": "송원,현대연립",
+      "location": "경기도 평택시",
+      "lawdCd": "41220",
+      "matchNames": [
+        "송원연립",
+        "현대연립"
+      ],
+      "stage": "관리처분인가",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 3~6년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 259,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "현대",
+        "contractDate": "2026-06-30",
+        "priceManwon": 7500,
+        "areaSqm": 58.96,
+        "floor": 1
+      }
+    },
+    {
+      "id": "official-의왕시부곡다구역(우성5차아파트)",
+      "name": "부곡다구역(우성5차아파트)",
+      "officialZoneName": "부곡다구역(우성5차아파트)",
+      "location": "경기도 의왕시",
+      "lawdCd": "41430",
+      "matchNames": [
+        "우성5차"
+      ],
+      "stage": "사업시행인가",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 4~7년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 1511,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "우성5차",
+        "contractDate": "2026-01-19",
+        "priceManwon": 31300,
+        "areaSqm": 45.27,
+        "floor": 5
+      }
+    },
+    {
+      "id": "sanbon-11",
+      "name": "산본11구역 · 산본주공11단지",
+      "officialZoneName": "군포산본11",
+      "location": "군포시 산본동",
+      "lawdCd": "41410",
+      "matchNames": [
+        "산본주공11단지",
+        "주공11단지"
+      ],
+      "stage": "사업시행자지정",
+      "milestone": "재건축(공동주택) · 공공(LH,SH,GH)",
+      "remainingEstimate": "준공까지 약 4~7년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 3892,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공11",
+        "contractDate": "2026-07-11",
+        "priceManwon": 41500,
         "areaSqm": 41.3,
-        "floor": 11
+        "floor": 15
       }
     },
     {
       "id": "gwacheon-10",
       "name": "과천주공10단지",
+      "officialZoneName": "주공10단지구역",
       "location": "과천시 중앙동",
       "lawdCd": "41290",
       "matchNames": [
         "과천주공10단지",
         "주공10단지"
       ],
-      "stage": "조합 운영 · 이주 준비",
-      "milestone": "2027년 5월 이주 계획 보도",
-      "remainingEstimate": "이주까지 약 1년 · 입주는 이후 일정 확인",
-      "sourceUrl": "https://realty.chosun.com/site/data/html_dir/2025/04/03/2025040301944.html",
-      "sourceLabel": "진행 정보 보기",
+      "stage": "조합설립인가",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 6~10년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 1339,
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
@@ -54,28 +219,78 @@
       }
     },
     {
-      "id": "sanbon-11",
-      "name": "산본11구역 · 산본주공11단지",
-      "location": "군포시 산본동",
-      "lawdCd": "41410",
+      "id": "official-오산시오산원동주공아파트재건축정비구역",
+      "name": "오산원동주공아파트재건축정비구역",
+      "officialZoneName": "오산원동주공아파트재건축정비구역",
+      "location": "경기도 오산시",
+      "lawdCd": "41370",
       "matchNames": [
-        "산본주공11단지",
-        "주공11단지"
+        "원동주공"
       ],
-      "stage": "주민대표회의 구성 승인",
-      "milestone": "2026년 6월 구성 승인 보도",
-      "remainingEstimate": "준공까지 약 6~8년 이상 추정",
-      "sourceUrl": "https://newstown.co.kr/news/articleView.html?idxno=705409",
-      "sourceLabel": "진행 정보 보기",
+      "stage": "추진위구성",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 8~12년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 485,
       "priceStatus": "ok",
       "priceMessage": "",
       "latestTransaction": {
-        "apartmentName": "주공11",
-        "contractDate": "2026-07-11",
-        "priceManwon": 41500,
-        "areaSqm": 41.3,
-        "floor": 15
+        "apartmentName": "원동주공",
+        "contractDate": "2026-06-22",
+        "priceManwon": 15000,
+        "areaSqm": 46.98,
+        "floor": 1
       }
+    },
+    {
+      "id": "official-평택시서정3(송탄서정주공3단지아파트)",
+      "name": "서정3(송탄서정주공3단지아파트)",
+      "officialZoneName": "서정3(송탄서정주공3단지아파트)",
+      "location": "경기도 평택시",
+      "lawdCd": "41220",
+      "matchNames": [
+        "송탄서정주공3단지",
+        "서정주공3단지"
+      ],
+      "stage": "추진위구성",
+      "milestone": "재건축(공동주택) · 조합",
+      "remainingEstimate": "준공까지 약 8~12년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": null,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공",
+        "contractDate": "2026-06-17",
+        "priceManwon": 5450,
+        "areaSqm": 39.27,
+        "floor": 5
+      }
+    },
+    {
+      "id": "official-군포시군포산본92",
+      "name": "군포산본9-2",
+      "officialZoneName": "군포산본9-2",
+      "location": "경기도 군포시",
+      "lawdCd": "41410",
+      "matchNames": [
+        "산본주공9단지2차",
+        "주공9단지2차"
+      ],
+      "stage": "정비구역지정",
+      "milestone": "재건축(공동주택) · 공공(LH,SH,GH)",
+      "remainingEstimate": "준공까지 약 9~13년 추정",
+      "sourceUrl": "https://www.data.go.kr/data/15160169/fileData.do",
+      "sourceLabel": "국토교통부 공식 데이터",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": 3376,
+      "priceStatus": "empty",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
+      "latestTransaction": null
     },
     {
       "id": "bundang-yangji",
@@ -91,9 +306,37 @@
       "remainingEstimate": "준공까지 약 7~10년 이상 추정",
       "sourceUrl": "https://v.daum.net/v/prfWglQ9Ww",
       "sourceLabel": "진행 정보 보기",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": null,
       "priceStatus": "empty",
-      "priceMessage": "최근 12개월 내 단지명과 일치하는 신고 거래가 없어요.",
+      "priceMessage": "최근 12개월 내 신고 거래가 없어요.",
       "latestTransaction": null
+    },
+    {
+      "id": "yeongtong-2",
+      "name": "영통2구역 · 매탄주공4단지",
+      "location": "수원시 영통구 매탄동",
+      "lawdCd": "41117",
+      "matchNames": [
+        "매탄주공4단지",
+        "매탄주공4"
+      ],
+      "stage": "이주 · 철거 단계",
+      "milestone": "이주·철거 마무리 단계 보도",
+      "remainingEstimate": "준공까지 약 2~4년 추정",
+      "sourceUrl": "https://wonnam.co.kr/yeongtong-2-district-xi-ipark-2026-location-analysis/",
+      "sourceLabel": "진행 정보 보기",
+      "projectType": "재건축(공동주택)",
+      "supplyHouseholds": null,
+      "priceStatus": "ok",
+      "priceMessage": "",
+      "latestTransaction": {
+        "apartmentName": "주공",
+        "contractDate": "2026-06-25",
+        "priceManwon": 35000,
+        "areaSqm": 41.3,
+        "floor": 11
+      }
     }
   ]
 }
