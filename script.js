@@ -6,6 +6,8 @@ const HOME_MAP_POINT = [37.2669, 127.0158];
 
 let reconstructionItems = [];
 let visibleReconstructionCount = RECONSTRUCTION_PAGE_SIZE;
+let candidateData = null;
+let movingBudgetWon = Number.NaN;
 let propertyMap = null;
 let reconstructionMapLayer = null;
 let homeMapMarker = null;
@@ -184,6 +186,7 @@ function calculateFinance() {
   const loan = companyLoanFromReport(baseFundsEok, numberValue(fields.kbLow), numberValue(fields.kbHigh));
   const companyPrincipal = Number.isFinite(loan.amountEok) ? loan.amountEok * 100000000 : Number.NaN;
   const moveBudget = Number.isFinite(companyPrincipal) ? saleNetProceeds + companyPrincipal + creditAmountEok * 100000000 : Number.NaN;
+  movingBudgetWon = moveBudget;
   const buyerBrokerage = brokerageMaximum(moveBudget);
   const purchaseTax = estimatePurchaseTax(moveBudget, area);
   const transactionCosts = Number.isFinite(moveBudget) ? sellerBrokerage.fee + buyerBrokerage.fee + purchaseTax.total : Number.NaN;
@@ -244,9 +247,11 @@ function calculateFinance() {
   setTextAll('[data-home-sale-net]', formatWon(saleNetProceeds));
   setTextAll('[data-home-company-loan]', formatWon(companyPrincipal));
   setTextAll('[data-home-credit-loan]', formatWon(creditAmountEok * 100000000));
+  setTextAll('[data-candidate-budget]', formatWon(moveBudget));
   setTextAll('[data-result-sale-net]', formatWon(saleNetProceeds));
   setTextAll('[data-result-credit]', formatWon(creditAmountEok * 100000000));
   setText('#tax-disclaimer', '1주택 일반 매수 기준 추정입니다. 양도소득세, 일시적 2주택·다주택 중과, 대출 부대비용, 법무사비, 이사비는 포함하지 않습니다. 복비는 법정 상한이며 부가세와 실제 협의 금액은 별도입니다.');
+  if (candidateData) renderCandidates(candidateData);
 }
 
 function renderTransactionRows(records) {
@@ -346,6 +351,198 @@ function renderHomePrice(data) {
   }
 }
 
+function budgetFitForPrice(priceManwon) {
+  if (!Number.isFinite(movingBudgetWon) || !Number.isFinite(priceManwon)) {
+    return { score: 18, label: '예산 입력 전', tone: 'neutral' };
+  }
+  const ratio = movingBudgetWon / (priceManwon * 10000);
+  if (ratio >= 1.15) return { score: 35, label: '예산 여유', tone: 'good' };
+  if (ratio >= 1.05) return { score: 32, label: '안정적', tone: 'good' };
+  if (ratio >= 1) return { score: 28, label: '예산 안', tone: 'good' };
+  if (ratio >= 0.95) return { score: 22, label: '조정 필요', tone: 'watch' };
+  if (ratio >= 0.9) return { score: 15, label: '예산 근접', tone: 'watch' };
+  return { score: 5, label: '예산 초과', tone: 'over' };
+}
+
+function representativeCandidatePrice(areaPrices = []) {
+  const prices = areaPrices.map((area) => Number(area.averagePriceManwon)).filter(Number.isFinite).sort((left, right) => left - right);
+  if (!prices.length) return Number.NaN;
+  if (!Number.isFinite(movingBudgetWon)) return prices[Math.floor(prices.length / 2)];
+  const affordable = prices.filter((price) => price * 10000 <= movingBudgetWon);
+  return affordable.at(-1) || prices[0];
+}
+
+function makeScoreRow(label, value, maximum) {
+  const row = document.createElement('div');
+  const heading = document.createElement('span');
+  const meter = document.createElement('i');
+  const fill = document.createElement('b');
+  const score = document.createElement('strong');
+  heading.textContent = label;
+  fill.style.width = Math.min(100, value / maximum * 100) + '%';
+  score.textContent = value + '/' + maximum;
+  meter.append(fill);
+  row.append(heading, meter, score);
+  return row;
+}
+
+function makeAreaPriceCard(area, expectedType) {
+  const card = document.createElement('article');
+  const heading = document.createElement('div');
+  const label = document.createElement('b');
+  const count = document.createElement('small');
+  const price = document.createElement('strong');
+  const meta = document.createElement('p');
+  card.className = 'area-price-card';
+  if (!area) {
+    label.textContent = '전용 ' + expectedType + '㎡';
+    count.textContent = '최근 12개월';
+    price.textContent = '신고 거래 없음';
+    meta.textContent = '다음 일일 동기화에서 다시 확인합니다.';
+    card.classList.add('is-empty');
+  } else {
+    label.textContent = area.areaLabel || '전용 ' + area.areaTypeSqm + '㎡';
+    count.textContent = Number(area.count || 0).toLocaleString('ko-KR') + '건';
+    price.textContent = formatPriceManwon(Number(area.averagePriceManwon));
+    meta.textContent = '최근 ' + formatPriceManwon(Number(area.latestPriceManwon)) + ' · ' + (area.latestContractDate || '-') + ' · 범위 ' + formatPriceManwon(Number(area.minPriceManwon)) + '~' + formatPriceManwon(Number(area.maxPriceManwon));
+  }
+  heading.append(label, count);
+  card.append(heading, price, meta);
+  return card;
+}
+
+function makeCandidateCard(item) {
+  const card = document.createElement('article');
+  const heading = document.createElement('div');
+  const titleWrap = document.createElement('div');
+  const title = document.createElement('h2');
+  const meta = document.createElement('p');
+  const scoreBadge = document.createElement('div');
+  const scoreValue = document.createElement('strong');
+  const scoreLabel = document.createElement('small');
+  const scoreGrid = document.createElement('div');
+  const prices = document.createElement('div');
+  const notes = document.createElement('div');
+  const strengths = document.createElement('div');
+  const watch = document.createElement('p');
+  const profile = item.evaluation || {};
+  const budgetFit = budgetFitForPrice(representativeCandidatePrice(item.areaPrices));
+  const totalScore = budgetFit.score + (profile.transit || 0) + (profile.living || 0) + (profile.complex || 0);
+
+  card.className = 'candidate-card';
+  heading.className = 'candidate-card-heading';
+  title.textContent = item.displayName || item.name;
+  meta.textContent = [item.location, item.completionYear ? item.completionYear + '년 준공' : '', item.households ? item.households.toLocaleString('ko-KR') + '세대' : ''].filter(Boolean).join(' · ');
+  titleWrap.append(title, meta);
+  scoreBadge.className = 'candidate-score is-' + budgetFit.tone;
+  scoreValue.textContent = totalScore + '점';
+  scoreLabel.textContent = budgetFit.label;
+  scoreBadge.append(scoreValue, scoreLabel);
+  heading.append(titleWrap, scoreBadge);
+
+  scoreGrid.className = 'score-grid';
+  scoreGrid.append(
+    makeScoreRow('예산', budgetFit.score, 35),
+    makeScoreRow('교통', profile.transit || 0, 25),
+    makeScoreRow('생활', profile.living || 0, 20),
+    makeScoreRow('단지', profile.complex || 0, 20)
+  );
+
+  prices.className = 'area-price-list';
+  const requestedTypes = item.requestedAreaTypes || [];
+  if (requestedTypes.length) {
+    requestedTypes.forEach((type) => prices.append(makeAreaPriceCard(item.areaPrices?.find((area) => area.areaTypeSqm === type), type)));
+  } else if (item.areaPrices?.length) {
+    item.areaPrices.forEach((area) => prices.append(makeAreaPriceCard(area)));
+  } else {
+    prices.append(makeAreaPriceCard(null, '전체'));
+  }
+
+  notes.className = 'candidate-notes';
+  strengths.className = 'candidate-tags';
+  (profile.strengths || []).forEach((text) => {
+    const tag = document.createElement('span');
+    tag.textContent = text;
+    strengths.append(tag);
+  });
+  watch.textContent = '확인할 점 · ' + (profile.watchouts || ['현장 확인 필요']).join(' · ');
+  notes.append(strengths, watch);
+  card.append(heading, scoreGrid, prices, notes);
+  return card;
+}
+
+function recommendationOptions(items) {
+  if (!Number.isFinite(movingBudgetWon)) return [];
+  return items.map((item) => {
+    const affordable = (item.areaPrices || [])
+      .filter((area) => Number(area.averagePriceManwon) * 10000 <= movingBudgetWon)
+      .sort((left, right) => Number(right.averagePriceManwon) - Number(left.averagePriceManwon));
+    return affordable.length ? { item, area: affordable[0] } : null;
+  }).filter(Boolean).sort((left, right) => Number(right.area.averagePriceManwon) - Number(left.area.averagePriceManwon)).slice(0, 6);
+}
+
+function renderRecommendations(items) {
+  const container = document.querySelector('#recommendation-list');
+  const options = recommendationOptions(items || []);
+  container.replaceChildren();
+  if (!Number.isFinite(movingBudgetWon)) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>예산 설정이 필요해요.</h3><p>대출 관리에서 현재 집 예상 매도가를 입력하면 추천을 시작합니다.</p>';
+    container.append(empty);
+    setText('#recommendation-state', '최근 평균 실거래가가 이사 예산 안에 있는 단지를 찾습니다.');
+    setText('#recommendation-count', '예산 입력 전');
+    return;
+  }
+  setText('#recommendation-count', options.length + '개 추천');
+  setText('#recommendation-state', '최근 12개월 평균 실거래가가 ' + formatWon(movingBudgetWon) + ' 이하인 면적 기준');
+  if (!options.length) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>현재 예산 안의 거래를 찾지 못했어요.</h3><p>신용대출 조건을 조정하거나 다음 동기화 후 다시 확인해 주세요.</p>';
+    container.append(empty);
+    return;
+  }
+  options.forEach(({ item, area }) => {
+    const card = document.createElement('article');
+    const label = document.createElement('span');
+    const title = document.createElement('h3');
+    const price = document.createElement('strong');
+    const meta = document.createElement('p');
+    const remainder = document.createElement('small');
+    card.className = 'recommendation-card';
+    label.textContent = area.areaLabel;
+    title.textContent = item.name;
+    price.textContent = formatPriceManwon(Number(area.averagePriceManwon));
+    meta.textContent = [item.location, area.count + '건', area.latestContractDate + ' 최근 거래'].join(' · ');
+    remainder.textContent = '예산 여유 ' + formatWon(movingBudgetWon - Number(area.averagePriceManwon) * 10000);
+    card.append(label, title, price, meta, remainder);
+    container.append(card);
+  });
+}
+
+function renderCandidates(data) {
+  candidateData = data;
+  const sync = data.sync || {};
+  const syncedAt = sync.lastSuccessfulAt || null;
+  const syncDot = document.querySelector('#candidate-sync-dot');
+  setText('#candidate-sync-state', syncedAt ? '동기화 완료' : '동기화 대기');
+  setText('#candidate-synced-at', syncedAt ? syncedAt + ' 기준' : (sync.message || '국토교통부 API 연결 후 갱신됩니다.'));
+  syncDot.classList.toggle('is-synced', Boolean(syncedAt));
+  syncDot.classList.toggle('is-error', data.status === 'error');
+  const container = document.querySelector('#candidate-list');
+  container.replaceChildren();
+  if (!data.candidates?.length) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>첫 가격 동기화를 기다리고 있어요.</h3><p>GitHub Action이 실행되면 요청한 후보지 3곳이 표시됩니다.</p>';
+    container.append(empty);
+  } else {
+    data.candidates.forEach((item) => container.append(makeCandidateCard(item)));
+  }
+  renderRecommendations(data.recommendationPool);
+}
+
 function makeDetailRow(label, value) {
   const row = document.createElement('div');
   const term = document.createElement('dt');
@@ -438,9 +635,13 @@ function filteredReconstructionItems() {
     return (!search || haystack.includes(search))
       && (region === 'all' || item.regionName === region)
       && (stage === 'all' || stageGroup(item.stage) === stage)
-      && (!priceOnly || Boolean(item.latestTransaction));
+      && (!priceOnly || Boolean(item.areaPrices?.length));
   });
   return filtered.sort((left, right) => {
+    const leftPrice = Number(left.latestTransaction?.priceManwon);
+    const rightPrice = Number(right.latestTransaction?.priceManwon);
+    if (sort === 'price-desc') return (Number.isFinite(rightPrice) ? rightPrice : -1) - (Number.isFinite(leftPrice) ? leftPrice : -1) || left.name.localeCompare(right.name, 'ko');
+    if (sort === 'price-asc') return (Number.isFinite(leftPrice) ? leftPrice : Number.POSITIVE_INFINITY) - (Number.isFinite(rightPrice) ? rightPrice : Number.POSITIVE_INFINITY) || left.name.localeCompare(right.name, 'ko');
     if (sort === 'households') return (right.supplyHouseholds || 0) - (left.supplyHouseholds || 0) || left.name.localeCompare(right.name, 'ko');
     if (sort === 'name') return left.name.localeCompare(right.name, 'ko');
     return stageRank(right.stage) - stageRank(left.stage) || left.location.localeCompare(right.location, 'ko');
@@ -466,6 +667,7 @@ function makeReconstructionCard(item) {
   const details = document.createElement('details');
   const summary = document.createElement('summary');
   const detailList = document.createElement('dl');
+  const areaPrices = document.createElement('div');
   const footer = document.createElement('div');
   const source = document.createElement('a');
   const mapButton = document.createElement('button');
@@ -479,16 +681,25 @@ function makeReconstructionCard(item) {
   quickValues.className = 'reconstruction-quick-values';
   quickValues.append(
     makeQuickValue('최근 실거래', transaction ? formatPriceManwon(Number(transaction.priceManwon)) : '매칭 준비 중'),
-    makeQuickValue('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요')
+    makeQuickValue('면적별 가격', item.areaPrices?.length ? item.areaPrices.length + '개 타입' : '거래 없음')
   );
   details.className = 'reconstruction-details';
-  summary.textContent = '사업 정보';
+  summary.textContent = '면적별 가격 · 사업 정보';
   detailList.append(
     makeDetailRow('사업 유형', item.projectType || '재건축'),
     makeDetailRow('다음 이정표', item.milestone || '확인 중'),
-    makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요')
+    makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요'),
+    makeDetailRow('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요')
   );
-  details.append(summary, detailList);
+  areaPrices.className = 'reconstruction-area-prices';
+  if (item.areaPrices?.length) {
+    item.areaPrices.forEach((area) => areaPrices.append(makeAreaPriceCard(area)));
+  } else {
+    const copy = document.createElement('p');
+    copy.textContent = item.priceMessage || '최근 12개월 신고 거래가 없습니다.';
+    areaPrices.append(copy);
+  }
+  details.append(summary, areaPrices, detailList);
   footer.className = 'reconstruction-card-actions';
   source.href = item.sourceUrl || '#';
   source.target = '_blank';
@@ -656,6 +867,16 @@ async function loadReconstruction() {
   }
 }
 
+async function loadCandidates() {
+  try {
+    const response = await fetch('data/candidates.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('후보지 데이터 파일을 찾을 수 없습니다.');
+    renderCandidates(await response.json());
+  } catch (error) {
+    renderCandidates({ status: 'error', sync: { message: '후보지 정보를 불러오지 못했어요.' }, candidates: [], recommendationPool: [] });
+  }
+}
+
 Object.values(fields).forEach((field) => {
   field.addEventListener('input', calculateFinance);
   field.addEventListener('change', calculateFinance);
@@ -702,4 +923,5 @@ document.addEventListener('click', (event) => {
 
 calculateFinance();
 loadHomePrice();
+loadCandidates();
 loadReconstruction();

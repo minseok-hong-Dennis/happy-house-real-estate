@@ -50,3 +50,8 @@
 46. Add useful filters to the Reconstruction tab.
 47. Fix the unexpectedly small reconstruction dataset and substantially expand the number of displayed projects.
 48. Show Reconstruction-tab projects as distinct pins on the Map tab.
+49. Fetch official recent transaction prices for reconstruction apartments, group the results by exclusive-area type, and refresh them in the daily GitHub Action.
+50. Add reconstruction price sorting so the list can be ordered by recent transaction price in either direction.
+51. Add an "이사 후보지" tab immediately below "우리집 가격" in the navigation.
+52. In the candidate tab, show evaluation scores and recent official transaction prices for 매교역푸르지오SKVIEW 74/84 types, 망포동 영통SKVIEW, and 영통동 현대, refreshed daily by GitHub Actions.
+53. Recommend additional apartment complexes whose recent transaction prices fit the moving budget calculated in the loan-management tab.

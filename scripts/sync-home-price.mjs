@@ -3,6 +3,7 @@ import process from 'node:process';
 
 const HOME_DATA_PATH = 'data/home-price.json';
 const RECONSTRUCTION_DATA_PATH = 'data/reconstruction.json';
+const CANDIDATE_DATA_PATH = 'data/candidates.json';
 const RECONSTRUCTION_SNAPSHOT_PATH = 'data/reconstruction-projects.json';
 const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade';
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
@@ -29,6 +30,14 @@ const REGION_CENTERS = new Map([
   ['오산시', [37.1498, 127.0772]], ['평택시', [36.9921, 127.1127]],
   ['광명시', [37.4786, 126.8645]], ['시흥시', [37.38, 126.8029]]
 ]);
+const REGION_LAWD_CODES = new Map([
+  ['수원장안구', '41111'], ['수원권선구', '41113'], ['수원팔달구', '41115'], ['수원영통구', '41117'],
+  ['성남수정구', '41131'], ['성남중원구', '41133'], ['성남분당구', '41135'],
+  ['안양만안구', '41171'], ['안양동안구', '41173'], ['안산상록구', '41271'], ['안산단원구', '41273'],
+  ['용인처인구', '41461'], ['용인기흥구', '41463'], ['용인수지구', '41465'],
+  ['과천시', '41290'], ['군포시', '41410'], ['의왕시', '41430'], ['오산시', '41370'],
+  ['평택시', '41220'], ['광명시', '41210'], ['시흥시', '41390']
+]);
 const HOME_APARTMENT = {
   name: '힐스테이트 푸르지오 수원',
   address: '경기도 수원시 팔달구 효원로93번길 33',
@@ -37,6 +46,72 @@ const HOME_APARTMENT = {
   areaLabel: '전용 59㎡형',
   areaRangeSqm: { min: 59, max: 60 }
 };
+const MOVE_CANDIDATES = [
+  {
+    id: 'maegyo-prugio-sk',
+    name: '매교역푸르지오SKVIEW',
+    displayName: '매교역푸르지오SKVIEW',
+    location: '수원시 팔달구 매교동',
+    lawdCd: '41115',
+    dongNames: ['매교동'],
+    matchNames: ['매교역푸르지오SKVIEW'],
+    requestedAreaTypes: [74, 84],
+    households: 3603,
+    completionYear: 2023,
+    evaluation: {
+      transit: 24,
+      living: 18,
+      complex: 20,
+      strengths: ['매교역 도보권', '3,603세대 대단지', '2023년 준공 신축'],
+      watchouts: ['수원역 생활권 교통량', '타입별 가격 차이 확인 필요']
+    }
+  },
+  {
+    id: 'yeongtong-sk-view',
+    name: '영통SKVIEW',
+    displayName: '망포동 영통SKVIEW',
+    location: '수원시 영통구 망포동',
+    lawdCd: '41117',
+    dongNames: ['망포동'],
+    matchNames: ['영통SKVIEW', '영통SK뷰'],
+    households: 710,
+    completionYear: 2016,
+    evaluation: {
+      transit: 21,
+      living: 18,
+      complex: 16,
+      strengths: ['망포 생활권', '비교적 준신축', '영통권 통근 접근성'],
+      watchouts: ['매교 후보보다 작은 단지', '세부 동·향별 가격 편차']
+    }
+  },
+  {
+    id: 'yeongtong-hyundai',
+    name: '현대',
+    displayName: '영통동 현대',
+    location: '수원시 영통구 영통동',
+    lawdCd: '41117',
+    dongNames: ['영통동'],
+    matchNames: ['현대'],
+    households: 612,
+    completionYear: 1998,
+    evaluation: {
+      transit: 22,
+      living: 19,
+      complex: 11,
+      strengths: ['영통 중심 생활권', '교통·학원가 접근성', '상대적인 예산 여유 가능성'],
+      watchouts: ['1998년 준공', '수리비와 장기수선 상태 확인 필요']
+    }
+  }
+];
+const RECOMMENDATION_TARGETS = [
+  { id: 'rec-ipark-castle-1', name: '영통아이파크캐슬1단지', location: '수원시 영통구 망포동', lawdCd: '41117', dongNames: ['망포동'], matchNames: ['영통아이파크캐슬1단지'], households: 1783, completionYear: 2019 },
+  { id: 'rec-ipark-castle-2', name: '영통아이파크캐슬2단지', location: '수원시 영통구 망포동', lawdCd: '41117', dongNames: ['망포동'], matchNames: ['영통아이파크캐슬2단지'], households: 1162, completionYear: 2019 },
+  { id: 'rec-hillstate-yeongtong', name: '힐스테이트영통', location: '수원시 영통구 망포동', lawdCd: '41117', dongNames: ['망포동'], matchNames: ['힐스테이트영통'], households: 2140, completionYear: 2017 },
+  { id: 'rec-raemian-markone-2', name: '래미안영통마크원2단지', location: '수원시 영통구 신동', lawdCd: '41117', dongNames: ['신동'], matchNames: ['래미안영통마크원2단지'], households: 963, completionYear: 2013 },
+  { id: 'rec-lotte-elclass-1', name: '영통롯데캐슬엘클래스1단지', location: '수원시 영통구 망포동', lawdCd: '41117', dongNames: ['망포동'], matchNames: ['영통롯데캐슬엘클래스1단지'], households: 642, completionYear: 2022 },
+  { id: 'rec-cheongmyeong-daewoo', name: '청명마을대우', location: '수원시 영통구 영통동', lawdCd: '41117', dongNames: ['영통동'], matchNames: ['청명마을대우'], households: 1200, completionYear: 1998 },
+  { id: 'rec-gwanggyo-hoban', name: '광교호반베르디움', location: '수원시 영통구 원천동', lawdCd: '41117', dongNames: ['원천동'], matchNames: ['광교호반베르디움'], households: 1330, completionYear: 2014 }
+];
 const CURATED_RECONSTRUCTION_TARGETS = [
   {
     id: 'yeongtong-2',
@@ -183,13 +258,12 @@ function matchesTarget(name, target) {
   });
 }
 
-function parseTransactions(xml, target, cutoff) {
+function parseTransactions(xml) {
   const records = [];
   const itemMatches = xml.matchAll(/<item>([\s\S]*?)<\/item>/g);
   for (const match of itemMatches) {
     const item = match[1];
     const name = tagValue(item, ['aptNm', 'aptName']);
-    if (!matchesTarget(name, target)) continue;
     const year = tagValue(item, ['dealYear', 'contractYear']);
     const month = tagValue(item, ['dealMonth', 'contractMonth']).padStart(2, '0');
     const day = tagValue(item, ['dealDay', 'contractDay']).padStart(2, '0');
@@ -197,11 +271,15 @@ function parseTransactions(xml, target, cutoff) {
     const areaSqm = Number(tagValue(item, ['excluUseAr', 'excluUseArea']));
     const floor = Number(tagValue(item, ['floor']));
     const contractDate = year && month && day ? year + '-' + month + '-' + day : '';
-    const parsedDate = contractDate ? new Date(contractDate + 'T00:00:00Z') : null;
-    const areaRange = target.areaRangeSqm;
-    const matchesArea = !areaRange || (Number.isFinite(areaSqm) && areaSqm >= areaRange.min && areaSqm < areaRange.max);
-    if (!contractDate || !Number.isFinite(priceManwon) || !parsedDate || parsedDate < cutoff || !matchesArea) continue;
-    records.push({ apartmentName: name, contractDate, priceManwon, areaSqm: Number.isFinite(areaSqm) ? areaSqm : null, floor: Number.isFinite(floor) ? floor : null });
+    if (!contractDate || !Number.isFinite(priceManwon)) continue;
+    records.push({
+      apartmentName: name,
+      dongName: tagValue(item, ['umdNm', 'legalDong', 'dong']),
+      contractDate,
+      priceManwon,
+      areaSqm: Number.isFinite(areaSqm) ? areaSqm : null,
+      floor: Number.isFinite(floor) ? floor : null
+    });
   }
   return records.sort((left, right) => right.contractDate.localeCompare(left.contractDate));
 }
@@ -217,36 +295,106 @@ function summarizeTransactions(records) {
   } : null;
 }
 
-async function fetchTransactions(serviceKey, target, monthCount = 3) {
+const districtMonthCache = new Map();
+
+function decodedServiceKey(serviceKey) {
   let decodedKey;
   try {
     decodedKey = decodeURIComponent(serviceKey.trim());
   } catch {
     throw new Error('MOLIT_SERVICE_KEY 형식이 올바르지 않습니다. 일반 인증키(Decoding)를 다시 등록해 주세요.');
   }
+  return decodedKey;
+}
+
+async function requestDistrictPage(serviceKey, lawdCd, yearMonth, pageNo) {
+  const url = new URL(SERVICE_URL);
+  url.searchParams.set('serviceKey', decodedServiceKey(serviceKey));
+  url.searchParams.set('LAWD_CD', lawdCd);
+  url.searchParams.set('DEAL_YMD', yearMonth);
+  url.searchParams.set('numOfRows', '1000');
+  url.searchParams.set('pageNo', String(pageNo));
+  const response = await fetch(url);
+  const body = await response.text();
+  const resultCode = tagValue(body, ['resultCode']);
+  if (!response.ok) throw new Error('국토교통부 API HTTP ' + response.status + ': ' + apiErrorDetail(response, body));
+  if (!['00', '000'].includes(resultCode)) throw new Error('국토교통부 API 오류: ' + apiErrorDetail(response, body));
+  return {
+    records: parseTransactions(body),
+    totalCount: Number(tagValue(body, ['totalCount'])) || 0
+  };
+}
+
+function fetchDistrictMonth(serviceKey, lawdCd, yearMonth) {
+  const cacheKey = lawdCd + '-' + yearMonth;
+  if (districtMonthCache.has(cacheKey)) return districtMonthCache.get(cacheKey);
+  const request = (async () => {
+    const first = await requestDistrictPage(serviceKey, lawdCd, yearMonth, 1);
+    const pageCount = Math.ceil(first.totalCount / 1000);
+    if (pageCount <= 1) return first.records;
+    const remaining = await Promise.all(Array.from({ length: pageCount - 1 }, (_, index) => requestDistrictPage(serviceKey, lawdCd, yearMonth, index + 2)));
+    return [first.records, ...remaining.map((page) => page.records)].flat();
+  })();
+  districtMonthCache.set(cacheKey, request);
+  return request;
+}
+
+function targetTransactions(records, target, cutoff) {
+  return records.filter((record) => {
+    if (!matchesTarget(record.apartmentName, target)) return false;
+    if (target.dongNames?.length && !target.dongNames.some((dong) => normalizedName(record.dongName) === normalizedName(dong))) return false;
+    const parsedDate = new Date(record.contractDate + 'T00:00:00Z');
+    if (parsedDate < cutoff) return false;
+    const areaRange = target.areaRangeSqm;
+    return !areaRange || (Number.isFinite(record.areaSqm) && record.areaSqm >= areaRange.min && record.areaSqm < areaRange.max);
+  });
+}
+
+function areaTypeFor(areaSqm, requestedTypes) {
+  if (!Number.isFinite(areaSqm)) return null;
+  const commonTypes = requestedTypes?.length ? requestedTypes : [39, 49, 59, 74, 84, 99, 101, 110, 114, 124, 134, 149];
+  const nearest = commonTypes.reduce((best, type) => Math.abs(type - areaSqm) < Math.abs(best - areaSqm) ? type : best, commonTypes[0]);
+  if (Math.abs(nearest - areaSqm) <= 1.5) return nearest;
+  return requestedTypes?.length ? null : Math.round(areaSqm);
+}
+
+function summarizeAreaPrices(records, requestedTypes) {
+  const groups = new Map();
+  records.forEach((record) => {
+    const areaTypeSqm = areaTypeFor(record.areaSqm, requestedTypes);
+    if (!Number.isFinite(areaTypeSqm)) return;
+    if (!groups.has(areaTypeSqm)) groups.set(areaTypeSqm, []);
+    groups.get(areaTypeSqm).push(record);
+  });
+  return [...groups.entries()].map(([areaTypeSqm, group]) => {
+    const sorted = [...group].sort((left, right) => right.contractDate.localeCompare(left.contractDate));
+    const summary = summarizeTransactions(sorted);
+    const representativeAreaSqm = sorted.reduce((total, record) => total + record.areaSqm, 0) / sorted.length;
+    return {
+      areaTypeSqm,
+      areaLabel: '전용 ' + areaTypeSqm + '㎡ · 약 ' + Math.round(areaTypeSqm / 3.3058) + '평',
+      representativeAreaSqm: Number(representativeAreaSqm.toFixed(2)),
+      count: summary.count,
+      averagePriceManwon: summary.averagePriceManwon,
+      minPriceManwon: summary.minPriceManwon,
+      maxPriceManwon: summary.maxPriceManwon,
+      latestPriceManwon: summary.latestPriceManwon,
+      latestContractDate: sorted[0].contractDate,
+      recentTransactions: sorted.slice(0, 3)
+    };
+  }).sort((left, right) => left.areaTypeSqm - right.areaTypeSqm);
+}
+
+async function fetchTransactions(serviceKey, target, monthCount = 3) {
   const cutoff = cutoffDate(monthCount);
-  const responses = await Promise.all(recentMonths(monthCount).map(async (yearMonth) => {
-    const url = new URL(SERVICE_URL);
-    url.searchParams.set('serviceKey', decodedKey);
-    url.searchParams.set('LAWD_CD', target.lawdCd);
-    url.searchParams.set('DEAL_YMD', yearMonth);
-    url.searchParams.set('numOfRows', '1000');
-    url.searchParams.set('pageNo', '1');
-    const response = await fetch(url);
-    const body = await response.text();
-    const resultCode = tagValue(body, ['resultCode']);
-    if (!response.ok) throw new Error('국토교통부 API HTTP ' + response.status + ': ' + apiErrorDetail(response, body));
-    if (!['00', '000'].includes(resultCode)) {
-      throw new Error('국토교통부 API 오류: ' + apiErrorDetail(response, body));
-    }
-    return parseTransactions(body, target, cutoff);
-  }));
-  const records = responses.flat().sort((left, right) => right.contractDate.localeCompare(left.contractDate));
+  const responses = await Promise.all(recentMonths(monthCount).map((yearMonth) => fetchDistrictMonth(serviceKey, target.lawdCd, yearMonth)));
+  const records = targetTransactions(responses.flat(), target, cutoff).sort((left, right) => right.contractDate.localeCompare(left.contractDate));
   return {
     status: records.length ? 'ok' : 'empty',
     message: records.length ? '' : '최근 ' + monthCount + '개월 내 ' + (target.areaLabel ? target.areaLabel + ' ' : '') + '신고 거래가 없어요.',
     periodLabel: '최근 ' + monthCount + '개월 계약일 기준' + (target.areaLabel ? ' · ' + target.areaLabel : '') + ' · ' + records.length + '건',
     summary: summarizeTransactions(records),
+    areaPrices: summarizeAreaPrices(records, target.requestedAreaTypes),
     records
   };
 }
@@ -408,6 +556,30 @@ function mapPointFor(city, zoneName) {
   };
 }
 
+function deriveProjectMatchNames(zoneName) {
+  const candidates = [];
+  const addCandidate = (value) => {
+    const cleaned = String(value || '')
+      .replace(/재건축정비구역|재건축사업|정비구역|재건축|구역$/g, '')
+      .replace(/아파트$/g, '')
+      .trim();
+    if (normalizedName(cleaned).length >= 4) candidates.push(cleaned);
+  };
+
+  for (const match of zoneName.matchAll(/\(([^)]+)\)/g)) {
+    match[1].split(/[+·ㆍ/]/).forEach(addCandidate);
+  }
+  const withoutParentheses = zoneName.replace(/\([^)]*\)/g, '').trim();
+  const paired = withoutParentheses.match(/^(.+?)(\d+)\s*[,·ㆍ]\s*(\d+)(단지)?/);
+  if (paired) {
+    addCandidate(paired[1] + paired[2] + (paired[4] || '단지'));
+    addCandidate(paired[1] + paired[3] + (paired[4] || '단지'));
+  } else {
+    addCandidate(withoutParentheses);
+  }
+  return [...new Set(candidates)];
+}
+
 function officialReconstructionTargets(rows) {
   const targets = rows
     .filter((row) => row['시도'] === '경기도' && SOUTHERN_GYEONGGI_CITIES.has(row['시군구']) && String(row['사업유형']).includes('재건축'))
@@ -419,6 +591,7 @@ function officialReconstructionTargets(rows) {
       const projectType = withoutCode(row['사업유형']);
       const operator = withoutCode(row['사업시행자']);
       const supplyHouseholds = Number(String(row['공급 예정 세대수']).replace(/[^0-9]/g, '')) || null;
+      const matchNames = override.matchNames || deriveProjectMatchNames(zoneName);
       return {
         id: 'official-' + normalizedName(city + '-' + zoneName),
         name: zoneName,
@@ -427,8 +600,9 @@ function officialReconstructionTargets(rows) {
         regionName: city,
         mapPoint: mapPointFor(city, zoneName),
         mapQuery: ['경기도', city, zoneName].join(' '),
-        lawdCd: override.lawdCd || null,
-        matchNames: override.matchNames || [],
+        lawdCd: override.lawdCd || REGION_LAWD_CODES.get(city) || null,
+        matchNames,
+        matchMethod: override.matchNames ? 'verified' : (matchNames.length ? 'name-derived' : 'not-mapped'),
         stage,
         milestone: [projectType, operator].filter(Boolean).join(' · '),
         remainingEstimate: remainingEstimateForStage(stage),
@@ -448,11 +622,12 @@ function officialReconstructionTargets(rows) {
       name: curated.name,
       location: curated.location,
       lawdCd: curated.lawdCd,
-      matchNames: curated.matchNames
+      matchNames: curated.matchNames,
+      matchMethod: 'verified'
     };
   });
   CURATED_RECONSTRUCTION_TARGETS.forEach((target) => {
-    if (!target.officialZoneName || !targets.some((item) => item.officialZoneName === target.officialZoneName)) merged.push(target);
+    if (!target.officialZoneName || !targets.some((item) => item.officialZoneName === target.officialZoneName)) merged.push({ ...target, matchMethod: 'verified' });
   });
   return merged.sort((left, right) => stageOrder(right.stage) - stageOrder(left.stage) || left.location.localeCompare(right.location, 'ko'));
 }
@@ -522,16 +697,29 @@ async function syncReconstruction(serviceKey, previous) {
         ...target,
         priceStatus: 'not_mapped',
         priceMessage: '정비구역과 실거래 단지 자동 매칭 준비 중',
-        latestTransaction: previousItem?.latestTransaction || null
+        latestTransaction: previousItem?.latestTransaction || null,
+        areaPrices: previousItem?.areaPrices || []
       });
       continue;
     }
     try {
       const trades = await fetchTransactions(serviceKey, target, 12);
-      items.push({ ...target, priceStatus: trades.status, priceMessage: trades.message, latestTransaction: trades.records[0] || null });
+      items.push({
+        ...target,
+        priceStatus: trades.status,
+        priceMessage: trades.message,
+        latestTransaction: trades.records[0] || null,
+        areaPrices: trades.areaPrices
+      });
     } catch (error) {
       console.warn('[MOLIT] ' + target.name + ': ' + error.message);
-      items.push({ ...target, priceStatus: 'error', priceMessage: '최근 실거래가를 불러오지 못했어요.', latestTransaction: previousItem?.latestTransaction || null });
+      items.push({
+        ...target,
+        priceStatus: 'error',
+        priceMessage: '최근 실거래가를 불러오지 못했어요.',
+        latestTransaction: previousItem?.latestTransaction || null,
+        areaPrices: previousItem?.areaPrices || []
+      });
     }
   }
   const hasError = items.some((item) => item.priceStatus === 'error');
@@ -543,15 +731,68 @@ async function syncReconstruction(serviceKey, previous) {
   };
 }
 
+async function syncPriceTarget(serviceKey, target, previousItem) {
+  try {
+    const trades = await fetchTransactions(serviceKey, target, 12);
+    return {
+      ...target,
+      priceStatus: trades.status,
+      priceMessage: trades.message,
+      latestTransaction: trades.records[0] || null,
+      areaPrices: trades.areaPrices
+    };
+  } catch (error) {
+    console.warn('[candidate] ' + target.name + ': ' + error.message);
+    return {
+      ...target,
+      priceStatus: 'error',
+      priceMessage: '최근 실거래가를 불러오지 못했어요.',
+      latestTransaction: previousItem?.latestTransaction || null,
+      areaPrices: previousItem?.areaPrices || []
+    };
+  }
+}
+
+async function syncCandidates(serviceKey, previous) {
+  const candidates = [];
+  for (const target of MOVE_CANDIDATES) {
+    const previousItem = previous.candidates?.find((item) => item.id === target.id);
+    candidates.push(await syncPriceTarget(serviceKey, target, previousItem));
+  }
+  const recommendationPool = [];
+  for (const target of RECOMMENDATION_TARGETS) {
+    const previousItem = previous.recommendationPool?.find((item) => item.id === target.id);
+    recommendationPool.push(await syncPriceTarget(serviceKey, target, previousItem));
+  }
+  const hasError = [...candidates, ...recommendationPool].some((item) => item.priceStatus === 'error');
+  return {
+    status: hasError ? 'partial' : 'ok',
+    source: {
+      name: '국토교통부 아파트 매매 실거래자료',
+      url: 'https://www.data.go.kr/data/15126469/openapi.do',
+      period: '최근 12개월 계약일 기준'
+    },
+    sync: {
+      schedule: '매일 14:00 KST',
+      lastSuccessfulAt: formatKstTimestamp(),
+      message: hasError ? '일부 단지는 이전 동기화 가격을 유지합니다.' : ''
+    },
+    candidates,
+    recommendationPool
+  };
+}
+
 async function main() {
   const previousHome = await readExistingData(HOME_DATA_PATH);
   const previousReconstruction = await readExistingData(RECONSTRUCTION_DATA_PATH);
+  const previousCandidates = await readExistingData(CANDIDATE_DATA_PATH);
   const serviceKey = process.env.MOLIT_SERVICE_KEY?.trim();
   if (!serviceKey) throw new Error('MOLIT_SERVICE_KEY GitHub Secret이 비어 있습니다. 저장소 Actions Secret을 확인해 주세요.');
   const recentTransactions = await fetchTransactions(serviceKey, HOME_APARTMENT);
   console.log('[MOLIT] ' + HOME_APARTMENT.name + ': 최근 거래 ' + recentTransactions.records.length + '건 동기화');
 
   const reconstruction = await syncReconstruction(serviceKey, previousReconstruction);
+  const candidates = await syncCandidates(serviceKey, previousCandidates);
   const currentListings = await fetchCurrentListings();
   const kbMarketPrice = await fetchKbMarketPrice();
   const homeData = {
@@ -564,6 +805,7 @@ async function main() {
   await mkdir('data', { recursive: true });
   await writeFile(HOME_DATA_PATH, JSON.stringify(homeData, null, 2) + '\n', 'utf8');
   await writeFile(RECONSTRUCTION_DATA_PATH, JSON.stringify(reconstruction, null, 2) + '\n', 'utf8');
+  await writeFile(CANDIDATE_DATA_PATH, JSON.stringify(candidates, null, 2) + '\n', 'utf8');
 }
 
 main().catch((error) => {

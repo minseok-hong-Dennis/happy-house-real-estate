@@ -1,0 +1,15 @@
+{
+  "status": "pending",
+  "source": {
+    "name": "국토교통부 아파트 매매 실거래자료",
+    "url": "https://www.data.go.kr/data/15126469/openapi.do",
+    "period": "최근 12개월 계약일 기준"
+  },
+  "sync": {
+    "schedule": "매일 14:00 KST",
+    "lastSuccessfulAt": null,
+    "message": "첫 동기화를 기다리고 있습니다."
+  },
+  "candidates": [],
+  "recommendationPool": []
+}
