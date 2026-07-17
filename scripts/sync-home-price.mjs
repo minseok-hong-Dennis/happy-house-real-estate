@@ -171,7 +171,9 @@ async function fetchTransactions(serviceKey, target, monthCount = 3) {
     const body = await response.text();
     const resultCode = tagValue(body, ['resultCode']);
     if (!response.ok) throw new Error('국토교통부 API HTTP ' + response.status + ': ' + apiErrorDetail(response, body));
-    if (resultCode !== '00') throw new Error('국토교통부 API 오류: ' + apiErrorDetail(response, body));
+    if (!['00', '000'].includes(resultCode)) {
+      throw new Error('국토교통부 API 오류: ' + apiErrorDetail(response, body));
+    }
     return parseTransactions(body, target, cutoff);
   }));
   const records = responses.flat().sort((left, right) => right.contractDate.localeCompare(left.contractDate));
