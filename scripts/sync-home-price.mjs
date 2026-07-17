@@ -408,6 +408,21 @@ function officialReconstructionTargets(rows) {
   return merged.sort((left, right) => stageOrder(right.stage) - stageOrder(left.stage) || left.location.localeCompare(right.location, 'ko'));
 }
 
+async function fetchWithRetry(url, attempts = 3) {
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const response = await fetch(url, { headers: { Accept: 'text/csv,*/*' } });
+      if (response.ok) return response;
+      lastError = new Error('HTTP ' + response.status);
+    } catch (error) {
+      lastError = error;
+    }
+    if (attempt < attempts) await new Promise((resolve) => setTimeout(resolve, attempt * 1500));
+  }
+  throw lastError || new Error('요청 실패');
+}
+
 async function fetchReconstructionDataset(serviceKey) {
   try {
     const url = new URL(RECONSTRUCTION_API_URL);
@@ -422,8 +437,7 @@ async function fetchReconstructionDataset(serviceKey) {
     return { rows: payload.data, transport: 'Open API' };
   } catch (error) {
     console.warn('[reconstruction] Open API 사용 불가, 공식 CSV로 대체: ' + error.message);
-    const response = await fetch(RECONSTRUCTION_CSV_URL);
-    if (!response.ok) throw new Error('전국 정비사업 공식 CSV HTTP ' + response.status);
+    const response = await fetchWithRetry(RECONSTRUCTION_CSV_URL);
     const bytes = new Uint8Array(await response.arrayBuffer());
     return { rows: parseReconstructionCsv(new TextDecoder('euc-kr').decode(bytes)), transport: '공식 CSV' };
   }
@@ -435,10 +449,11 @@ async function syncReconstruction(serviceKey, previous) {
     dataset = await fetchReconstructionDataset(serviceKey);
   } catch (error) {
     console.warn('[reconstruction] 전국 정비사업 데이터를 불러오지 못함: ' + error.message);
+    if (previous.items?.length) return previous;
     return {
-      ...previous,
       status: 'error',
-      sync: { lastSuccessfulAt: previous.sync?.lastSuccessfulAt || null, message: '전국 정비사업 데이터를 불러오지 못해 기존 목록을 유지합니다.' }
+      sync: { lastSuccessfulAt: null, message: '전국 정비사업 데이터를 불러오지 못했습니다.' },
+      items: []
     };
   }
 
