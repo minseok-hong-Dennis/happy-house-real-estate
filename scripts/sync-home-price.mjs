@@ -3,6 +3,7 @@ import process from 'node:process';
 
 const HOME_DATA_PATH = 'data/home-price.json';
 const RECONSTRUCTION_DATA_PATH = 'data/reconstruction.json';
+const RECONSTRUCTION_SNAPSHOT_PATH = 'data/reconstruction-projects.json';
 const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade';
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
 const RECONSTRUCTION_CSV_URL = 'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003667489&fileDetailSn=1&insertDataPrcus=N';
@@ -437,9 +438,16 @@ async function fetchReconstructionDataset(serviceKey) {
     return { rows: payload.data, transport: 'Open API' };
   } catch (error) {
     console.warn('[reconstruction] Open API 사용 불가, 공식 CSV로 대체: ' + error.message);
-    const response = await fetchWithRetry(RECONSTRUCTION_CSV_URL);
-    const bytes = new Uint8Array(await response.arrayBuffer());
-    return { rows: parseReconstructionCsv(new TextDecoder('euc-kr').decode(bytes)), transport: '공식 CSV' };
+    try {
+      const response = await fetchWithRetry(RECONSTRUCTION_CSV_URL);
+      const bytes = new Uint8Array(await response.arrayBuffer());
+      return { rows: parseReconstructionCsv(new TextDecoder('euc-kr').decode(bytes)), transport: '공식 CSV' };
+    } catch (csvError) {
+      console.warn('[reconstruction] 공식 CSV 사용 불가, 저장된 공식 데이터로 대체: ' + csvError.message);
+      const snapshot = JSON.parse(await readFile(RECONSTRUCTION_SNAPSHOT_PATH, 'utf8'));
+      if (!Array.isArray(snapshot.rows) || !snapshot.rows.length) throw csvError;
+      return { rows: snapshot.rows, transport: '저장된 공식 데이터', datasetDate: snapshot.datasetDate };
+    }
   }
 }
 
@@ -481,7 +489,7 @@ async function syncReconstruction(serviceKey, previous) {
   const hasError = items.some((item) => item.priceStatus === 'error');
   return {
     status: hasError ? 'partial' : 'ok',
-    source: { name: '국토교통부 전국 도시정비사업 통합 데이터', transport: dataset.transport, url: RECONSTRUCTION_SOURCE_URL },
+    source: { name: '국토교통부 전국 도시정비사업 통합 데이터', transport: dataset.transport, datasetDate: dataset.datasetDate || null, url: RECONSTRUCTION_SOURCE_URL },
     sync: { lastSuccessfulAt: formatKstTimestamp(), message: hasError ? '사업 목록은 갱신했고 일부 실거래가는 기존 값을 유지합니다.' : '' },
     items
   };
