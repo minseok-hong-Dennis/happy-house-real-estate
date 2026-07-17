@@ -31,6 +31,10 @@
             <span class="tab-number">02</span>
             <span><b>예산 관리</b><small>대출과 월 상환 계획</small></span>
           </button>
+          <button class="tab-button" id="home-price-tab" type="button" role="tab" aria-selected="false" aria-controls="home-price-panel" data-tab-target="home-price">
+            <span class="tab-number">03</span>
+            <span><b>우리집 가격</b><small>실거래가와 현재 매물</small></span>
+          </button>
         </nav>
 
         <div class="sidebar-bottom">
@@ -62,6 +66,7 @@
             <article class="summary-card coral-card"><span>이사일까지</span><strong>23<small>일</small></strong><p>여유 있게 준비하는 중</p></article>
             <article class="summary-card cream-card"><span>계약 상태</span><strong>진행<small>중</small></strong><p>계약서 확인을 남겨두었어요</p></article>
             <article class="summary-card mint-card"><span>예상 월 상환액</span><strong data-home-payment>1,779,000원</strong><p data-home-loan>3.8억원 · 30년 기준</p></article>
+            <article class="summary-card price-card"><span>우리집 최근 실거래가</span><strong data-home-price-value>동기화 대기</strong><p data-home-price-meta>공식 데이터 연결 후 표시</p></article>
           </div>
 
           <div class="home-layout">
@@ -131,6 +136,46 @@
               <p class="result-note">실제 상환액은 대출 상품, 거치 기간, 우대금리 등에 따라 달라질 수 있어요.</p>
             </section>
           </div>
+        </section>
+
+        <section class="tab-panel home-price-panel" id="home-price-panel" role="tabpanel" aria-labelledby="home-price-tab" data-tab-panel="home-price" hidden>
+          <div class="price-heading">
+            <div>
+              <p class="eyebrow">HOME PRICE TRACKER</p>
+              <h1>우리집 가격을<br /><em>차분하게 살펴봐요.</em></h1>
+              <p class="price-apartment-name" id="price-apartment-name">힐스테이트 푸르지오 수원</p>
+              <p class="price-address" id="price-address">경기도 수원시 팔달구 효원로93번길 33</p>
+            </div>
+            <div class="sync-card"><span class="sync-dot" id="price-sync-dot"></span><div><b id="price-sync-state">동기화 대기</b><small id="price-synced-at">공식 데이터 연결 후 갱신됩니다.</small></div></div>
+          </div>
+
+          <section class="price-source-note" aria-label="가격 데이터 출처">
+            <span>최근 실거래가</span><b>국토교통부 실거래가 공개 자료</b><span>현재 매물가</span><b id="listing-source-name">허용된 매물 데이터 제공자 연결 대기</b>
+          </section>
+
+          <section class="price-section" aria-labelledby="trade-title">
+            <div class="price-section-heading"><div><p class="eyebrow">LAST 3 MONTHS</p><h2 id="trade-title">최근 3개월 실거래가</h2></div><p id="trade-period">동기화 후 거래 기간을 표시합니다.</p></div>
+            <div class="price-stat-grid">
+              <article><span>거래 건수</span><strong id="trade-count">-</strong></article>
+              <article><span>평균 거래가</span><strong id="trade-average">-</strong></article>
+              <article><span>최근 거래가</span><strong id="trade-latest">-</strong></article>
+            </div>
+            <div class="transaction-table-wrap">
+              <table>
+                <thead><tr><th scope="col">계약일</th><th scope="col">거래가</th><th scope="col">전용면적</th><th scope="col">층</th></tr></thead>
+                <tbody id="recent-trades-body"><tr><td colspan="4" class="table-empty">공식 실거래가 동기화를 기다리고 있어요.</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="price-section listing-section" aria-labelledby="listing-title">
+            <div class="price-section-heading"><div><p class="eyebrow">ON THE MARKET</p><h2 id="listing-title">현재 매물가</h2></div><p id="current-listings-state">허용된 매물 데이터 제공자를 연결하면 표시됩니다.</p></div>
+            <div class="listing-grid" id="current-listings-body">
+              <article class="listing-empty"><span>DATA SOURCE</span><h3>현재 매물 데이터 연결 대기</h3><p>자동 수집이 허용된 부동산 데이터 API를 연결하면 최신 매물가를 보여드려요.</p></article>
+            </div>
+          </section>
+
+          <p class="price-disclaimer">실거래가는 신고된 계약 정보를 기준으로 하며, 계약 해제나 신고 시점에 따라 변경될 수 있습니다. 현재 매물가는 연결된 제공자의 참고용 정보입니다.</p>
         </section>
       </main>
     </div>

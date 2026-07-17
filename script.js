@@ -39,6 +39,15 @@ function formatEok(value) {
   return value.toLocaleString('ko-KR', { maximumFractionDigits: 1 }) + '억원';
 }
 
+function formatPriceManwon(value) {
+  if (!Number.isFinite(value)) return '-';
+  const eok = Math.floor(value / 10000);
+  const remainder = Math.round(value % 10000);
+  if (eok === 0) return remainder.toLocaleString('ko-KR') + '만원';
+  if (remainder === 0) return eok.toLocaleString('ko-KR') + '억원';
+  return eok.toLocaleString('ko-KR') + '억 ' + remainder.toLocaleString('ko-KR') + '만원';
+}
+
 function calculateLoan() {
   const amountEok = Math.min(15, Math.max(0.5, Number(amountInput.value) || 0.5));
   const annualRate = Math.min(12, Math.max(0, Number(rateInput.value) || 0));
@@ -72,6 +81,113 @@ function calculateLoan() {
   document.querySelectorAll('[data-home-loan]').forEach((item) => { item.textContent = formatEok(amountEok) + ' · ' + years + '년 기준'; });
 }
 
+function setText(selector, text) {
+  const element = document.querySelector(selector);
+  if (element) element.textContent = text;
+}
+
+function renderTransactionRows(records) {
+  const tbody = document.querySelector('#recent-trades-body');
+  tbody.replaceChildren();
+
+  if (!records?.length) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 4;
+    cell.className = 'table-empty';
+    cell.textContent = '최근 3개월 내 표시할 거래가 없어요.';
+    row.append(cell);
+    tbody.append(row);
+    return;
+  }
+
+  records.slice(0, 10).forEach((record) => {
+    const row = document.createElement('tr');
+    const values = [record.contractDate || '-', formatPriceManwon(Number(record.priceManwon)), record.areaSqm ? Number(record.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 1 }) + '㎡' : '-', record.floor ? record.floor + '층' : '-'];
+    values.forEach((value) => {
+      const cell = document.createElement('td');
+      cell.textContent = value;
+      row.append(cell);
+    });
+    tbody.append(row);
+  });
+}
+
+function renderListings(listingData) {
+  const container = document.querySelector('#current-listings-body');
+  const state = document.querySelector('#current-listings-state');
+  const sourceName = document.querySelector('#listing-source-name');
+  const items = listingData?.items || [];
+  container.replaceChildren();
+  sourceName.textContent = listingData?.sourceName || '허용된 매물 데이터 제공자 연결 대기';
+
+  if (listingData?.status !== 'ok' || !items.length) {
+    const card = document.createElement('article');
+    card.className = 'listing-empty';
+    const label = document.createElement('span');
+    const title = document.createElement('h3');
+    const description = document.createElement('p');
+    label.textContent = 'DATA SOURCE';
+    title.textContent = listingData?.status === 'error' ? '현재 매물 정보를 불러오지 못했어요.' : '현재 매물 데이터 연결 대기';
+    description.textContent = listingData?.message || '자동 수집이 허용된 부동산 데이터 API를 연결하면 최신 매물가를 보여드려요.';
+    card.append(label, title, description);
+    container.append(card);
+    state.textContent = description.textContent;
+    return;
+  }
+
+  state.textContent = '총 ' + items.length + '건 · ' + (listingData.syncedAt || '최근') + ' 기준';
+  items.slice(0, 6).forEach((item) => {
+    const card = document.createElement('article');
+    card.className = 'listing-card';
+    const label = document.createElement('span');
+    const title = document.createElement('h3');
+    const price = document.createElement('strong');
+    const meta = document.createElement('p');
+    label.textContent = item.tradeType || '매매';
+    title.textContent = item.title || '현재 매물';
+    price.textContent = formatPriceManwon(Number(item.priceManwon));
+    meta.textContent = [item.areaSqm ? Number(item.areaSqm).toLocaleString('ko-KR', { maximumFractionDigits: 1 }) + '㎡' : '', item.floor ? item.floor + '층' : ''].filter(Boolean).join(' · ') || '상세 정보 없음';
+    card.append(label, title, price, meta);
+    container.append(card);
+  });
+}
+
+function renderHomePrice(data) {
+  const apartment = data.apartment || {};
+  const sync = data.sync || {};
+  const trades = data.recentTransactions || {};
+  const summary = trades.summary || {};
+  const syncedAt = sync.lastSuccessfulAt || null;
+  const syncDot = document.querySelector('#price-sync-dot');
+
+  setText('#price-apartment-name', apartment.name || '힐스테이트 푸르지오 수원');
+  setText('#price-address', apartment.address || '경기도 수원시 팔달구 효원로93번길 33');
+  setText('#price-sync-state', syncedAt ? '동기화 완료' : '동기화 대기');
+  setText('#price-synced-at', syncedAt ? syncedAt + ' 기준' : (trades.message || '공식 데이터 연결 후 갱신됩니다.'));
+  syncDot.classList.toggle('is-synced', Boolean(syncedAt));
+  syncDot.classList.toggle('is-error', trades.status === 'error');
+  setText('#trade-period', trades.periodLabel || '동기화 후 거래 기간을 표시합니다.');
+  setText('#trade-count', Number.isFinite(summary.count) ? summary.count.toLocaleString('ko-KR') + '건' : '-');
+  setText('#trade-average', formatPriceManwon(Number(summary.averagePriceManwon)));
+  setText('#trade-latest', formatPriceManwon(Number(summary.latestPriceManwon)));
+  renderTransactionRows(trades.records);
+  renderListings(data.currentListings);
+
+  setText('[data-home-price-value]', Number.isFinite(summary.latestPriceManwon) ? formatPriceManwon(Number(summary.latestPriceManwon)) : '동기화 대기');
+  setText('[data-home-price-meta]', syncedAt ? '최근 실거래가 · ' + syncedAt + ' 기준' : '공식 데이터 연결 후 표시');
+}
+
+async function loadHomePrice() {
+  try {
+    const response = await fetch('data/home-price.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('가격 데이터 파일을 찾을 수 없습니다.');
+    renderHomePrice(await response.json());
+  } catch (error) {
+    renderHomePrice({ recentTransactions: { status: 'error', message: '가격 정보를 불러오지 못했어요. 다음 동기화 때 다시 시도합니다.' }, currentListings: { status: 'error', message: '현재 매물 정보를 불러오지 못했어요.' } });
+  }
+}
+
 amountInput.addEventListener('input', calculateLoan);
 amountRange.addEventListener('input', () => { amountInput.value = amountRange.value; calculateLoan(); });
 rateInput.addEventListener('input', calculateLoan);
@@ -81,3 +197,4 @@ loanForm.addEventListener('submit', (event) => { event.preventDefault(); calcula
 loanForm.addEventListener('reset', () => { window.setTimeout(calculateLoan, 0); });
 
 calculateLoan();
+loadHomePrice();
