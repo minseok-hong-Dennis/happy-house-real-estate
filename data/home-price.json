@@ -12,8 +12,8 @@
     "lastSuccessfulAt": null
   },
   "recentTransactions": {
-    "status": "waiting_for_secret",
-    "message": "국토교통부 실거래가 API 키를 등록하면 최근 3개월 가격을 동기화합니다.",
+    "status": "error",
+    "message": "공식 실거래가를 불러오지 못했어요. 다음 동기화 때 다시 시도합니다.",
     "periodLabel": "동기화 후 최근 3개월 거래를 표시합니다.",
     "summary": null,
     "records": []

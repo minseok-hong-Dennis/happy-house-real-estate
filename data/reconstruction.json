@@ -1,8 +1,8 @@
 {
-  "status": "waiting_for_secret",
+  "status": "error",
   "sync": {
     "lastSuccessfulAt": null,
-    "message": "국토교통부 API 키를 등록하면 최근 12개월 실거래가를 동기화합니다."
+    "message": "일부 단지의 실거래가를 불러오지 못했어요."
   },
   "items": [
     {
@@ -19,8 +19,8 @@
       "remainingEstimate": "준공까지 약 2~4년 추정",
       "sourceUrl": "https://wonnam.co.kr/yeongtong-2-district-xi-ipark-2026-location-analysis/",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "waiting_for_secret",
-      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": null
     },
     {
@@ -37,8 +37,8 @@
       "remainingEstimate": "이주까지 약 1년 · 입주는 이후 일정 확인",
       "sourceUrl": "https://realty.chosun.com/site/data/html_dir/2025/04/03/2025040301944.html",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "waiting_for_secret",
-      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": null
     },
     {
@@ -55,8 +55,8 @@
       "remainingEstimate": "준공까지 약 6~8년 이상 추정",
       "sourceUrl": "https://newstown.co.kr/news/articleView.html?idxno=705409",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "waiting_for_secret",
-      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": null
     },
     {
@@ -73,8 +73,8 @@
       "remainingEstimate": "준공까지 약 7~10년 이상 추정",
       "sourceUrl": "https://v.daum.net/v/prfWglQ9Ww",
       "sourceLabel": "진행 정보 보기",
-      "priceStatus": "waiting_for_secret",
-      "priceMessage": "국토교통부 API 키 등록 후 최근 12개월 실거래가를 표시합니다.",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": null
     }
   ]
