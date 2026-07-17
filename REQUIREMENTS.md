@@ -10,3 +10,4 @@
 6. Put a Budget Management tab below the Home tab.
 7. In Budget Management, show monthly loan repayment estimates.
 8. Merge the completed work to the remote repository.
+9. Redesign the overall website with a clean, white-first visual style.
