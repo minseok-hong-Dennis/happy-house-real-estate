@@ -11,6 +11,9 @@ let movingBudgetWon = Number.NaN;
 let propertyMap = null;
 let reconstructionMapLayer = null;
 let homeMapMarker = null;
+let latestHomePriceManwon = Number.NaN;
+let latestHomePriceContractDate = '';
+let salePriceTouched = false;
 const reconstructionMarkers = new Map();
 
 const COMPANY_LOAN = {
@@ -104,6 +107,50 @@ function monthlyLoanPayment(principal, annualRate, months) {
   return principal * (monthlyRate * factor) / (factor - 1);
 }
 
+function loanPaymentParts(principal, annualRate, months, paymentNumber) {
+  if (principal <= 0 || months <= 0 || paymentNumber < 1 || paymentNumber > months) return { payment: 0, principal: 0, interest: 0 };
+  const payment = monthlyLoanPayment(principal, annualRate, months);
+  const monthlyRate = annualRate / 100 / 12;
+  if (monthlyRate === 0) return { payment, principal: payment, interest: 0 };
+  const elapsed = paymentNumber - 1;
+  const growth = Math.pow(1 + monthlyRate, elapsed);
+  const balance = Math.max(0, principal * growth - payment * ((growth - 1) / monthlyRate));
+  const interest = balance * monthlyRate;
+  const principalPayment = Math.min(balance, Math.max(0, payment - interest));
+  return { payment: principalPayment + interest, principal: principalPayment, interest };
+}
+
+function creditPaymentParts(principal, annualRate, months, repaymentType, paymentNumber) {
+  if (principal <= 0 || paymentNumber < 1 || paymentNumber > months) return { payment: 0, principal: 0, interest: 0 };
+  if (repaymentType === 'bullet') {
+    const interest = principal * (annualRate / 100 / 12);
+    return { payment: interest, principal: 0, interest };
+  }
+  return loanPaymentParts(principal, annualRate, months, paymentNumber);
+}
+
+function companyRepaymentParts(principal, paymentNumber) {
+  const totalRate = COMPANY_LOAN.personalRate + COMPANY_LOAN.companyRate;
+  const bankParts = loanPaymentParts(principal, totalRate, COMPANY_LOAN.repaymentMonths, paymentNumber);
+  const subsidyInterest = totalRate > 0 ? bankParts.interest * (COMPANY_LOAN.companyRate / totalRate) : 0;
+  const personalInterest = Math.max(0, bankParts.interest - subsidyInterest);
+  const subsidyTax = estimatedSubsidyTax(subsidyInterest * 12) / 12;
+  return {
+    total: bankParts.principal + personalInterest + subsidyTax,
+    principal: bankParts.principal,
+    personalInterest,
+    subsidyTax
+  };
+}
+
+function setMonthlyBreakdown(prefix, values) {
+  setText('#' + prefix + '-company-principal', formatWon(values.companyPrincipal));
+  setText('#' + prefix + '-company-interest', formatWon(values.companyInterest));
+  setText('#' + prefix + '-credit-principal', formatWon(values.creditPrincipal));
+  setText('#' + prefix + '-credit-interest', formatWon(values.creditInterest));
+  setText('#' + prefix + '-subsidy-tax', formatWon(values.subsidyTax));
+}
+
 function brokerageMaximum(price) {
   if (!Number.isFinite(price) || price <= 0) return { fee: Number.NaN, rate: Number.NaN };
   if (price < 50000000) return { fee: Math.min(price * 0.006, 250000), rate: 0.006 };
@@ -193,20 +240,22 @@ function calculateFinance() {
   const totalRequired = Number.isFinite(moveBudget) ? moveBudget + purchaseTax.total + buyerBrokerage.fee : Number.NaN;
 
   const creditPrincipal = creditAmountEok * 100000000;
-  const creditPayment = creditType === 'bullet'
-    ? creditPrincipal * (creditRate / 100 / 12)
-    : monthlyLoanPayment(creditPrincipal, creditRate, creditMonths);
+  const creditFirstParts = creditPaymentParts(creditPrincipal, creditRate, creditMonths, creditType, 1);
+  const creditRepaymentParts = creditPaymentParts(creditPrincipal, creditRate, creditMonths, creditType, COMPANY_LOAN.graceMonths + 1);
+  const creditPayment = creditFirstParts.payment;
   const creditBalloonPayment = creditType === 'bullet' ? creditPrincipal : 0;
-  const totalCompanyRate = COMPANY_LOAN.personalRate + COMPANY_LOAN.companyRate;
   const personalGraceInterest = Number.isFinite(companyPrincipal) ? companyPrincipal * (COMPANY_LOAN.personalRate / 100 / 12) : Number.NaN;
   const monthlyCompanySubsidy = Number.isFinite(companyPrincipal) ? companyPrincipal * (COMPANY_LOAN.companyRate / 100 / 12) : Number.NaN;
   const annualSubsidyTax = Number.isFinite(monthlyCompanySubsidy) ? estimatedSubsidyTax(monthlyCompanySubsidy * 12) : Number.NaN;
   const monthlySubsidyTax = Number.isFinite(annualSubsidyTax) ? annualSubsidyTax / 12 : Number.NaN;
-  const companyBankPayment = Number.isFinite(companyPrincipal) ? monthlyLoanPayment(companyPrincipal, totalCompanyRate, COMPANY_LOAN.repaymentMonths) : Number.NaN;
   const graceMonthlyCost = Number.isFinite(companyPrincipal) ? personalGraceInterest + monthlySubsidyTax + creditPayment : Number.NaN;
-  const companyRepaymentMonthlyCost = Number.isFinite(companyPrincipal) ? companyBankPayment - monthlyCompanySubsidy + monthlySubsidyTax : Number.NaN;
+  const firstCompanyRepayment = Number.isFinite(companyPrincipal) ? companyRepaymentParts(companyPrincipal, 1) : null;
   const creditContinuesAfterGrace = creditPrincipal > 0 && creditMonths > COMPANY_LOAN.graceMonths;
-  const repaymentMonthlyCost = Number.isFinite(companyRepaymentMonthlyCost) ? companyRepaymentMonthlyCost + (creditContinuesAfterGrace ? creditPayment : 0) : Number.NaN;
+  const repaymentMonthlyCost = firstCompanyRepayment ? firstCompanyRepayment.total + creditRepaymentParts.payment : Number.NaN;
+  const postCreditMonth = creditMonths + 1;
+  const postCreditCompanyPaymentNumber = Math.max(1, postCreditMonth - COMPANY_LOAN.graceMonths);
+  const postCreditCompanyParts = Number.isFinite(companyPrincipal) ? companyRepaymentParts(companyPrincipal, postCreditCompanyPaymentNumber) : null;
+  const companyRepaymentMonthlyCost = postCreditCompanyParts?.total ?? Number.NaN;
 
   setText('#sale-net-proceeds', formatWon(saleNetProceeds));
   setText('#sale-net-caption', hasSalePrice ? '매도가 - 5억원 - 매도 복비' : '현재 집 예상 매도가를 입력해 주세요.');
@@ -232,18 +281,42 @@ function calculateFinance() {
   setText('#grace-monthly-cost', formatWon(graceMonthlyCost));
   setText('#repayment-monthly-cost', formatWon(repaymentMonthlyCost));
   setText('#repayment-period-label', creditContinuesAfterGrace ? '37~' + creditMonths + '개월' : '37개월부터');
-  setText('#repayment-period-copy', creditContinuesAfterGrace ? '사내 대출 + 신용대출' : '사내 대출 원리금 상환');
+  setText('#repayment-period-copy', (creditContinuesAfterGrace ? '사내 대출 + 신용대출' : '사내 대출 원리금 상환') + ' · 37개월차 기준');
   const postCreditRow = document.querySelector('#post-credit-monthly-row');
   postCreditRow.hidden = !creditContinuesAfterGrace;
   setText('#post-credit-period-label', (creditMonths + 1) + '개월부터');
+  setText('#post-credit-period-copy', '사내 대출만 반영 · ' + (creditMonths + 1) + '개월차 기준');
   setText('#post-credit-monthly-cost', formatWon(companyRepaymentMonthlyCost));
   setText('#annual-subsidy-tax', formatWon(annualSubsidyTax));
+  setMonthlyBreakdown('grace', {
+    companyPrincipal: Number.isFinite(companyPrincipal) ? 0 : Number.NaN,
+    companyInterest: personalGraceInterest,
+    creditPrincipal: creditFirstParts.principal,
+    creditInterest: creditFirstParts.interest,
+    subsidyTax: monthlySubsidyTax
+  });
+  setMonthlyBreakdown('repayment', {
+    companyPrincipal: firstCompanyRepayment?.principal ?? Number.NaN,
+    companyInterest: firstCompanyRepayment?.personalInterest ?? Number.NaN,
+    creditPrincipal: creditRepaymentParts.principal,
+    creditInterest: creditRepaymentParts.interest,
+    subsidyTax: firstCompanyRepayment?.subsidyTax ?? Number.NaN
+  });
+  setMonthlyBreakdown('post-credit', {
+    companyPrincipal: postCreditCompanyParts?.principal ?? Number.NaN,
+    companyInterest: postCreditCompanyParts?.personalInterest ?? Number.NaN,
+    creditPrincipal: 0,
+    creditInterest: 0,
+    subsidyTax: postCreditCompanyParts?.subsidyTax ?? Number.NaN
+  });
   setTextAll('[data-home-move-budget]', formatWon(moveBudget));
   setTextAll('[data-home-extra-cost]', formatWon(transactionCosts));
   setTextAll('[data-home-monthly-cost]', formatWon(repaymentMonthlyCost));
   setTextAll('[data-home-budget-caption]', Number.isFinite(moveBudget) ? '매도 순자금 + 사내 대출 + 신용대출' : '현재 집 예상 매도가를 입력해 주세요.');
   setTextAll('[data-home-cost-caption]', Number.isFinite(transactionCosts) ? '취득세 + 매도·매수 복비 상한' : '매도가 입력 후 계산합니다.');
-  setTextAll('[data-home-loan-summary]', Number.isFinite(repaymentMonthlyCost) ? '37개월차 · ' + (creditContinuesAfterGrace ? (creditType === 'bullet' ? '신용대출 이자 포함' : '신용대출 원리금 포함') : '신용대출 종료 후') : '사내 대출 실행액을 계산합니다.');
+  setTextAll('[data-home-loan-summary]', Number.isFinite(repaymentMonthlyCost)
+    ? '37개월차 · ' + (creditContinuesAfterGrace ? (creditType === 'bullet' ? '신용대출 이자 포함' : '신용대출 원리금 포함') : (creditPrincipal > 0 ? '신용대출 종료 후' : '사내 대출 원리금'))
+    : '사내 대출 실행액을 계산합니다.');
   setTextAll('[data-home-sale-net]', formatWon(saleNetProceeds));
   setTextAll('[data-home-company-loan]', formatWon(companyPrincipal));
   setTextAll('[data-home-credit-loan]', formatWon(creditAmountEok * 100000000));
@@ -340,15 +413,26 @@ function renderHomePrice(data) {
   renderTransactionRows(trades.records);
   renderListings(data.currentListings);
 
+  latestHomePriceManwon = Number(summary.latestPriceManwon);
+  latestHomePriceContractDate = trades.records?.[0]?.contractDate || '';
+  if (Number.isFinite(latestHomePriceManwon) && latestHomePriceManwon > 0) {
+    if (!salePriceTouched && !fields.salePrice.value) {
+      fields.salePrice.value = String(Number((latestHomePriceManwon / 10000).toFixed(4)));
+    }
+    setText('#current-sale-reference', '최근 실거래 ' + formatPriceManwon(latestHomePriceManwon) + (latestHomePriceContractDate ? ' · ' + latestHomePriceContractDate : '') + (salePriceTouched ? ' 참고 · 직접 입력값 사용 중' : ' 기준 자동 입력'));
+  } else {
+    setText('#current-sale-reference', '최근 실거래가 확인 전에는 직접 입력해 주세요.');
+  }
+
   const kbMarket = data.kbMarketPrice || {};
   if (kbMarket.status === 'ok' && Number.isFinite(kbMarket.lowPriceEok) && Number.isFinite(kbMarket.highPriceEok)) {
     if (!fields.kbLow.value) fields.kbLow.value = kbMarket.lowPriceEok;
     if (!fields.kbHigh.value) fields.kbHigh.value = kbMarket.highPriceEok;
     setText('#kb-sync-copy', (kbMarket.sourceName || '연결된 시세 제공자') + ' · ' + (kbMarket.syncedAt || '동기화 완료'));
-    calculateFinance();
   } else {
     setText('#kb-sync-copy', kbMarket.message || 'KB 시세 공개 API가 없어 현재는 직접 입력합니다.');
   }
+  calculateFinance();
 }
 
 function budgetFitForPrice(priceManwon) {
@@ -365,7 +449,7 @@ function budgetFitForPrice(priceManwon) {
 }
 
 function representativeCandidatePrice(areaPrices = []) {
-  const prices = areaPrices.map((area) => Number(area.averagePriceManwon)).filter(Number.isFinite).sort((left, right) => left - right);
+  const prices = areaPrices.map((area) => Number(area.latestPriceManwon)).filter(Number.isFinite).sort((left, right) => left - right);
   if (!prices.length) return Number.NaN;
   if (!Number.isFinite(movingBudgetWon)) return prices[Math.floor(prices.length / 2)];
   const affordable = prices.filter((price) => price * 10000 <= movingBudgetWon);
@@ -403,8 +487,8 @@ function makeAreaPriceCard(area, expectedType) {
   } else {
     label.textContent = area.areaLabel || '전용 ' + area.areaTypeSqm + '㎡';
     count.textContent = Number(area.count || 0).toLocaleString('ko-KR') + '건';
-    price.textContent = formatPriceManwon(Number(area.averagePriceManwon));
-    meta.textContent = '최근 ' + formatPriceManwon(Number(area.latestPriceManwon)) + ' · ' + (area.latestContractDate || '-') + ' · 범위 ' + formatPriceManwon(Number(area.minPriceManwon)) + '~' + formatPriceManwon(Number(area.maxPriceManwon));
+    price.textContent = formatPriceManwon(Number(area.latestPriceManwon));
+    meta.textContent = (area.latestContractDate || '최근 거래') + ' · 12개월 평균 ' + formatPriceManwon(Number(area.averagePriceManwon)) + ' · 범위 ' + formatPriceManwon(Number(area.minPriceManwon)) + '~' + formatPriceManwon(Number(area.maxPriceManwon));
   }
   heading.append(label, count);
   card.append(heading, price, meta);
@@ -475,10 +559,10 @@ function recommendationOptions(items) {
   if (!Number.isFinite(movingBudgetWon)) return [];
   return items.map((item) => {
     const affordable = (item.areaPrices || [])
-      .filter((area) => Number(area.averagePriceManwon) * 10000 <= movingBudgetWon)
-      .sort((left, right) => Number(right.averagePriceManwon) - Number(left.averagePriceManwon));
+      .filter((area) => Number(area.latestPriceManwon) * 10000 <= movingBudgetWon)
+      .sort((left, right) => Number(right.latestPriceManwon) - Number(left.latestPriceManwon));
     return affordable.length ? { item, area: affordable[0] } : null;
-  }).filter(Boolean).sort((left, right) => Number(right.area.averagePriceManwon) - Number(left.area.averagePriceManwon)).slice(0, 6);
+  }).filter(Boolean).sort((left, right) => Number(right.area.latestPriceManwon) - Number(left.area.latestPriceManwon)).slice(0, 6);
 }
 
 function renderRecommendations(items) {
@@ -490,12 +574,12 @@ function renderRecommendations(items) {
     empty.className = 'listing-empty';
     empty.innerHTML = '<h3>예산 설정이 필요해요.</h3><p>대출 관리에서 현재 집 예상 매도가를 입력하면 추천을 시작합니다.</p>';
     container.append(empty);
-    setText('#recommendation-state', '최근 평균 실거래가가 이사 예산 안에 있는 단지를 찾습니다.');
+    setText('#recommendation-state', '가장 최근 실거래가가 이사 예산 안에 있는 단지를 찾습니다.');
     setText('#recommendation-count', '예산 입력 전');
     return;
   }
   setText('#recommendation-count', options.length + '개 추천');
-  setText('#recommendation-state', '최근 12개월 평균 실거래가가 ' + formatWon(movingBudgetWon) + ' 이하인 면적 기준');
+  setText('#recommendation-state', '가장 최근 실거래가가 ' + formatWon(movingBudgetWon) + ' 이하인 면적 기준');
   if (!options.length) {
     const empty = document.createElement('article');
     empty.className = 'listing-empty';
@@ -513,9 +597,9 @@ function renderRecommendations(items) {
     card.className = 'recommendation-card';
     label.textContent = area.areaLabel;
     title.textContent = item.name;
-    price.textContent = formatPriceManwon(Number(area.averagePriceManwon));
+    price.textContent = formatPriceManwon(Number(area.latestPriceManwon));
     meta.textContent = [item.location, area.count + '건', area.latestContractDate + ' 최근 거래'].join(' · ');
-    remainder.textContent = '예산 여유 ' + formatWon(movingBudgetWon - Number(area.averagePriceManwon) * 10000);
+    remainder.textContent = '예산 여유 ' + formatWon(movingBudgetWon - Number(area.latestPriceManwon) * 10000);
     card.append(label, title, price, meta, remainder);
     container.append(card);
   });
@@ -673,6 +757,7 @@ function makeReconstructionCard(item) {
   const mapButton = document.createElement('button');
   const transaction = item.latestTransaction || null;
   card.className = 'reconstruction-card';
+  card.dataset.reconstructionId = item.id;
   label.className = 'card-label';
   label.textContent = item.stage || '사업 단계 확인 중';
   title.textContent = item.name || '재건축 단지';
@@ -742,22 +827,61 @@ function mapPopupContent(item) {
   const stage = document.createElement('span');
   const title = document.createElement('b');
   const location = document.createElement('small');
+  const transaction = document.createElement('div');
+  const transactionLabel = document.createElement('small');
+  const transactionPrice = document.createElement('strong');
+  const areaList = document.createElement('ul');
+  const details = document.createElement('dl');
+  const detailButton = document.createElement('button');
   const link = document.createElement('a');
   wrapper.className = 'map-popup';
   stage.textContent = item.stage || '진행 단계 확인 중';
   title.textContent = item.name || '재건축 사업';
   location.textContent = item.location || '';
+  transaction.className = 'map-popup-price';
+  transactionLabel.textContent = item.latestTransaction?.contractDate ? item.latestTransaction.contractDate + ' 최근 실거래' : '최근 실거래';
+  transactionPrice.textContent = item.latestTransaction ? formatPriceManwon(Number(item.latestTransaction.priceManwon)) : '매칭 준비 중';
+  transaction.append(transactionLabel, transactionPrice);
+  areaList.className = 'map-popup-areas';
+  (item.areaPrices || []).forEach((area) => {
+    const row = document.createElement('li');
+    const label = document.createElement('span');
+    const price = document.createElement('b');
+    label.textContent = area.areaLabel || '전용 ' + area.areaTypeSqm + '㎡';
+    price.textContent = formatPriceManwon(Number(area.latestPriceManwon));
+    row.append(label, price);
+    areaList.append(row);
+  });
+  if (!areaList.children.length) {
+    const row = document.createElement('li');
+    row.textContent = item.priceMessage || '최근 신고 거래가 없습니다.';
+    areaList.append(row);
+  }
+  details.className = 'map-popup-details';
+  details.append(
+    makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요'),
+    makeDetailRow('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요')
+  );
+  detailButton.type = 'button';
+  detailButton.dataset.reconstructionDetail = item.id;
+  detailButton.textContent = '재건축 탭에서 상세 보기';
   link.href = googleMapsUrl(item);
   link.target = '_blank';
   link.rel = 'noreferrer';
   link.textContent = 'Google Maps에서 확인';
-  wrapper.append(stage, title, location, link);
+  wrapper.append(stage, title, location, transaction, areaList, details, detailButton, link);
   return wrapper;
 }
 
 function initializePropertyMap() {
   if (propertyMap || !window.L) return;
-  propertyMap = window.L.map('property-map', { scrollWheelZoom: false, zoomControl: true }).setView([37.32, 127.01], 10);
+  propertyMap = window.L.map('property-map', {
+    scrollWheelZoom: true,
+    wheelDebounceTime: 30,
+    wheelPxPerZoomLevel: 55,
+    touchZoom: true,
+    zoomControl: true
+  }).setView([37.32, 127.01], 10);
   window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -780,6 +904,12 @@ function initializePropertyMap() {
   homeMapMarker.bindPopup(homePopup);
 }
 
+function updateSelectedMapProject(item) {
+  const googleLink = document.querySelector('#selected-google-map-link');
+  googleLink.href = googleMapsUrl(item);
+  googleLink.textContent = item.name + ' · Google Maps';
+}
+
 function focusMapProject(item) {
   showTab('map');
   document.querySelector('#map-region-filter').value = 'all';
@@ -789,9 +919,23 @@ function focusMapProject(item) {
     propertyMap.setView(marker.getLatLng(), 14, { animate: true });
     marker.openPopup();
   }
-  const googleLink = document.querySelector('#selected-google-map-link');
-  googleLink.href = googleMapsUrl(item);
-  googleLink.textContent = item.name + ' · Google Maps';
+  updateSelectedMapProject(item);
+}
+
+function focusReconstructionProject(item) {
+  document.querySelector('#reconstruction-search').value = item.name;
+  document.querySelector('#reconstruction-region-filter').value = 'all';
+  document.querySelector('#reconstruction-stage-filter').value = 'all';
+  document.querySelector('#reconstruction-price-only').checked = false;
+  renderFilteredReconstruction({ resetPage: true });
+  showTab('reconstruction');
+  window.setTimeout(() => {
+    const card = [...document.querySelectorAll('[data-reconstruction-id]')].find((element) => element.dataset.reconstructionId === item.id);
+    if (!card) return;
+    const details = card.querySelector('details');
+    if (details) details.open = true;
+    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
 
 function renderMapProjects() {
@@ -812,7 +956,8 @@ function renderMapProjects() {
   items.forEach((item) => {
     const point = [item.mapPoint.latitude, item.mapPoint.longitude];
     const marker = window.L.circleMarker(point, { radius: 7, color: '#ffffff', weight: 2, fillColor: '#ff6659', fillOpacity: 0.95 });
-    marker.bindPopup(mapPopupContent(item));
+    marker.bindPopup(mapPopupContent(item), { minWidth: 250, maxWidth: 320 });
+    marker.on('click', () => updateSelectedMapProject(item));
     marker.addTo(reconstructionMapLayer);
     reconstructionMarkers.set(item.id, marker);
     bounds.extend(point);
@@ -877,12 +1022,23 @@ async function loadCandidates() {
   }
 }
 
+fields.salePrice.addEventListener('input', () => {
+  salePriceTouched = true;
+  if (Number.isFinite(latestHomePriceManwon)) {
+    setText('#current-sale-reference', '최근 실거래 ' + formatPriceManwon(latestHomePriceManwon) + (latestHomePriceContractDate ? ' · ' + latestHomePriceContractDate : '') + ' 참고 · 직접 입력값 사용 중');
+  }
+});
+
 Object.values(fields).forEach((field) => {
   field.addEventListener('input', calculateFinance);
   field.addEventListener('change', calculateFinance);
 });
 document.querySelector('#finance-reset').addEventListener('click', () => {
-  fields.salePrice.value = '';
+  salePriceTouched = false;
+  fields.salePrice.value = Number.isFinite(latestHomePriceManwon) ? String(Number((latestHomePriceManwon / 10000).toFixed(4))) : '';
+  if (Number.isFinite(latestHomePriceManwon)) {
+    setText('#current-sale-reference', '최근 실거래 ' + formatPriceManwon(latestHomePriceManwon) + (latestHomePriceContractDate ? ' · ' + latestHomePriceContractDate : '') + ' 기준 자동 입력');
+  }
   fields.kbLow.value = '';
   fields.kbHigh.value = '';
   fields.creditAmount.value = '0';
@@ -915,6 +1071,12 @@ document.querySelector('#reconstruction-load-more').addEventListener('click', ()
 document.querySelector('#map-region-filter').addEventListener('change', renderMapProjects);
 
 document.addEventListener('click', (event) => {
+  const detailButton = event.target.closest('[data-reconstruction-detail]');
+  if (detailButton) {
+    const item = reconstructionItems.find((project) => project.id === detailButton.dataset.reconstructionDetail);
+    if (item) focusReconstructionProject(item);
+    return;
+  }
   const mapButton = event.target.closest('[data-map-project]');
   if (!mapButton) return;
   const item = reconstructionItems.find((project) => project.id === mapButton.dataset.mapProject);

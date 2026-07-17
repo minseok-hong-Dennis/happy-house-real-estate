@@ -55,3 +55,8 @@
 51. Add an "이사 후보지" tab immediately below "우리집 가격" in the navigation.
 52. In the candidate tab, show evaluation scores and recent official transaction prices for 매교역푸르지오SKVIEW 74/84 types, 망포동 영통SKVIEW, and 영통동 현대, refreshed daily by GitHub Actions.
 53. Recommend additional apartment complexes whose recent transaction prices fit the moving budget calculated in the loan-management tab.
+54. Show the Reconstruction-tab project details directly from reconstruction pins on the Map tab and provide a shortcut to the matching reconstruction card.
+55. Pre-fill the current-home expected sale price with the latest official transaction price for Hillstate Prugio Suwon 59-square-meter units without overwriting a user-edited value.
+56. Break down each post-move monthly payment estimate into principal, personally paid interest, credit-loan interest, and estimated income tax on company-supported interest.
+57. Use the latest transaction price, rather than the 12-month average, for candidate-apartment prices, budget-fit scores, and recommendations.
+58. Enable mouse-wheel map zoom and provide clear desktop and mobile gesture guidance.

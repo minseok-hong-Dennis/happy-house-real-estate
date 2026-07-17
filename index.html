@@ -85,7 +85,7 @@
               <section class="step-card">
                 <div class="step-heading"><span>1</span><div><h2>현재 집</h2><p>예상 매도가에서 남은 주담대를 뺍니다.</p></div></div>
                 <div class="field-grid two-columns">
-                  <label>예상 매도가<div class="unit-input"><input id="current-sale-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="예: 9" /><b>억원</b></div></label>
+                  <label>예상 매도가<div class="unit-input"><input id="current-sale-price" type="number" min="0" step="0.01" inputmode="decimal" placeholder="최근 실거래 자동 반영" /><b>억원</b></div><small class="field-reference" id="current-sale-reference">우리집 최근 실거래를 불러오는 중입니다.</small></label>
                   <label>남은 주담대<div class="read-only-input"><b>5억원</b><span>고정</span></div></label>
                 </div>
                 <div class="inline-result"><span>매도 순자금</span><b id="sale-net-proceeds">입력 필요</b><small id="sale-net-caption">현재 집 예상 매도가를 입력해 주세요.</small></div>
@@ -137,9 +137,36 @@
 
               <section class="monthly-card">
                 <div class="compact-heading"><h2>이사 후 월 부담</h2><span>세금 포함 추정</span></div>
-                <div class="monthly-row is-highlighted"><span><b>1~36개월</b><small>거치 기간</small></span><strong id="grace-monthly-cost">입력 필요</strong></div>
-                <div class="monthly-row"><span><b id="repayment-period-label">37개월부터</b><small id="repayment-period-copy">사내 대출 원리금 상환</small></span><strong id="repayment-monthly-cost">입력 필요</strong></div>
-                <div class="monthly-row" id="post-credit-monthly-row" hidden><span><b id="post-credit-period-label">신용대출 종료 후</b><small>사내 대출만 반영</small></span><strong id="post-credit-monthly-cost">입력 필요</strong></div>
+                <div class="monthly-period is-highlighted">
+                  <div class="monthly-row"><span><b>1~36개월</b><small>거치 기간 · 1개월차 기준</small></span><strong id="grace-monthly-cost">입력 필요</strong></div>
+                  <details class="monthly-breakdown"><summary>원금·이자·세금 보기</summary><dl>
+                    <div><dt>사내 대출 원금</dt><dd id="grace-company-principal">-</dd></div>
+                    <div><dt>사내 대출 개인부담 이자</dt><dd id="grace-company-interest">-</dd></div>
+                    <div><dt>신용대출 원금</dt><dd id="grace-credit-principal">-</dd></div>
+                    <div><dt>신용대출 이자</dt><dd id="grace-credit-interest">-</dd></div>
+                    <div class="tax-row"><dt>회사 지원이자 소득세</dt><dd id="grace-subsidy-tax">-</dd></div>
+                  </dl></details>
+                </div>
+                <div class="monthly-period">
+                  <div class="monthly-row"><span><b id="repayment-period-label">37개월부터</b><small id="repayment-period-copy">사내 대출 원리금 상환</small></span><strong id="repayment-monthly-cost">입력 필요</strong></div>
+                  <details class="monthly-breakdown"><summary>원금·이자·세금 보기</summary><dl>
+                    <div><dt>사내 대출 원금</dt><dd id="repayment-company-principal">-</dd></div>
+                    <div><dt>사내 대출 개인부담 이자</dt><dd id="repayment-company-interest">-</dd></div>
+                    <div><dt>신용대출 원금</dt><dd id="repayment-credit-principal">-</dd></div>
+                    <div><dt>신용대출 이자</dt><dd id="repayment-credit-interest">-</dd></div>
+                    <div class="tax-row"><dt>회사 지원이자 소득세</dt><dd id="repayment-subsidy-tax">-</dd></div>
+                  </dl></details>
+                </div>
+                <div class="monthly-period" id="post-credit-monthly-row" hidden>
+                  <div class="monthly-row"><span><b id="post-credit-period-label">신용대출 종료 후</b><small id="post-credit-period-copy">사내 대출만 반영</small></span><strong id="post-credit-monthly-cost">입력 필요</strong></div>
+                  <details class="monthly-breakdown"><summary>원금·이자·세금 보기</summary><dl>
+                    <div><dt>사내 대출 원금</dt><dd id="post-credit-company-principal">-</dd></div>
+                    <div><dt>사내 대출 개인부담 이자</dt><dd id="post-credit-company-interest">-</dd></div>
+                    <div><dt>신용대출 원금</dt><dd>0원</dd></div>
+                    <div><dt>신용대출 이자</dt><dd>0원</dd></div>
+                    <div class="tax-row"><dt>회사 지원이자 소득세</dt><dd id="post-credit-subsidy-tax">-</dd></div>
+                  </dl></details>
+                </div>
               </section>
 
               <section class="cost-card">
@@ -212,7 +239,10 @@
             <a class="secondary-button" id="selected-google-map-link" href="https://www.google.com/maps/search/?api=1&query=%ED%9E%90%EC%8A%A4%ED%85%8C%EC%9D%B4%ED%8A%B8%20%ED%91%B8%EB%A5%B4%EC%A7%80%EC%98%A4%20%EC%88%98%EC%9B%90" target="_blank" rel="noreferrer">Google Maps에서 보기</a>
           </header>
           <div class="map-layout">
-            <div class="map-card"><div id="property-map" role="region" aria-label="우리집과 재건축 사업 위치 지도"></div></div>
+            <div class="map-card">
+              <div id="property-map" role="region" aria-label="우리집과 재건축 사업 위치 지도"></div>
+              <div class="map-gesture-hint" aria-hidden="true"><span class="desktop-map-hint">마우스 휠로 확대·축소</span><span class="mobile-map-hint">두 손가락으로 확대·축소</span></div>
+            </div>
             <aside class="map-side-panel" aria-label="지도 핀 목록">
               <div class="map-legend"><span><i class="home-dot"></i>우리집</span><span><i class="project-dot"></i>재건축</span></div>
               <label class="map-region-control" for="map-region-filter">지역
