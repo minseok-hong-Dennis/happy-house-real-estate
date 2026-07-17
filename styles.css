@@ -106,7 +106,7 @@ h2 { margin: 0; font-size: 1.08rem; letter-spacing: -.045em; }
 .step-heading p { margin: .3rem 0 0; color: var(--muted); font-size: .72rem; }
 .field-grid { display: grid; gap: .9rem; margin-top: 1.35rem; }
 .two-columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.credit-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.credit-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .field-grid label, .compact-field label { display: grid; gap: .48rem; color: var(--soft-ink); font-size: .76rem; font-weight: 600; }
 .unit-input, .read-only-input { display: flex; align-items: center; gap: .5rem; min-height: 3.05rem; padding: 0 .85rem; border: 1px solid var(--line-strong); border-radius: .7rem; background: white; transition: border-color .18s ease, box-shadow .18s ease; }
 .unit-input:focus-within { border-color: var(--mint); box-shadow: 0 0 0 3px var(--mint-soft); }
@@ -116,6 +116,8 @@ h2 { margin: 0; font-size: 1.08rem; letter-spacing: -.045em; }
 .read-only-input { justify-content: space-between; color: var(--ink); background: #f7f9f8; }
 select { min-height: 3.05rem; padding: 0 .85rem; border: 1px solid var(--line-strong); border-radius: .7rem; color: var(--ink); background: white; outline: 0; font-size: .9rem; }
 .formula-note, .disclaimer, .source-line { margin: 1rem 0 0; color: var(--muted); font-size: .69rem; line-height: 1.65; }
+.data-status-note { margin: .55rem 0 0; color: var(--muted); font-size: .67rem; line-height: 1.55; }
+.source-line a { color: var(--mint-deep); font-weight: 700; }
 .inline-result { display: grid; grid-template-columns: 1fr auto; gap: .2rem 1rem; margin-top: 1rem; padding: .85rem 1rem; border-radius: .75rem; background: #f6f8f7; }
 .inline-result span { color: var(--soft-ink); font-size: .72rem; }
 .inline-result b { font-size: .82rem; }

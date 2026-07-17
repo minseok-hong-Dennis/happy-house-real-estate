@@ -12,7 +12,13 @@ The workflow uses the Ministry of Land, Infrastructure and Transport apartment t
 
 - `MOLIT_SERVICE_KEY`: The `General authentication key (Decoding)` shown under `My Page > Data Utilization > Open API > Application Status` after applying for Public Data Portal dataset `15126469`.
 
-The target apartment is `힐스테이트 푸르지오 수원` in `경기도 수원시 팔달구` (`LAWD_CD=41115`). Reconstruction price targets are managed in `data/reconstruction.json` and include the Suwon Yeongtong 2 district, Gwacheon Jugong 10, Sanbon 11 district, and Bundang Yangji village.
+The target apartment is `힐스테이트 푸르지오 수원` in `경기도 수원시 팔달구` (`LAWD_CD=41115`). Only the user's exclusive-area 59-square-meter type (`59㎡ <= area < 60㎡`) is included in home summaries and connected listings.
+
+## Reconstruction projects
+
+The workflow also reads the Ministry of Land, Infrastructure and Transport nationwide urban-renewal dataset (`15160169`), selects reconstruction projects in southern Gyeonggi cities, and displays their official stage, project type, operator, and planned household count. The Open API is preferred; the official CSV is used as a fallback while API access is pending. A stage-based range is shown because the dataset does not include a completion date.
+
+Where a redevelopment-zone name can be safely matched to a transaction apartment and district code, the latest 12-month official transaction is added. Unmatched projects remain in the list with their official project information instead of showing a potentially incorrect apartment price.
 
 ## Current listings
 

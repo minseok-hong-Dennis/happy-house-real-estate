@@ -18,6 +18,7 @@ const fields = {
   kbHigh: document.querySelector('#kb-high-price'),
   creditAmount: document.querySelector('#credit-loan-amount'),
   creditRate: document.querySelector('#credit-loan-rate'),
+  creditType: document.querySelector('#credit-loan-type'),
   creditTerm: document.querySelector('#credit-loan-term'),
   taxArea: document.querySelector('#tax-area')
 };
@@ -158,6 +159,7 @@ function calculateFinance() {
   const salePriceEok = numberValue(fields.salePrice);
   const creditAmountEok = Math.max(0, numberValue(fields.creditAmount) || 0);
   const creditRate = Math.max(0, numberValue(fields.creditRate) || 0);
+  const creditType = fields.creditType.value;
   const creditMonths = Math.max(1, Number(fields.creditTerm.value) || 5) * 12;
   const area = numberValue(fields.taxArea);
   const hasSalePrice = Number.isFinite(salePriceEok) && salePriceEok > 0;
@@ -174,7 +176,11 @@ function calculateFinance() {
   const transactionCosts = Number.isFinite(moveBudget) ? sellerBrokerage.fee + buyerBrokerage.fee + purchaseTax.total : Number.NaN;
   const totalRequired = Number.isFinite(moveBudget) ? moveBudget + purchaseTax.total + buyerBrokerage.fee : Number.NaN;
 
-  const creditPayment = monthlyLoanPayment(creditAmountEok * 100000000, creditRate, creditMonths);
+  const creditPrincipal = creditAmountEok * 100000000;
+  const creditPayment = creditType === 'bullet'
+    ? creditPrincipal * (creditRate / 100 / 12)
+    : monthlyLoanPayment(creditPrincipal, creditRate, creditMonths);
+  const creditBalloonPayment = creditType === 'bullet' ? creditPrincipal : 0;
   const totalCompanyRate = COMPANY_LOAN.personalRate + COMPANY_LOAN.companyRate;
   const personalGraceInterest = Number.isFinite(companyPrincipal) ? companyPrincipal * (COMPANY_LOAN.personalRate / 100 / 12) : Number.NaN;
   const monthlyCompanySubsidy = Number.isFinite(companyPrincipal) ? companyPrincipal * (COMPANY_LOAN.companyRate / 100 / 12) : Number.NaN;
@@ -182,7 +188,9 @@ function calculateFinance() {
   const monthlySubsidyTax = Number.isFinite(annualSubsidyTax) ? annualSubsidyTax / 12 : Number.NaN;
   const companyBankPayment = Number.isFinite(companyPrincipal) ? monthlyLoanPayment(companyPrincipal, totalCompanyRate, COMPANY_LOAN.repaymentMonths) : Number.NaN;
   const graceMonthlyCost = Number.isFinite(companyPrincipal) ? personalGraceInterest + monthlySubsidyTax + creditPayment : Number.NaN;
-  const repaymentMonthlyCost = Number.isFinite(companyPrincipal) ? companyBankPayment - monthlyCompanySubsidy + monthlySubsidyTax + creditPayment : Number.NaN;
+  const companyRepaymentMonthlyCost = Number.isFinite(companyPrincipal) ? companyBankPayment - monthlyCompanySubsidy + monthlySubsidyTax : Number.NaN;
+  const creditContinuesAfterGrace = creditPrincipal > 0 && creditMonths > COMPANY_LOAN.graceMonths;
+  const repaymentMonthlyCost = Number.isFinite(companyRepaymentMonthlyCost) ? companyRepaymentMonthlyCost + (creditContinuesAfterGrace ? creditPayment : 0) : Number.NaN;
 
   setText('#sale-net-proceeds', formatWon(saleNetProceeds));
   setText('#sale-net-caption', hasSalePrice ? '매도가 - 5억원 - 매도 복비' : '현재 집 예상 매도가를 입력해 주세요.');
@@ -193,6 +201,10 @@ function calculateFinance() {
   setText('#company-loan-caption', loan.kbChecked ? '5억원 · 매매가 70% · KB 시세 70% 반영' : 'KB 시세 조건 확인 전');
   setText('#kb-check-copy', loan.kbChecked ? 'KB 시세 상·하한 평균의 70% 조건까지 반영했습니다.' : 'KB 시세 입력 전에는 매매가 70%와 5억원 한도를 먼저 적용합니다.');
   setText('#credit-monthly-payment', formatWon(creditPayment));
+  setText('#credit-balloon-payment', formatWon(creditBalloonPayment));
+  setText('#credit-repayment-note', creditType === 'bullet'
+    ? creditMonths + '개월 동안 이자만 내고 만기에 원금 ' + formatWon(creditBalloonPayment) + '을 갚습니다.'
+    : '원리금균등은 ' + creditMonths + '개월 동안 매월 원금과 이자를 함께 갚습니다.');
   setText('#move-budget', formatWon(moveBudget));
   setText('#acquisition-tax', formatWon(purchaseTax.acquisitionTax));
   setText('#local-education-tax', formatWon(purchaseTax.localEducationTax));
@@ -203,13 +215,19 @@ function calculateFinance() {
   setText('#total-moving-required', formatWon(totalRequired));
   setText('#grace-monthly-cost', formatWon(graceMonthlyCost));
   setText('#repayment-monthly-cost', formatWon(repaymentMonthlyCost));
+  setText('#repayment-period-label', creditContinuesAfterGrace ? '37~' + creditMonths + '개월' : '37개월부터');
+  setText('#repayment-period-copy', creditContinuesAfterGrace ? '사내 대출 + 신용대출' : '사내 대출 원리금 상환');
+  const postCreditRow = document.querySelector('#post-credit-monthly-row');
+  postCreditRow.hidden = !creditContinuesAfterGrace;
+  setText('#post-credit-period-label', (creditMonths + 1) + '개월부터');
+  setText('#post-credit-monthly-cost', formatWon(companyRepaymentMonthlyCost));
   setText('#annual-subsidy-tax', formatWon(annualSubsidyTax));
   setTextAll('[data-home-move-budget]', formatWon(moveBudget));
   setTextAll('[data-home-extra-cost]', formatWon(transactionCosts));
   setTextAll('[data-home-monthly-cost]', formatWon(repaymentMonthlyCost));
   setTextAll('[data-home-budget-caption]', Number.isFinite(moveBudget) ? '매도 순자금 + 사내 대출 + 신용대출' : '현재 집 예상 매도가를 입력해 주세요.');
   setTextAll('[data-home-cost-caption]', Number.isFinite(transactionCosts) ? '취득세 + 매도·매수 복비 상한' : '매도가 입력 후 계산합니다.');
-  setTextAll('[data-home-loan-summary]', Number.isFinite(repaymentMonthlyCost) ? '37개월차 · 지원이자 세금 포함' : '사내 대출 실행액을 계산합니다.');
+  setTextAll('[data-home-loan-summary]', Number.isFinite(repaymentMonthlyCost) ? '37개월차 · ' + (creditContinuesAfterGrace ? (creditType === 'bullet' ? '신용대출 이자 포함' : '신용대출 원리금 포함') : '신용대출 종료 후') : '사내 대출 실행액을 계산합니다.');
   setTextAll('[data-home-sale-net]', formatWon(saleNetProceeds));
   setTextAll('[data-home-company-loan]', formatWon(companyPrincipal));
   setTextAll('[data-home-credit-loan]', formatWon(creditAmountEok * 100000000));
@@ -251,7 +269,7 @@ function renderListings(listingData) {
     card.className = 'listing-empty';
     const title = document.createElement('h3');
     const description = document.createElement('p');
-    title.textContent = listingData?.status === 'error' ? '현재 매물 정보를 불러오지 못했어요.' : '현재 매물 데이터 연결 대기';
+    title.textContent = listingData?.status === 'error' ? '현재 매물 정보를 불러오지 못했어요.' : (listingData?.status === 'empty' ? '전용 59㎡형 매물이 없어요.' : '현재 매물 데이터 연결 대기');
     description.textContent = listingData?.message || '자동 수집이 허용된 부동산 데이터 API를 연결하면 최신 매물가를 보여드려요.';
     card.append(title, description);
     container.append(card);
@@ -282,18 +300,31 @@ function renderHomePrice(data) {
   const summary = trades.summary || {};
   const syncedAt = sync.lastSuccessfulAt || null;
   const syncDot = document.querySelector('#price-sync-dot');
-  setText('#price-apartment-name', apartment.name || '힐스테이트 푸르지오 수원');
+  const areaLabel = apartment.areaLabel || '전용 59㎡형';
+  const apartmentLabel = [apartment.name || '힐스테이트 푸르지오 수원', areaLabel].join(' · ');
+  setText('#price-apartment-name', apartmentLabel);
   setText('#price-address', apartment.address || '경기도 수원시 팔달구 효원로93번길 33');
   setText('#price-sync-state', syncedAt ? '동기화 완료' : '동기화 대기');
   setText('#price-synced-at', syncedAt ? syncedAt + ' 기준' : (trades.message || '공식 데이터 연결 후 갱신됩니다.'));
   syncDot.classList.toggle('is-synced', Boolean(syncedAt));
   syncDot.classList.toggle('is-error', trades.status === 'error');
+  setText('#trade-title', '최근 3개월 ' + areaLabel + ' 실거래가');
   setText('#trade-period', trades.periodLabel || '동기화 후 거래 기간을 표시합니다.');
   setText('#trade-count', Number.isFinite(summary.count) ? summary.count.toLocaleString('ko-KR') + '건' : '-');
   setText('#trade-average', formatPriceManwon(Number(summary.averagePriceManwon)));
   setText('#trade-latest', formatPriceManwon(Number(summary.latestPriceManwon)));
   renderTransactionRows(trades.records);
   renderListings(data.currentListings);
+
+  const kbMarket = data.kbMarketPrice || {};
+  if (kbMarket.status === 'ok' && Number.isFinite(kbMarket.lowPriceEok) && Number.isFinite(kbMarket.highPriceEok)) {
+    if (!fields.kbLow.value) fields.kbLow.value = kbMarket.lowPriceEok;
+    if (!fields.kbHigh.value) fields.kbHigh.value = kbMarket.highPriceEok;
+    setText('#kb-sync-copy', (kbMarket.sourceName || '연결된 시세 제공자') + ' · ' + (kbMarket.syncedAt || '동기화 완료'));
+    calculateFinance();
+  } else {
+    setText('#kb-sync-copy', kbMarket.message || 'KB 시세 공개 API가 없어 현재는 직접 입력합니다.');
+  }
 }
 
 function makeDetailRow(label, value) {
@@ -317,6 +348,7 @@ function renderReconstruction(data) {
   syncDot.classList.toggle('is-error', data.status === 'error');
   container.replaceChildren();
   const items = data.items || [];
+  setText('#reconstruction-count', items.length ? items.length.toLocaleString('ko-KR') + '개 진행 단지' : '진행 단지');
   if (!items.length) {
     const card = document.createElement('article');
     card.className = 'listing-empty';
@@ -342,6 +374,8 @@ function renderReconstruction(data) {
     location.textContent = item.location || '';
     details.append(
       makeDetailRow('최근 실거래가', transaction ? formatPriceManwon(Number(transaction.priceManwon)) + ' · ' + transaction.contractDate : (item.priceMessage || '동기화 대기')),
+      makeDetailRow('사업 유형', item.projectType || '재건축'),
+      makeDetailRow('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요'),
       makeDetailRow('다음 이정표', item.milestone || '확인 중'),
       makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요')
     );
@@ -384,6 +418,7 @@ document.querySelector('#finance-reset').addEventListener('click', () => {
   fields.kbHigh.value = '';
   fields.creditAmount.value = '0';
   fields.creditRate.value = '5';
+  fields.creditType.value = 'amortizing';
   fields.creditTerm.value = '5';
   fields.taxArea.value = '84';
   calculateFinance();

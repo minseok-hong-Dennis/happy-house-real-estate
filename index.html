@@ -100,6 +100,7 @@
                   <label>KB 시세 상한<div class="unit-input"><input id="kb-high-price" type="number" min="0" step="0.1" inputmode="decimal" placeholder="선택 입력" /><b>억원</b></div></label>
                 </div>
                 <p class="formula-note" id="kb-check-copy">KB 시세 입력 전에는 매매가 70%와 5억원 한도를 먼저 적용합니다.</p>
+                <p class="data-status-note" id="kb-sync-copy">KB 시세 공개 API가 없어 현재는 직접 입력합니다.</p>
               </section>
 
               <section class="step-card">
@@ -107,8 +108,10 @@
                 <div class="field-grid credit-fields">
                   <label>대출 금액<div class="unit-input"><input id="credit-loan-amount" type="number" min="0" step="0.1" value="0" inputmode="decimal" /><b>억원</b></div></label>
                   <label>연 이자율<div class="unit-input"><input id="credit-loan-rate" type="number" min="0" max="30" step="0.1" value="5" inputmode="decimal" /><b>%</b></div></label>
+                  <label>상환 방식<select id="credit-loan-type"><option value="amortizing" selected>원리금균등</option><option value="bullet">만기일시</option></select></label>
                   <label>상환 기간<select id="credit-loan-term"><option value="3">3년</option><option value="5" selected>5년</option><option value="7">7년</option><option value="10">10년</option></select></label>
                 </div>
+                <p class="formula-note" id="credit-repayment-note">원리금균등은 매월 원금과 이자를 함께 갚습니다.</p>
               </section>
 
               <section class="step-card">
@@ -132,7 +135,8 @@
               <section class="monthly-card">
                 <div class="compact-heading"><h2>이사 후 월 부담</h2><span>세금 포함 추정</span></div>
                 <div class="monthly-row is-highlighted"><span><b>1~36개월</b><small>거치 기간</small></span><strong id="grace-monthly-cost">입력 필요</strong></div>
-                <div class="monthly-row"><span><b>37개월부터</b><small>원리금 상환</small></span><strong id="repayment-monthly-cost">입력 필요</strong></div>
+                <div class="monthly-row"><span><b id="repayment-period-label">37개월부터</b><small id="repayment-period-copy">사내 대출 원리금 상환</small></span><strong id="repayment-monthly-cost">입력 필요</strong></div>
+                <div class="monthly-row" id="post-credit-monthly-row" hidden><span><b id="post-credit-period-label">신용대출 종료 후</b><small>사내 대출만 반영</small></span><strong id="post-credit-monthly-cost">입력 필요</strong></div>
               </section>
 
               <section class="cost-card">
@@ -154,7 +158,8 @@
                   <div><dt>현재 집 매도 차액</dt><dd id="current-sale-equity">-</dd></div>
                   <div><dt>매도 복비 상한</dt><dd id="seller-brokerage">-</dd></div>
                   <div><dt>사내 대출 가능 한도</dt><dd id="company-loan-limit">-</dd></div>
-                  <div><dt>신용대출 월 상환액</dt><dd id="credit-monthly-payment">-</dd></div>
+                  <div><dt>신용대출 월 납입액</dt><dd id="credit-monthly-payment">-</dd></div>
+                  <div><dt>신용대출 만기 원금</dt><dd id="credit-balloon-payment">-</dd></div>
                   <div><dt>지원이자 연간 예상 세금</dt><dd id="annual-subsidy-tax">-</dd></div>
                 </dl>
                 <p id="company-loan-caption">리포트 조건 적용</p>
@@ -166,12 +171,12 @@
 
         <section class="tab-panel" id="home-price-panel" role="tabpanel" aria-labelledby="home-price-tab" data-tab-panel="home-price" hidden>
           <header class="page-heading price-heading">
-            <div><span class="eyebrow">HOME VALUE</span><h1>우리집 가격</h1><p id="price-apartment-name">힐스테이트 푸르지오 수원</p><small id="price-address">경기도 수원시 팔달구 효원로93번길 33</small></div>
+            <div><span class="eyebrow">HOME VALUE</span><h1>우리집 가격</h1><p id="price-apartment-name">힐스테이트 푸르지오 수원 · 전용 59㎡형</p><small id="price-address">경기도 수원시 팔달구 효원로93번길 33</small></div>
             <div class="sync-state"><i class="sync-dot" id="price-sync-dot"></i><span><b id="price-sync-state">동기화 대기</b><small id="price-synced-at">공식 데이터 연결 후 갱신됩니다.</small></span></div>
           </header>
           <p class="source-line">국토교통부 실거래가 · <b id="listing-source-name">매물 데이터 연결 대기</b></p>
           <section class="content-card price-section" aria-labelledby="trade-title">
-            <div class="section-heading-row"><h2 id="trade-title">최근 3개월 실거래가</h2><p id="trade-period">동기화 후 거래 기간을 표시합니다.</p></div>
+            <div class="section-heading-row"><h2 id="trade-title">최근 3개월 전용 59㎡ 실거래가</h2><p id="trade-period">동기화 후 거래 기간을 표시합니다.</p></div>
             <div class="price-stat-grid"><article><span>거래 건수</span><strong id="trade-count">-</strong></article><article><span>평균 거래가</span><strong id="trade-average">-</strong></article><article><span>최근 거래가</span><strong id="trade-latest">-</strong></article></div>
             <div class="transaction-table-wrap"><table><thead><tr><th scope="col">계약일</th><th scope="col">거래가</th><th scope="col">전용면적</th><th scope="col">층</th></tr></thead><tbody id="recent-trades-body"><tr><td colspan="4" class="table-empty">공식 실거래가 동기화를 기다리고 있어요.</td></tr></tbody></table></div>
           </section>
@@ -188,8 +193,8 @@
         </section>
 
         <section class="tab-panel" id="reconstruction-panel" role="tabpanel" aria-labelledby="reconstruction-tab" data-tab-panel="reconstruction" hidden>
-          <header class="page-heading price-heading"><div><span class="eyebrow">REBUILDING</span><h1>재건축</h1><p>수도권 남부 주요 진행 단지</p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 API 연결 후 갱신됩니다.</small></span></div></header>
-          <p class="source-line">공개 행정자료·보도 정리 · 최근 실거래가는 국토교통부 API 연동</p>
+          <header class="page-heading price-heading"><div><span class="eyebrow">REBUILDING</span><h1>재건축</h1><p>수도권 남부 <b id="reconstruction-count">진행 단지</b></p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 데이터 연결 후 갱신됩니다.</small></span></div></header>
+          <p class="source-line"><a href="https://www.data.go.kr/data/15160169/fileData.do" target="_blank" rel="noreferrer">국토교통부 전국 도시정비사업 통합 데이터</a> · 최근 실거래가는 국토교통부 API 연동</p>
           <div class="reconstruction-grid" id="reconstruction-list"><article class="listing-empty"><h3>재건축 정보를 불러오는 중입니다.</h3></article></div>
           <p class="disclaimer">남은 기간은 인허가와 사업 일정에 따라 달라지는 추정치입니다.</p>
         </section>

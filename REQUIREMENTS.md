@@ -42,3 +42,7 @@
 38. Improve usability with a clear input hierarchy, prominent budget and monthly-payment results, consistent spacing and typography, and a responsive layout.
 39. Reverify the official authentication-key source and update the guide with the exact application, key-selection, GitHub registration, and troubleshooting steps.
 40. Diagnose the successful Action run that left Home Price empty, expose safe API diagnostics, and prevent failed syncs from overwriting price data.
+41. Add credit-loan repayment options for equal principal-and-interest payments and interest-only payments with principal due at maturity.
+42. Investigate KB market-price API availability and connect it to the scheduled Action only through an officially supported or licensed API.
+43. Limit the home-price dashboard for Hillstate Prugio Suwon to the user's 59-square-meter exclusive-area type.
+44. Expand the Reconstruction tab with the official nationwide urban-renewal dataset and show more southern Gyeonggi reconstruction projects.

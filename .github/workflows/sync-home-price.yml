@@ -36,6 +36,9 @@ jobs:
           LISTINGS_API_URL: ${{ secrets.LISTINGS_API_URL }}
           LISTINGS_API_TOKEN: ${{ secrets.LISTINGS_API_TOKEN }}
           LISTINGS_SOURCE_NAME: ${{ secrets.LISTINGS_SOURCE_NAME }}
+          KB_MARKET_API_URL: ${{ secrets.KB_MARKET_API_URL }}
+          KB_MARKET_API_TOKEN: ${{ secrets.KB_MARKET_API_TOKEN }}
+          KB_MARKET_SOURCE_NAME: ${{ secrets.KB_MARKET_SOURCE_NAME }}
         run: node scripts/sync-home-price.mjs
 
       - name: Commit refreshed price data
