@@ -40,3 +40,4 @@
 36. Increase the top-left logo size and place the brand text below the image.
 37. Research comparable home-affordability and mortgage-calculator services, then redesign the interface using proven interaction patterns.
 38. Improve usability with a clear input hierarchy, prominent budget and monthly-payment results, consistent spacing and typography, and a responsive layout.
+39. Reverify the official authentication-key source and update the guide with the exact application, key-selection, GitHub registration, and troubleshooting steps.

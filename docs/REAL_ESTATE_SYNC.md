@@ -10,13 +10,13 @@
 
 The workflow uses the Ministry of Land, Infrastructure and Transport apartment transaction API for the last three months of reported apartment sales. It also refreshes the latest reported transaction from the last 12 months for each Reconstruction target. Add the following GitHub Actions secret before the first successful sync:
 
-- `MOLIT_SERVICE_KEY`: A service key issued by the Public Data Portal for the Ministry of Land, Infrastructure and Transport apartment transaction API.
+- `MOLIT_SERVICE_KEY`: The `General authentication key (Decoding)` shown under `My Page > Data Utilization > Open API > Application Status` after applying for Public Data Portal dataset `15126469`.
 
 The target apartment is `힐스테이트 푸르지오 수원` in `경기도 수원시 팔달구` (`LAWD_CD=41115`). Reconstruction price targets are managed in `data/reconstruction.json` and include the Suwon Yeongtong 2 district, Gwacheon Jugong 10, Sanbon 11 district, and Bundang Yangji village.
 
 ## Current listings
 
-Do not configure an unauthorized crawler for Naver Real Estate. Configure a provider that allows automated retrieval instead:
+The official Naver Developers API catalog does not provide a Naver Real Estate listings API. Do not configure an unauthorized crawler for Naver Real Estate. Configure a separately contracted provider that allows automated retrieval instead:
 
 - `LISTINGS_API_URL`: HTTPS endpoint returning either an array or an object with `items` or `listings`.
 - `LISTINGS_API_TOKEN`: Optional bearer token for the endpoint.
