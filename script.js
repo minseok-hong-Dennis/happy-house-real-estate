@@ -16,6 +16,7 @@ let mapProvider = 'loading';
 let latestHomePriceManwon = Number.NaN;
 let latestHomePriceContractDate = '';
 let salePriceTouched = false;
+let priceRecommendationFilter = 'all';
 const reconstructionMarkers = new Map();
 
 const COMPANY_LOAN = {
@@ -710,6 +711,193 @@ function renderGrowthRecommendations(items) {
   });
 }
 
+const PRICE_RECOMMENDATION_MIN = 90000;
+const PRICE_RECOMMENDATION_MAX = 110000;
+
+function bounded(value, minimum, maximum) {
+  return Math.max(minimum, Math.min(maximum, value));
+}
+
+function priceRecommendationScore(item, area) {
+  const completionYear = Number(item.completionYear);
+  const households = Number(item.households);
+  const transactionCount = Number(area.count);
+  const growthScore = area.growthAnalysis?.status === 'ok' ? Number(area.growthAnalysis.score) : 42;
+  const areaType = Number(area.areaTypeSqm);
+  const newness = Number.isFinite(completionYear) ? bounded((completionYear - 1995) / 30 * 18, 0, 18) : 8;
+  const scale = Number.isFinite(households) ? bounded(households / 1500 * 16, 0, 16) : 7;
+  const liquidity = Number.isFinite(transactionCount) ? bounded(transactionCount / 40 * 18, 0, 18) : 7;
+  const trend = Number.isFinite(growthScore) ? bounded(growthScore / 100 * 24, 0, 24) : 10;
+  const space = Number.isFinite(areaType) ? bounded(areaType / 84 * 14, 0, 14) : 7;
+  return Math.round(10 + newness + scale + liquidity + trend + space);
+}
+
+function priceRangeAreas(item) {
+  return (item.areaPrices || []).filter((area) => {
+    const price = Number(area.latestPriceManwon);
+    return Number.isFinite(price) && price >= PRICE_RECOMMENDATION_MIN && price <= PRICE_RECOMMENDATION_MAX;
+  });
+}
+
+function priceRecommendationAreaMatches(area, filter) {
+  if (filter === 'large-area') return Number(area.areaTypeSqm) >= 84;
+  if (filter === 'growth') return area.growthAnalysis?.status === 'ok' && Number(area.growthAnalysis.longTermChangePercent) > 0;
+  return true;
+}
+
+function priceRecommendationOptions(data, filter = priceRecommendationFilter) {
+  const items = [...(data?.candidates || []), ...(data?.recommendationPool || [])];
+  return items.map((item) => {
+    if (filter === 'newer' && Number(item.completionYear) < 2016) return null;
+    if (filter === 'large-complex' && Number(item.households) < 1000) return null;
+    const allAreas = priceRangeAreas(item);
+    const matchingAreas = allAreas.filter((area) => priceRecommendationAreaMatches(area, filter));
+    if (!matchingAreas.length) return null;
+    const rankedAreas = [...matchingAreas].sort((left, right) => priceRecommendationScore(item, right) - priceRecommendationScore(item, left));
+    return { item, area: rankedAreas[0], allAreas, score: priceRecommendationScore(item, rankedAreas[0]) };
+  }).filter(Boolean);
+}
+
+function priceRecommendationTags(item, area) {
+  const tags = [];
+  if (Number(item.completionYear) >= 2020) tags.push('신축급');
+  else if (Number(item.completionYear) >= 2015) tags.push('준신축');
+  if (Number(item.households) >= 1500) tags.push('1,500세대+');
+  else if (Number(item.households) >= 1000) tags.push('1,000세대+');
+  if (Number(area.areaTypeSqm) >= 84) tags.push('전용 84㎡+');
+  if (Number(area.count) >= 30) tags.push('거래 30건+');
+  if (Number(area.growthAnalysis?.score) >= 70) tags.push('3년 흐름 상위');
+  return tags.slice(0, 4);
+}
+
+function priceRecommendationReason(item, area) {
+  const reasons = [];
+  if (Number(area.areaTypeSqm) >= 84) reasons.push('예산 안에서 전용 84㎡ 이상 선택 가능');
+  if (Number(item.completionYear) >= 2019) reasons.push('비교적 새 아파트');
+  if (Number(item.households) >= 1500) reasons.push('대단지 규모');
+  if (Number(area.count) >= 30) reasons.push('최근 거래 표본이 충분한 편');
+  if (Number(area.growthAnalysis?.score) >= 70) reasons.push('36개월 거래 흐름 점수가 높은 편');
+  return (reasons.length ? reasons.slice(0, 2) : ['9~11억원 실거래 범위 충족']).join(' · ');
+}
+
+function priceRecommendationWatchout(item, area) {
+  if (Number(item.completionYear) <= 2000) return '연식에 따른 주차·배관·수리 상태 확인';
+  if (Number(area.areaTypeSqm) < 74) return '가격 대비 면적 우선순위 확인';
+  if (Number(area.count) < 10) return '최근 거래 표본이 적어 현재 매물과 추가 비교';
+  return '동·층·향에 따른 가격 편차와 현재 매물 확인';
+}
+
+function makePriceRecommendationCard(option, rank) {
+  const { item, area, allAreas, score } = option;
+  const card = document.createElement('article');
+  const heading = document.createElement('div');
+  const rankBadge = document.createElement('span');
+  const titleGroup = document.createElement('div');
+  const title = document.createElement('h2');
+  const location = document.createElement('p');
+  const scoreBadge = document.createElement('strong');
+  const priceBlock = document.createElement('div');
+  const areaLabel = document.createElement('span');
+  const price = document.createElement('strong');
+  const contract = document.createElement('small');
+  const metrics = document.createElement('div');
+  const tags = document.createElement('div');
+  const reason = document.createElement('p');
+  const areaOptions = document.createElement('div');
+  const footer = document.createElement('footer');
+  const watchout = document.createElement('small');
+  const mapLink = document.createElement('a');
+
+  card.className = 'price-recommendation-card';
+  heading.className = 'price-recommendation-heading';
+  rankBadge.className = 'price-recommendation-rank';
+  rankBadge.textContent = String(rank).padStart(2, '0');
+  title.textContent = item.displayName || item.name;
+  location.textContent = item.location;
+  titleGroup.append(title, location);
+  scoreBadge.className = 'price-recommendation-score';
+  scoreBadge.textContent = '조건 ' + score + '점';
+  heading.append(rankBadge, titleGroup, scoreBadge);
+
+  priceBlock.className = 'price-recommendation-price';
+  areaLabel.textContent = area.areaLabel;
+  price.textContent = formatPriceManwon(Number(area.latestPriceManwon));
+  contract.textContent = area.latestContractDate + ' 최근 거래';
+  priceBlock.append(areaLabel, price, contract);
+
+  metrics.className = 'price-recommendation-metrics';
+  metrics.innerHTML = '<span><small>준공</small><b>' + (item.completionYear || '-') + '년</b></span><span><small>세대수</small><b>' + (Number(item.households) || 0).toLocaleString('ko-KR') + '세대</b></span><span><small>최근 12개월</small><b>' + Number(area.count || 0).toLocaleString('ko-KR') + '건</b></span>';
+
+  tags.className = 'price-recommendation-tags';
+  priceRecommendationTags(item, area).forEach((tag) => {
+    const chip = document.createElement('span');
+    chip.textContent = tag;
+    tags.append(chip);
+  });
+  reason.className = 'price-recommendation-reason';
+  reason.textContent = priceRecommendationReason(item, area);
+
+  areaOptions.className = 'price-recommendation-areas';
+  allAreas.sort((left, right) => Number(left.areaTypeSqm) - Number(right.areaTypeSqm)).forEach((candidate) => {
+    const optionChip = document.createElement('span');
+    const optionArea = document.createElement('small');
+    const optionPrice = document.createElement('b');
+    optionChip.classList.toggle('is-selected', candidate === area);
+    optionArea.textContent = '전용 ' + candidate.areaTypeSqm + '㎡';
+    optionPrice.textContent = formatPriceManwon(Number(candidate.latestPriceManwon));
+    optionChip.append(optionArea, optionPrice);
+    areaOptions.append(optionChip);
+  });
+
+  footer.className = 'price-recommendation-footer';
+  watchout.textContent = '확인: ' + priceRecommendationWatchout(item, area);
+  mapLink.href = naverMapsUrl({ mapQuery: [item.location, item.name].join(' ') });
+  mapLink.target = '_blank';
+  mapLink.rel = 'noreferrer';
+  mapLink.textContent = '네이버 지도';
+  footer.append(watchout, mapLink);
+  card.append(heading, priceBlock, metrics, tags, reason, areaOptions, footer);
+  return card;
+}
+
+function renderPriceRecommendations(data) {
+  const container = document.querySelector('#price-recommendation-list');
+  if (!container) return;
+  const sync = data?.sync || {};
+  const syncedAt = sync.lastSuccessfulAt || null;
+  const syncDot = document.querySelector('#range-recommendation-sync-dot');
+  const allOptions = priceRecommendationOptions(data, 'all');
+  const allAreaCount = allOptions.reduce((total, option) => total + option.allAreas.length, 0);
+  let options = priceRecommendationOptions(data);
+  const sort = document.querySelector('#price-recommendation-sort')?.value || 'recommended';
+  const sorters = {
+    recommended: (left, right) => right.score - left.score,
+    'price-asc': (left, right) => Number(left.area.latestPriceManwon) - Number(right.area.latestPriceManwon),
+    'price-desc': (left, right) => Number(right.area.latestPriceManwon) - Number(left.area.latestPriceManwon),
+    'area-desc': (left, right) => Number(right.area.areaTypeSqm) - Number(left.area.areaTypeSqm),
+    recent: (left, right) => String(right.area.latestContractDate).localeCompare(String(left.area.latestContractDate)),
+    newest: (left, right) => Number(right.item.completionYear) - Number(left.item.completionYear)
+  };
+  options.sort(sorters[sort] || sorters.recommended);
+
+  setText('#range-recommendation-sync-state', syncedAt ? '동기화 완료' : '동기화 대기');
+  setText('#range-recommendation-synced-at', syncedAt ? syncedAt + ' 기준' : (sync.message || '국토교통부 데이터 연결 후 갱신됩니다.'));
+  syncDot?.classList.toggle('is-synced', Boolean(syncedAt));
+  syncDot?.classList.toggle('is-error', data?.status === 'error');
+  setText('#range-recommendation-complex-count', allOptions.length.toLocaleString('ko-KR') + '곳');
+  setText('#range-recommendation-area-count', allAreaCount.toLocaleString('ko-KR') + '개');
+  setText('#range-recommendation-result', '조건에 맞는 단지 ' + options.length.toLocaleString('ko-KR') + '곳 · 최근 거래가 9억원 이상 11억원 이하');
+  container.replaceChildren();
+  if (!options.length) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>현재 조건에 맞는 단지가 없어요.</h3><p>다른 필터를 선택하거나 다음 일일 동기화 후 다시 확인해 주세요.</p>';
+    container.append(empty);
+    return;
+  }
+  options.forEach((option, index) => container.append(makePriceRecommendationCard(option, index + 1)));
+}
+
 function renderCandidates(data) {
   candidateData = data;
   const sync = data.sync || {};
@@ -731,6 +919,7 @@ function renderCandidates(data) {
   }
   renderRecommendations(data.recommendationPool);
   renderGrowthRecommendations([...(data.candidates || []), ...(data.recommendationPool || [])]);
+  renderPriceRecommendations(data);
 }
 
 function makeDetailRow(label, value) {
@@ -1502,6 +1691,21 @@ document.querySelector('#map-city-filter').addEventListener('change', () => {
   renderMapProjects();
 });
 document.querySelector('#map-district-filter').addEventListener('change', renderMapProjects);
+
+document.querySelectorAll('[data-price-recommendation-filter]').forEach((button) => {
+  button.addEventListener('click', () => {
+    priceRecommendationFilter = button.dataset.priceRecommendationFilter;
+    document.querySelectorAll('[data-price-recommendation-filter]').forEach((candidate) => {
+      const active = candidate === button;
+      candidate.classList.toggle('is-active', active);
+      candidate.setAttribute('aria-pressed', String(active));
+    });
+    if (candidateData) renderPriceRecommendations(candidateData);
+  });
+});
+document.querySelector('#price-recommendation-sort').addEventListener('change', () => {
+  if (candidateData) renderPriceRecommendations(candidateData);
+});
 
 document.addEventListener('click', (event) => {
   const detailButton = event.target.closest('[data-reconstruction-detail]');
