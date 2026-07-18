@@ -663,6 +663,37 @@ function inferredRegion(item) {
   return LEGACY_REGION_POINTS.find((region) => region.aliases.some((alias) => (item.location || '').includes(alias)))?.name || '기타 지역';
 }
 
+function inferredAdministrativeRegion(item) {
+  const regionName = inferredRegion(item);
+  if (item.cityName) {
+    return {
+      provinceName: item.provinceName || '',
+      cityName: item.cityName,
+      districtName: item.districtName || ''
+    };
+  }
+  if ((item.location || '').includes('서울특별시')) {
+    return { provinceName: '서울특별시', cityName: '서울특별시', districtName: regionName === '기타 지역' ? '' : regionName };
+  }
+  const locationMatch = (item.location || '').match(/(수원시|용인시|성남시|안양시|안산시|화성시)\s+([^\s]+구)/);
+  if (locationMatch) return { provinceName: '경기도', cityName: locationMatch[1], districtName: locationMatch[2] };
+  const regionMatch = regionName.match(/^(수원|용인|성남|안양|안산|화성)(.+구)$/);
+  if (regionMatch) return { provinceName: '경기도', cityName: regionMatch[1] + '시', districtName: regionMatch[2] };
+  return { provinceName: item.provinceName || '경기도', cityName: regionName, districtName: '' };
+}
+
+function reconstructionDisplayName(item) {
+  if (item.apartmentName) return item.apartmentName;
+  const zoneName = item.name || '';
+  const parentheticalNames = [...zoneName.matchAll(/\(([^)]+)\)/g)]
+    .flatMap((match) => match[1].split(/[+·,]/))
+    .map((name) => name.trim())
+    .filter((name) => /아파트|주공|단지|연립|맨션|빌라/.test(name));
+  if (parentheticalNames.length) return parentheticalNames.join(' · ');
+  if (/아파트|주공|단지|연립|맨션|빌라/.test(zoneName)) return zoneName.replace(/구역$/, '');
+  return zoneName ? zoneName + (/구역|촉진|계획|재건축|정비$/.test(zoneName) ? '' : ' 정비구역') : '재건축 단지';
+}
+
 function fallbackMapPoint(item) {
   if (Number.isFinite(item.mapPoint?.latitude) && Number.isFinite(item.mapPoint?.longitude)) return item.mapPoint;
   const region = LEGACY_REGION_POINTS.find((candidate) => candidate.name === inferredRegion(item));
@@ -701,36 +732,73 @@ function googleMapsUrl(item) {
 }
 
 function normalizeReconstructionItem(item) {
+  const administrativeRegion = inferredAdministrativeRegion(item);
+  const legacyLocation = item.location === '경기도 ' + inferredRegion(item);
+  const location = legacyLocation
+    ? ['경기도', administrativeRegion.cityName, administrativeRegion.districtName].filter(Boolean).join(' ')
+    : item.location;
   return {
     ...item,
+    ...administrativeRegion,
+    location,
+    apartmentName: reconstructionDisplayName(item),
     regionName: inferredRegion(item),
     mapPoint: fallbackMapPoint(item)
   };
 }
 
-function populateRegionFilters(items) {
-  const regions = [...new Set(items.map((item) => item.regionName).filter(Boolean))].sort((left, right) => left.localeCompare(right, 'ko'));
-  ['#reconstruction-region-filter', '#map-region-filter'].forEach((selector) => {
-    const select = document.querySelector(selector);
-    const currentValue = select.value;
-    select.replaceChildren(new Option('전체 지역', 'all'));
-    regions.forEach((region) => select.add(new Option(region, region)));
-    select.value = regions.includes(currentValue) ? currentValue : 'all';
+function locationFilterElements(scope) {
+  return {
+    city: document.querySelector('#' + scope + '-city-filter'),
+    district: document.querySelector('#' + scope + '-district-filter')
+  };
+}
+
+function updateDistrictFilter(scope) {
+  const { city, district } = locationFilterElements(scope);
+  const currentValue = district.value;
+  const districts = city.value === 'all' ? [] : [...new Set(reconstructionItems
+    .filter((item) => item.cityName === city.value)
+    .map((item) => item.districtName)
+    .filter(Boolean))].sort((left, right) => left.localeCompare(right, 'ko'));
+  district.replaceChildren(new Option(city.value === 'all' ? '시를 먼저 선택' : '전체 구', 'all'));
+  districts.forEach((name) => district.add(new Option(name, name)));
+  district.disabled = city.value === 'all' || !districts.length;
+  district.value = districts.includes(currentValue) ? currentValue : 'all';
+}
+
+function populateLocationFilters(items) {
+  const cities = [...new Set(items.map((item) => item.cityName).filter(Boolean))].sort((left, right) => left.localeCompare(right, 'ko'));
+  ['reconstruction', 'map'].forEach((scope) => {
+    const { city } = locationFilterElements(scope);
+    const currentValue = city.value;
+    city.replaceChildren(new Option('전체 시', 'all'));
+    cities.forEach((name) => city.add(new Option(name, name)));
+    city.value = cities.includes(currentValue) ? currentValue : 'all';
+    updateDistrictFilter(scope);
   });
 }
 
 function filteredReconstructionItems() {
   const search = document.querySelector('#reconstruction-search').value.trim().toLocaleLowerCase('ko');
-  const region = document.querySelector('#reconstruction-region-filter').value;
+  const city = document.querySelector('#reconstruction-city-filter').value;
+  const district = document.querySelector('#reconstruction-district-filter').value;
   const stage = document.querySelector('#reconstruction-stage-filter').value;
   const priceOnly = document.querySelector('#reconstruction-price-only').checked;
+  const minimumPriceEok = Number(document.querySelector('#reconstruction-price-min').value) || 0;
+  const maximumPriceEok = Number(document.querySelector('#reconstruction-price-max').value) || Number.POSITIVE_INFINITY;
   const sort = document.querySelector('#reconstruction-sort').value;
   const filtered = reconstructionItems.filter((item) => {
-    const haystack = [item.name, item.location, item.regionName].filter(Boolean).join(' ').toLocaleLowerCase('ko');
+    const latestPriceEok = Number(item.latestTransaction?.priceManwon) / 10000;
+    const hasPriceBoundary = minimumPriceEok > 0 || Number.isFinite(maximumPriceEok);
+    const isWithinPriceRange = !hasPriceBoundary || (Number.isFinite(latestPriceEok) && latestPriceEok >= minimumPriceEok && latestPriceEok <= maximumPriceEok);
+    const haystack = [item.apartmentName, item.name, item.location, item.cityName, item.districtName, ...(item.matchNames || [])].filter(Boolean).join(' ').toLocaleLowerCase('ko');
     return (!search || haystack.includes(search))
-      && (region === 'all' || item.regionName === region)
+      && (city === 'all' || item.cityName === city)
+      && (district === 'all' || item.districtName === district)
       && (stage === 'all' || stageGroup(item.stage) === stage)
-      && (!priceOnly || Boolean(item.areaPrices?.length));
+      && (!priceOnly || Boolean(item.latestTransaction))
+      && isWithinPriceRange;
   });
   return filtered.sort((left, right) => {
     const leftPrice = Number(left.latestTransaction?.priceManwon);
@@ -771,12 +839,12 @@ function makeReconstructionCard(item) {
   card.dataset.reconstructionId = item.id;
   label.className = 'card-label';
   label.textContent = item.stage || '사업 단계 확인 중';
-  title.textContent = item.name || '재건축 단지';
+  title.textContent = item.apartmentName;
   location.className = 'location';
-  location.textContent = item.location || '';
+  location.textContent = [item.location, item.apartmentName !== item.name ? '정비구역 ' + item.name : ''].filter(Boolean).join(' · ');
   quickValues.className = 'reconstruction-quick-values';
   quickValues.append(
-    makeQuickValue('최근 실거래', transaction ? formatPriceManwon(Number(transaction.priceManwon)) : '매칭 준비 중'),
+    makeQuickValue(transaction?.contractDate ? transaction.contractDate + ' 최근 거래' : '최근 거래', transaction ? formatPriceManwon(Number(transaction.priceManwon)) : '매칭 준비 중'),
     makeQuickValue('면적별 가격', item.areaPrices?.length ? item.areaPrices.length + '개 타입' : '거래 없음')
   );
   details.className = 'reconstruction-details';
@@ -847,7 +915,7 @@ function mapPopupContent(item) {
   const link = document.createElement('a');
   wrapper.className = 'map-popup';
   stage.textContent = item.stage || '진행 단계 확인 중';
-  title.textContent = item.name || '재건축 사업';
+  title.textContent = item.apartmentName;
   location.textContent = item.location || '';
   transaction.className = 'map-popup-price';
   transactionLabel.textContent = item.latestTransaction?.contractDate ? item.latestTransaction.contractDate + ' 최근 실거래' : '최근 실거래';
@@ -870,6 +938,7 @@ function mapPopupContent(item) {
   }
   details.className = 'map-popup-details';
   details.append(
+    makeDetailRow('정비구역', item.name || '확인 필요'),
     makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요'),
     makeDetailRow('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요')
   );
@@ -913,17 +982,29 @@ function initializePropertyMap() {
   homeLink.textContent = 'Google Maps에서 확인';
   homePopup.append(homeTitle, homeCopy, homeLink);
   homeMapMarker.bindPopup(homePopup);
+  propertyMap.on('zoomend', updateMapLabelVisibility);
+  updateMapLabelVisibility();
+}
+
+function updateMapLabelVisibility() {
+  if (!propertyMap) return;
+  const city = document.querySelector('#map-city-filter')?.value || 'all';
+  const district = document.querySelector('#map-district-filter')?.value || 'all';
+  const cityProjectCount = city === 'all' ? reconstructionItems.length : reconstructionItems.filter((item) => item.cityName === city).length;
+  const hasFocusedArea = district !== 'all' || (city !== 'all' && cityProjectCount <= 40);
+  propertyMap.getContainer().classList.toggle('show-all-project-labels', propertyMap.getZoom() >= 12 || hasFocusedArea);
 }
 
 function updateSelectedMapProject(item) {
   const googleLink = document.querySelector('#selected-google-map-link');
   googleLink.href = googleMapsUrl(item);
-  googleLink.textContent = item.name + ' · Google Maps';
+  googleLink.textContent = item.apartmentName + ' · Google Maps';
 }
 
 function focusMapProject(item) {
   showTab('map');
-  document.querySelector('#map-region-filter').value = 'all';
+  document.querySelector('#map-city-filter').value = 'all';
+  updateDistrictFilter('map');
   renderMapProjects();
   const marker = reconstructionMarkers.get(item.id);
   if (marker && propertyMap) {
@@ -934,10 +1015,13 @@ function focusMapProject(item) {
 }
 
 function focusReconstructionProject(item) {
-  document.querySelector('#reconstruction-search').value = item.name;
-  document.querySelector('#reconstruction-region-filter').value = 'all';
+  document.querySelector('#reconstruction-search').value = item.apartmentName;
+  document.querySelector('#reconstruction-city-filter').value = 'all';
+  updateDistrictFilter('reconstruction');
   document.querySelector('#reconstruction-stage-filter').value = 'all';
   document.querySelector('#reconstruction-price-only').checked = false;
+  document.querySelector('#reconstruction-price-min').value = '';
+  document.querySelector('#reconstruction-price-max').value = '';
   renderFilteredReconstruction({ resetPage: true });
   showTab('reconstruction');
   window.setTimeout(() => {
@@ -952,8 +1036,9 @@ function focusReconstructionProject(item) {
 function renderMapProjects() {
   initializePropertyMap();
   const list = document.querySelector('#map-project-list');
-  const region = document.querySelector('#map-region-filter').value;
-  const items = reconstructionItems.filter((item) => (region === 'all' || item.regionName === region) && item.mapPoint);
+  const city = document.querySelector('#map-city-filter').value;
+  const district = document.querySelector('#map-district-filter').value;
+  const items = reconstructionItems.filter((item) => (city === 'all' || item.cityName === city) && (district === 'all' || item.districtName === district) && item.mapPoint);
   list.replaceChildren();
   if (!propertyMap || !reconstructionMapLayer) {
     const copy = document.createElement('p');
@@ -968,6 +1053,13 @@ function renderMapProjects() {
     const point = [item.mapPoint.latitude, item.mapPoint.longitude];
     const marker = window.L.circleMarker(point, { radius: 7, color: '#ffffff', weight: 2, fillColor: '#ff6659', fillOpacity: 0.95 });
     marker.bindPopup(mapPopupContent(item), { minWidth: 250, maxWidth: 320 });
+    marker.bindTooltip(item.apartmentName, {
+      permanent: true,
+      direction: 'top',
+      offset: [0, -7],
+      opacity: 0.94,
+      className: 'reconstruction-map-label' + (item.latestTransaction ? ' is-priority' : '')
+    });
     marker.on('click', () => updateSelectedMapProject(item));
     marker.addTo(reconstructionMapLayer);
     reconstructionMarkers.set(item.id, marker);
@@ -977,13 +1069,14 @@ function renderMapProjects() {
     const meta = document.createElement('small');
     button.type = 'button';
     button.dataset.mapProject = item.id;
-    name.textContent = item.name;
-    meta.textContent = [item.regionName, item.stage].filter(Boolean).join(' · ');
+    name.textContent = item.apartmentName;
+    meta.textContent = [item.location, item.latestTransaction ? formatPriceManwon(Number(item.latestTransaction.priceManwon)) : null, item.stage].filter(Boolean).join(' · ');
     button.append(name, meta);
     list.append(button);
   });
   setText('#map-pin-count', '우리집 1개 · 재건축 ' + items.length.toLocaleString('ko-KR') + '개 핀');
-  if (items.length) propertyMap.fitBounds(bounds, { padding: [28, 28], maxZoom: region === 'all' ? 10 : 12 });
+  if (items.length) propertyMap.fitBounds(bounds, { padding: [28, 28], maxZoom: district !== 'all' ? 14 : (city !== 'all' ? 11 : 9) });
+  updateMapLabelVisibility();
 }
 
 function renderReconstruction(data) {
@@ -997,8 +1090,8 @@ function renderReconstruction(data) {
   reconstructionItems = (data.items || []).map(normalizeReconstructionItem);
   const countLabel = reconstructionItems.length ? reconstructionItems.length.toLocaleString('ko-KR') + '개 진행 사업' : '진행 사업';
   setText('#reconstruction-count', countLabel);
-  setText('#reconstruction-shortcut-count', reconstructionItems.length ? '경기 남부 ' + reconstructionItems.length.toLocaleString('ko-KR') + '개 사업' : '공식 사업 목록 확인');
-  populateRegionFilters(reconstructionItems);
+  setText('#reconstruction-shortcut-count', reconstructionItems.length ? '서울·경기 남부 ' + reconstructionItems.length.toLocaleString('ko-KR') + '개 사업' : '공식 사업 목록 확인');
+  populateLocationFilters(reconstructionItems);
   renderFilteredReconstruction({ resetPage: true });
   renderMapProjects();
 }
@@ -1060,17 +1153,25 @@ document.querySelector('#finance-reset').addEventListener('click', () => {
   calculateFinance();
 });
 
-['#reconstruction-search', '#reconstruction-region-filter', '#reconstruction-stage-filter', '#reconstruction-sort', '#reconstruction-price-only'].forEach((selector) => {
+['#reconstruction-search', '#reconstruction-district-filter', '#reconstruction-stage-filter', '#reconstruction-sort', '#reconstruction-price-only', '#reconstruction-price-min', '#reconstruction-price-max'].forEach((selector) => {
   const element = document.querySelector(selector);
-  element.addEventListener(element.type === 'search' ? 'input' : 'change', () => renderFilteredReconstruction({ resetPage: true }));
+  element.addEventListener(['search', 'number'].includes(element.type) ? 'input' : 'change', () => renderFilteredReconstruction({ resetPage: true }));
+});
+
+document.querySelector('#reconstruction-city-filter').addEventListener('change', () => {
+  updateDistrictFilter('reconstruction');
+  renderFilteredReconstruction({ resetPage: true });
 });
 
 document.querySelector('#reconstruction-filter-reset').addEventListener('click', () => {
   document.querySelector('#reconstruction-search').value = '';
-  document.querySelector('#reconstruction-region-filter').value = 'all';
+  document.querySelector('#reconstruction-city-filter').value = 'all';
+  updateDistrictFilter('reconstruction');
   document.querySelector('#reconstruction-stage-filter').value = 'all';
   document.querySelector('#reconstruction-sort').value = 'progress';
   document.querySelector('#reconstruction-price-only').checked = false;
+  document.querySelector('#reconstruction-price-min').value = '';
+  document.querySelector('#reconstruction-price-max').value = '';
   renderFilteredReconstruction({ resetPage: true });
 });
 
@@ -1079,7 +1180,11 @@ document.querySelector('#reconstruction-load-more').addEventListener('click', ()
   renderFilteredReconstruction();
 });
 
-document.querySelector('#map-region-filter').addEventListener('change', renderMapProjects);
+document.querySelector('#map-city-filter').addEventListener('change', () => {
+  updateDistrictFilter('map');
+  renderMapProjects();
+});
+document.querySelector('#map-district-filter').addEventListener('change', renderMapProjects);
 
 document.addEventListener('click', (event) => {
   const detailButton = event.target.closest('[data-reconstruction-detail]');

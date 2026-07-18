@@ -17,6 +17,12 @@ const SOUTHERN_GYEONGGI_CITIES = new Set([
   '화성병점구', '과천시', '군포시', '의왕시', '오산시',
   '평택시', '광명시', '시흥시'
 ]);
+const SEOUL_DISTRICTS = new Set([
+  '종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구',
+  '성북구', '강북구', '도봉구', '노원구', '은평구', '서대문구', '마포구',
+  '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구', '관악구',
+  '서초구', '강남구', '송파구', '강동구'
+]);
 const REGION_CENTERS = new Map([
   ['수원장안구', [37.3035, 127.0104]], ['수원권선구', [37.2577, 126.9718]],
   ['수원팔달구', [37.2826, 127.02]], ['수원영통구', [37.2596, 127.0464]],
@@ -28,7 +34,20 @@ const REGION_CENTERS = new Map([
   ['화성병점구', [37.2068, 127.0349]], ['과천시', [37.4292, 126.9876]],
   ['군포시', [37.3617, 126.9352]], ['의왕시', [37.3449, 126.9683]],
   ['오산시', [37.1498, 127.0772]], ['평택시', [36.9921, 127.1127]],
-  ['광명시', [37.4786, 126.8645]], ['시흥시', [37.38, 126.8029]]
+  ['광명시', [37.4786, 126.8645]], ['시흥시', [37.38, 126.8029]],
+  ['서울특별시|종로구', [37.5735, 126.979]], ['서울특별시|중구', [37.5641, 126.9979]],
+  ['서울특별시|용산구', [37.5326, 126.9905]], ['서울특별시|성동구', [37.5633, 127.0369]],
+  ['서울특별시|광진구', [37.5385, 127.0823]], ['서울특별시|동대문구', [37.5744, 127.0396]],
+  ['서울특별시|중랑구', [37.6063, 127.0927]], ['서울특별시|성북구', [37.5894, 127.0167]],
+  ['서울특별시|강북구', [37.6396, 127.0257]], ['서울특별시|도봉구', [37.6688, 127.0471]],
+  ['서울특별시|노원구', [37.6542, 127.0568]], ['서울특별시|은평구', [37.6027, 126.9291]],
+  ['서울특별시|서대문구', [37.5791, 126.9368]], ['서울특별시|마포구', [37.5663, 126.9019]],
+  ['서울특별시|양천구', [37.517, 126.8666]], ['서울특별시|강서구', [37.5509, 126.8495]],
+  ['서울특별시|구로구', [37.4955, 126.8876]], ['서울특별시|금천구', [37.4569, 126.8955]],
+  ['서울특별시|영등포구', [37.5264, 126.8963]], ['서울특별시|동작구', [37.5124, 126.9393]],
+  ['서울특별시|관악구', [37.4784, 126.9516]], ['서울특별시|서초구', [37.4837, 127.0324]],
+  ['서울특별시|강남구', [37.5172, 127.0473]], ['서울특별시|송파구', [37.5145, 127.1059]],
+  ['서울특별시|강동구', [37.5301, 127.1238]]
 ]);
 const REGION_LAWD_CODES = new Map([
   ['수원장안구', '41111'], ['수원권선구', '41113'], ['수원팔달구', '41115'], ['수원영통구', '41117'],
@@ -36,7 +55,16 @@ const REGION_LAWD_CODES = new Map([
   ['안양만안구', '41171'], ['안양동안구', '41173'], ['안산상록구', '41271'], ['안산단원구', '41273'],
   ['용인처인구', '41461'], ['용인기흥구', '41463'], ['용인수지구', '41465'],
   ['과천시', '41290'], ['군포시', '41410'], ['의왕시', '41430'], ['오산시', '41370'],
-  ['평택시', '41220'], ['광명시', '41210'], ['시흥시', '41390']
+  ['평택시', '41220'], ['광명시', '41210'], ['시흥시', '41390'], ['화성병점구', '41595'],
+  ['서울특별시|종로구', '11110'], ['서울특별시|중구', '11140'], ['서울특별시|용산구', '11170'],
+  ['서울특별시|성동구', '11200'], ['서울특별시|광진구', '11215'], ['서울특별시|동대문구', '11230'],
+  ['서울특별시|중랑구', '11260'], ['서울특별시|성북구', '11290'], ['서울특별시|강북구', '11305'],
+  ['서울특별시|도봉구', '11320'], ['서울특별시|노원구', '11350'], ['서울특별시|은평구', '11380'],
+  ['서울특별시|서대문구', '11410'], ['서울특별시|마포구', '11440'], ['서울특별시|양천구', '11470'],
+  ['서울특별시|강서구', '11500'], ['서울특별시|구로구', '11530'], ['서울특별시|금천구', '11545'],
+  ['서울특별시|영등포구', '11560'], ['서울특별시|동작구', '11590'], ['서울특별시|관악구', '11620'],
+  ['서울특별시|서초구', '11650'], ['서울특별시|강남구', '11680'], ['서울특별시|송파구', '11710'],
+  ['서울특별시|강동구', '11740']
 ]);
 const HOME_APARTMENT = {
   name: '힐스테이트 푸르지오 수원',
@@ -549,8 +577,44 @@ function stageOrder(stage = '') {
   return 1;
 }
 
-function mapPointFor(city, zoneName) {
-  const center = REGION_CENTERS.get(city);
+function administrativeRegionFor(provinceName, regionName) {
+  if (provinceName === '서울특별시') {
+    return {
+      provinceName,
+      cityName: '서울특별시',
+      districtName: regionName,
+      location: '서울특별시 ' + regionName
+    };
+  }
+  const districtMatch = regionName.match(/^(수원|용인|성남|안양|안산|화성)(.+구)$/);
+  if (districtMatch) {
+    return {
+      provinceName,
+      cityName: districtMatch[1] + '시',
+      districtName: districtMatch[2],
+      location: provinceName + ' ' + districtMatch[1] + '시 ' + districtMatch[2]
+    };
+  }
+  return {
+    provinceName,
+    cityName: regionName,
+    districtName: '',
+    location: provinceName + ' ' + regionName
+  };
+}
+
+function regionDataKey(provinceName, regionName) {
+  return provinceName === '서울특별시' ? provinceName + '|' + regionName : regionName;
+}
+
+function projectIdFor(provinceName, regionName, zoneName) {
+  const source = [provinceName, regionName, zoneName].join('|');
+  const hash = Array.from(source).reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 17).toString(36);
+  return 'official-' + normalizedName(source).slice(0, 60) + '-' + hash;
+}
+
+function mapPointFor(provinceName, regionName, zoneName) {
+  const center = REGION_CENTERS.get(regionDataKey(provinceName, regionName));
   if (!center) return null;
   const hash = Array.from(zoneName).reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 17);
   const angle = (hash % 360) * Math.PI / 180;
@@ -587,27 +651,50 @@ function deriveProjectMatchNames(zoneName) {
   return [...new Set(candidates)];
 }
 
+function deriveApartmentDisplayName(zoneName) {
+  const parentheticalNames = [...zoneName.matchAll(/\(([^)]+)\)/g)]
+    .flatMap((match) => match[1].split(/[+·,]/))
+    .map((name) => name.trim())
+    .filter((name) => /아파트|주공|단지|연립|맨션|빌라/.test(name));
+  if (parentheticalNames.length) return parentheticalNames.join(' · ');
+  if (/아파트|주공|단지|연립|맨션|빌라/.test(zoneName)) return zoneName.replace(/구역$/, '');
+  return zoneName + (/구역|촉진|계획|재건축|정비$/.test(zoneName) ? '' : ' 정비구역');
+}
+
 function officialReconstructionTargets(rows) {
   const targets = rows
-    .filter((row) => row['시도'] === '경기도' && SOUTHERN_GYEONGGI_CITIES.has(row['시군구']) && String(row['사업유형']).includes('재건축'))
+    .filter((row) => {
+      const provinceName = String(row['시도']).trim();
+      const regionName = String(row['시군구']).trim();
+      const isSupportedRegion = (provinceName === '경기도' && SOUTHERN_GYEONGGI_CITIES.has(regionName))
+        || (provinceName === '서울특별시' && SEOUL_DISTRICTS.has(regionName));
+      return isSupportedRegion && String(row['사업유형']).includes('재건축');
+    })
     .map((row) => {
-      const city = String(row['시군구']).trim();
+      const provinceName = String(row['시도']).trim();
+      const regionName = String(row['시군구']).trim();
+      const administrativeRegion = administrativeRegionFor(provinceName, regionName);
       const zoneName = String(row['구역명칭']).trim();
-      const override = PROJECT_TRADE_OVERRIDES.get(city + '|' + zoneName) || {};
+      const override = PROJECT_TRADE_OVERRIDES.get(regionName + '|' + zoneName) || {};
       const stage = withoutCode(row['현 사업추진단계']);
       const projectType = withoutCode(row['사업유형']);
       const operator = withoutCode(row['사업시행자']);
       const supplyHouseholds = Number(String(row['공급 예정 세대수']).replace(/[^0-9]/g, '')) || null;
       const matchNames = override.matchNames || deriveProjectMatchNames(zoneName);
+      const apartmentName = override.apartmentName || deriveApartmentDisplayName(zoneName);
       return {
-        id: 'official-' + normalizedName(city + '-' + zoneName),
+        id: projectIdFor(provinceName, regionName, zoneName),
         name: zoneName,
+        apartmentName,
         officialZoneName: zoneName,
-        location: '경기도 ' + city,
-        regionName: city,
-        mapPoint: mapPointFor(city, zoneName),
-        mapQuery: ['경기도', city, zoneName].join(' '),
-        lawdCd: override.lawdCd || REGION_LAWD_CODES.get(city) || null,
+        location: administrativeRegion.location,
+        provinceName: administrativeRegion.provinceName,
+        cityName: administrativeRegion.cityName,
+        districtName: administrativeRegion.districtName,
+        regionName,
+        mapPoint: mapPointFor(provinceName, regionName, zoneName),
+        mapQuery: [administrativeRegion.location, apartmentName].join(' '),
+        lawdCd: override.lawdCd || REGION_LAWD_CODES.get(regionDataKey(provinceName, regionName)) || null,
         matchNames,
         matchMethod: override.matchNames ? 'verified' : (matchNames.length ? 'name-derived' : 'not-mapped'),
         stage,
@@ -621,12 +708,13 @@ function officialReconstructionTargets(rows) {
     });
 
   const merged = targets.map((target) => {
-    const curated = CURATED_RECONSTRUCTION_TARGETS.find((item) => item.officialZoneName === target.officialZoneName);
+    const curated = CURATED_RECONSTRUCTION_TARGETS.find((item) => item.regionName === target.regionName && item.officialZoneName === target.officialZoneName);
     if (!curated) return target;
     return {
       ...target,
       id: curated.id,
       name: curated.name,
+      apartmentName: curated.matchNames?.[0] || curated.name,
       location: curated.location,
       lawdCd: curated.lawdCd,
       matchNames: curated.matchNames,
@@ -634,7 +722,17 @@ function officialReconstructionTargets(rows) {
     };
   });
   CURATED_RECONSTRUCTION_TARGETS.forEach((target) => {
-    if (!target.officialZoneName || !targets.some((item) => item.officialZoneName === target.officialZoneName)) merged.push({ ...target, matchMethod: 'verified' });
+    if (!target.officialZoneName || !targets.some((item) => item.regionName === target.regionName && item.officialZoneName === target.officialZoneName)) {
+      const administrativeRegion = administrativeRegionFor('경기도', target.regionName);
+      merged.push({
+        ...target,
+        apartmentName: target.matchNames?.[0] || target.name,
+        provinceName: administrativeRegion.provinceName,
+        cityName: administrativeRegion.cityName,
+        districtName: administrativeRegion.districtName,
+        matchMethod: 'verified'
+      });
+    }
   });
   return merged.sort((left, right) => stageOrder(right.stage) - stageOrder(left.stage) || left.location.localeCompare(right.location, 'ko'));
 }

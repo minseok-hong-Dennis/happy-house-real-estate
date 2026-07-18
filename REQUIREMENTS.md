@@ -62,3 +62,7 @@
 58. Enable mouse-wheel map zoom and provide clear desktop and mobile gesture guidance.
 59. Add an interest-only credit-loan option that pays no principal during the term, make it enabled by default, and show the principal as due at maturity.
 60. Pre-fill the company-loan KB lower and upper market-price fields with the latest manually verified KB values for MaeGyo Station Prugio SK View 84.97-square-meter units.
+61. Include official Seoul reconstruction projects alongside the existing southern Gyeonggi projects.
+62. Show an approximate apartment or complex name directly on Reconstruction cards and Map pins without requiring a click.
+63. Show each project's latest official transaction price and add minimum and maximum transaction-price filters.
+64. Replace the flat district filter with dependent city and district filters, such as selecting Suwon first and then Paldal-gu.

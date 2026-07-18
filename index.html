@@ -245,9 +245,14 @@
             </div>
             <aside class="map-side-panel" aria-label="지도 핀 목록">
               <div class="map-legend"><span><i class="home-dot"></i>우리집</span><span><i class="project-dot"></i>재건축</span></div>
-              <label class="map-region-control" for="map-region-filter">지역
-                <select id="map-region-filter"><option value="all">전체 지역</option></select>
-              </label>
+              <div class="map-location-controls">
+                <label class="map-region-control" for="map-city-filter">시
+                  <select id="map-city-filter"><option value="all">전체 시</option></select>
+                </label>
+                <label class="map-region-control" for="map-district-filter">구
+                  <select id="map-district-filter" disabled><option value="all">시를 먼저 선택</option></select>
+                </label>
+              </div>
               <div class="map-project-list" id="map-project-list"><p>재건축 위치를 불러오는 중입니다.</p></div>
               <p class="map-accuracy-note">재건축 핀은 공개 데이터의 시군구 중심을 기준으로 한 참고 위치입니다. 핀을 선택하면 Google Maps에서 단지명을 확인할 수 있습니다.</p>
             </aside>
@@ -255,13 +260,16 @@
         </section>
 
         <section class="tab-panel" id="reconstruction-panel" role="tabpanel" aria-labelledby="reconstruction-tab" data-tab-panel="reconstruction" hidden>
-          <header class="page-heading price-heading"><div><span class="eyebrow">REBUILDING</span><h1>재건축</h1><p>수도권 남부 <b id="reconstruction-count">진행 단지</b></p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 데이터 연결 후 갱신됩니다.</small></span></div></header>
+          <header class="page-heading price-heading"><div><span class="eyebrow">REBUILDING</span><h1>재건축</h1><p>서울·경기 남부 <b id="reconstruction-count">진행 단지</b></p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 데이터 연결 후 갱신됩니다.</small></span></div></header>
           <p class="source-line"><a href="https://www.data.go.kr/data/15160169/fileData.do" target="_blank" rel="noreferrer">국토교통부 전국 도시정비사업 통합 데이터</a> · 최근 실거래가는 국토교통부 API 연동</p>
           <section class="reconstruction-filters" aria-label="재건축 목록 필터">
             <label class="filter-search" for="reconstruction-search"><span>단지 검색</span><input id="reconstruction-search" type="search" placeholder="단지명 또는 지역" autocomplete="off" /></label>
-            <label for="reconstruction-region-filter"><span>지역</span><select id="reconstruction-region-filter"><option value="all">전체 지역</option></select></label>
+            <label for="reconstruction-city-filter"><span>시</span><select id="reconstruction-city-filter"><option value="all">전체 시</option></select></label>
+            <label for="reconstruction-district-filter"><span>구</span><select id="reconstruction-district-filter" disabled><option value="all">시를 먼저 선택</option></select></label>
             <label for="reconstruction-stage-filter"><span>진행 단계</span><select id="reconstruction-stage-filter"><option value="all">전체 단계</option><option value="late">착공·관리처분</option><option value="middle">사업시행·조합설립</option><option value="early">추진위·정비구역</option><option value="other">기타 단계</option></select></label>
             <label for="reconstruction-sort"><span>정렬</span><select id="reconstruction-sort"><option value="progress">진행 빠른 순</option><option value="price-desc">최근 가격 높은 순</option><option value="price-asc">최근 가격 낮은 순</option><option value="households">예정 세대수 순</option><option value="name">이름 순</option></select></label>
+            <label for="reconstruction-price-min"><span>최소 거래금액</span><span class="price-filter-input"><input id="reconstruction-price-min" type="number" min="0" step="0.1" inputmode="decimal" placeholder="제한 없음" /><i>억</i></span></label>
+            <label for="reconstruction-price-max"><span>최대 거래금액</span><span class="price-filter-input"><input id="reconstruction-price-max" type="number" min="0" step="0.1" inputmode="decimal" placeholder="제한 없음" /><i>억</i></span></label>
             <label class="filter-check"><input id="reconstruction-price-only" type="checkbox" /><span>실거래가 있는 단지만</span></label>
             <div class="filter-result"><b id="reconstruction-filtered-count">전체 단지</b><button class="text-button" id="reconstruction-filter-reset" type="button">초기화</button></div>
           </section>
