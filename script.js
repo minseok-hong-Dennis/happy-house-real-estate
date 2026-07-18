@@ -25,6 +25,13 @@ const COMPANY_LOAN = {
   annualSalary: 100000000
 };
 const CURRENT_MORTGAGE = 500000000;
+const DEFAULT_KB_MARKET = {
+  lowEok: 9.1,
+  highEok: 10.7,
+  apartment: '매교역푸르지오SK뷰 전용 84.97㎡',
+  asOf: '2026.07.17',
+  sourceUrl: 'https://kbland.kr/se/c/48414'
+};
 
 const fields = {
   salePrice: document.querySelector('#current-sale-price'),
@@ -32,7 +39,7 @@ const fields = {
   kbHigh: document.querySelector('#kb-high-price'),
   creditAmount: document.querySelector('#credit-loan-amount'),
   creditRate: document.querySelector('#credit-loan-rate'),
-  creditType: document.querySelector('#credit-loan-type'),
+  creditInterestOnly: document.querySelector('#credit-interest-only'),
   creditTerm: document.querySelector('#credit-loan-term'),
   taxArea: document.querySelector('#tax-area')
 };
@@ -221,7 +228,7 @@ function calculateFinance() {
   const salePriceEok = numberValue(fields.salePrice);
   const creditAmountEok = Math.max(0, numberValue(fields.creditAmount) || 0);
   const creditRate = Math.max(0, numberValue(fields.creditRate) || 0);
-  const creditType = fields.creditType.value;
+  const creditType = fields.creditInterestOnly.checked ? 'bullet' : 'amortizing';
   const creditMonths = Math.max(1, Number(fields.creditTerm.value) || 5) * 12;
   const area = numberValue(fields.taxArea);
   const hasSalePrice = Number.isFinite(salePriceEok) && salePriceEok > 0;
@@ -425,12 +432,16 @@ function renderHomePrice(data) {
   }
 
   const kbMarket = data.kbMarketPrice || {};
+  const kbSyncCopy = document.querySelector('#kb-sync-copy');
   if (kbMarket.status === 'ok' && Number.isFinite(kbMarket.lowPriceEok) && Number.isFinite(kbMarket.highPriceEok)) {
-    if (!fields.kbLow.value) fields.kbLow.value = kbMarket.lowPriceEok;
-    if (!fields.kbHigh.value) fields.kbHigh.value = kbMarket.highPriceEok;
+    fields.kbLow.value = kbMarket.lowPriceEok;
+    fields.kbHigh.value = kbMarket.highPriceEok;
     setText('#kb-sync-copy', (kbMarket.sourceName || '연결된 시세 제공자') + ' · ' + (kbMarket.syncedAt || '동기화 완료'));
+    if (kbMarket.sourceUrl) kbSyncCopy.href = kbMarket.sourceUrl;
+    else kbSyncCopy.removeAttribute('href');
   } else {
-    setText('#kb-sync-copy', kbMarket.message || 'KB 시세 공개 API가 없어 현재는 직접 입력합니다.');
+    setText('#kb-sync-copy', DEFAULT_KB_MARKET.apartment + ' · ' + DEFAULT_KB_MARKET.asOf + ' KB부동산 기준');
+    kbSyncCopy.href = DEFAULT_KB_MARKET.sourceUrl;
   }
   calculateFinance();
 }
@@ -1039,11 +1050,11 @@ document.querySelector('#finance-reset').addEventListener('click', () => {
   if (Number.isFinite(latestHomePriceManwon)) {
     setText('#current-sale-reference', '최근 실거래 ' + formatPriceManwon(latestHomePriceManwon) + (latestHomePriceContractDate ? ' · ' + latestHomePriceContractDate : '') + ' 기준 자동 입력');
   }
-  fields.kbLow.value = '';
-  fields.kbHigh.value = '';
+  fields.kbLow.value = String(DEFAULT_KB_MARKET.lowEok);
+  fields.kbHigh.value = String(DEFAULT_KB_MARKET.highEok);
   fields.creditAmount.value = '0';
   fields.creditRate.value = '5';
-  fields.creditType.value = 'amortizing';
+  fields.creditInterestOnly.checked = true;
   fields.creditTerm.value = '5';
   fields.taxArea.value = '84';
   calculateFinance();

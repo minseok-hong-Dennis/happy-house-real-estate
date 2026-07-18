@@ -116,7 +116,16 @@ h2 { margin: 0; font-size: 1.08rem; letter-spacing: -.045em; }
 .read-only-input { justify-content: space-between; color: var(--ink); background: #f7f9f8; }
 select { min-height: 3.05rem; padding: 0 .85rem; border: 1px solid var(--line-strong); border-radius: .7rem; color: var(--ink); background: white; outline: 0; font-size: .9rem; }
 .formula-note, .disclaimer, .source-line { margin: 1rem 0 0; color: var(--muted); font-size: .69rem; line-height: 1.65; }
-.data-status-note { margin: .55rem 0 0; color: var(--muted); font-size: .67rem; line-height: 1.55; }
+.data-status-note { display: block; width: fit-content; margin: .55rem 0 0; color: var(--mint-deep); font-size: .67rem; font-weight: 600; line-height: 1.55; text-decoration: none; }
+.data-status-note:hover { color: var(--accent-dark); }
+.credit-toggle-option { display: flex !important; align-items: center; justify-content: space-between; gap: 1rem; min-height: 3.05rem; padding: .55rem .75rem .55rem .85rem; border: 1px solid var(--line-strong); border-radius: .7rem; background: white; cursor: pointer; }
+.credit-toggle-option span b, .credit-toggle-option span small { display: block; }
+.credit-toggle-option span b { color: var(--ink); font-size: .76rem; }
+.credit-toggle-option span small { margin-top: .2rem; color: var(--muted); font-size: .61rem; font-weight: 500; }
+.credit-toggle-option input { position: relative; flex: 0 0 auto; width: 2.7rem; height: 1.5rem; margin: 0; appearance: none; border-radius: 999px; background: #cbd3d0; cursor: pointer; transition: background .18s ease; }
+.credit-toggle-option input::after { position: absolute; top: .18rem; left: .18rem; width: 1.14rem; height: 1.14rem; border-radius: 50%; background: white; box-shadow: 0 2px 6px rgba(23, 32, 29, .2); content: ""; transition: transform .18s ease; }
+.credit-toggle-option input:checked { background: var(--mint-deep); }
+.credit-toggle-option input:checked::after { transform: translateX(1.2rem); }
 .source-line a { color: var(--mint-deep); font-weight: 700; }
 .inline-result { display: grid; grid-template-columns: 1fr auto; gap: .2rem 1rem; margin-top: 1rem; padding: .85rem 1rem; border-radius: .75rem; background: #f6f8f7; }
 .inline-result span { color: var(--soft-ink); font-size: .72rem; }

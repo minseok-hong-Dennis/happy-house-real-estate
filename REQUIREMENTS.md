@@ -60,3 +60,5 @@
 56. Break down each post-move monthly payment estimate into principal, personally paid interest, credit-loan interest, and estimated income tax on company-supported interest.
 57. Use the latest transaction price, rather than the 12-month average, for candidate-apartment prices, budget-fit scores, and recommendations.
 58. Enable mouse-wheel map zoom and provide clear desktop and mobile gesture guidance.
+59. Add an interest-only credit-loan option that pays no principal during the term, make it enabled by default, and show the principal as due at maturity.
+60. Pre-fill the company-loan KB lower and upper market-price fields with the latest manually verified KB values for MaeGyo Station Prugio SK View 84.97-square-meter units.
