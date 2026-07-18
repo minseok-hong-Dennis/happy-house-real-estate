@@ -3,11 +3,11 @@
   "source": {
     "name": "국토교통부 아파트 매매 실거래자료",
     "url": "https://www.data.go.kr/data/15126469/openapi.do",
-    "period": "최근 12개월 계약일 기준"
+    "period": "최근 12개월 가격 · 최근 36개월 상승 흐름"
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-18 19:05 KST",
+    "lastSuccessfulAt": "2026-07-18 22:27 KST",
     "message": ""
   },
   "candidates": [
@@ -89,14 +89,29 @@
               "areaSqm": 74.69,
               "floor": 6
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 29,
+            "observedMonths": 35,
+            "periodStart": "2023-08-11",
+            "periodEnd": "2026-07-11",
+            "transactionCount": 128,
+            "baselineSampleCount": 8,
+            "recentSampleCount": 50,
+            "baselineMedianPriceManwon": 76636,
+            "recentMedianPriceManwon": 87950,
+            "longTermChangePercent": 14.8,
+            "recentMomentumPercent": 4.4,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.97,
-          "count": 99,
-          "averagePriceManwon": 96430,
+          "count": 97,
+          "averagePriceManwon": 96442,
           "minPriceManwon": 65100,
           "maxPriceManwon": 107500,
           "latestPriceManwon": 107500,
@@ -126,7 +141,22 @@
               "areaSqm": 84.97,
               "floor": 2
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 29,
+            "observedMonths": 33,
+            "periodStart": "2023-10-21",
+            "periodEnd": "2026-07-11",
+            "transactionCount": 171,
+            "baselineSampleCount": 12,
+            "recentSampleCount": 67,
+            "baselineMedianPriceManwon": 85828,
+            "recentMedianPriceManwon": 98000,
+            "longTermChangePercent": 14.2,
+            "recentMomentumPercent": 3.7,
+            "confidence": "high"
+          }
         }
       ]
     },
@@ -205,14 +235,29 @@
               "areaSqm": 58.9742,
               "floor": 15
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 77,
+            "observedMonths": 34,
+            "periodStart": "2023-08-19",
+            "periodEnd": "2026-06-30",
+            "transactionCount": 73,
+            "baselineSampleCount": 8,
+            "recentSampleCount": 9,
+            "baselineMedianPriceManwon": 62000,
+            "recentMedianPriceManwon": 85500,
+            "longTermChangePercent": 37.9,
+            "recentMomentumPercent": 20.4,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.55,
-          "count": 31,
-          "averagePriceManwon": 91048,
+          "count": 30,
+          "averagePriceManwon": 90857,
           "minPriceManwon": 82800,
           "maxPriceManwon": 104000,
           "latestPriceManwon": 99500,
@@ -242,7 +287,22 @@
               "areaSqm": 84.4619,
               "floor": 16
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 37,
+            "observedMonths": 34,
+            "periodStart": "2023-08-29",
+            "periodEnd": "2026-06-20",
+            "transactionCount": 86,
+            "baselineSampleCount": 6,
+            "recentSampleCount": 16,
+            "baselineMedianPriceManwon": 79650,
+            "recentMedianPriceManwon": 93500,
+            "longTermChangePercent": 17.4,
+            "recentMomentumPercent": 10.8,
+            "confidence": "medium"
+          }
         }
       ]
     },
@@ -320,14 +380,29 @@
               "areaSqm": 99.58,
               "floor": 11
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 30,
+            "observedMonths": 33,
+            "periodStart": "2023-09-21",
+            "periodEnd": "2026-06-09",
+            "transactionCount": 30,
+            "baselineSampleCount": 4,
+            "recentSampleCount": 8,
+            "baselineMedianPriceManwon": 80750,
+            "recentMedianPriceManwon": 94750,
+            "longTermChangePercent": 17.3,
+            "recentMomentumPercent": 12.4,
+            "confidence": "medium"
+          }
         },
         {
           "areaTypeSqm": 134,
           "areaLabel": "전용 134㎡ · 약 41평",
           "representativeAreaSqm": 134.76,
-          "count": 11,
-          "averagePriceManwon": 112500,
+          "count": 10,
+          "averagePriceManwon": 112650,
           "minPriceManwon": 102000,
           "maxPriceManwon": 120000,
           "latestPriceManwon": 119000,
@@ -357,7 +432,22 @@
               "areaSqm": 134.76,
               "floor": 1
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 30,
+            "observedMonths": 34,
+            "periodStart": "2023-09-01",
+            "periodEnd": "2026-06-29",
+            "transactionCount": 34,
+            "baselineSampleCount": 3,
+            "recentSampleCount": 7,
+            "baselineMedianPriceManwon": 97000,
+            "recentMedianPriceManwon": 114000,
+            "longTermChangePercent": 17.5,
+            "recentMomentumPercent": 6,
+            "confidence": "limited"
+          }
         },
         {
           "areaTypeSqm": 165,
@@ -394,7 +484,22 @@
               "areaSqm": 164.89,
               "floor": 2
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 0,
+            "observedMonths": 32,
+            "periodStart": "2023-08-28",
+            "periodEnd": "2026-04-17",
+            "transactionCount": 14,
+            "baselineSampleCount": 4,
+            "recentSampleCount": 3,
+            "baselineMedianPriceManwon": 104250,
+            "recentMedianPriceManwon": 105000,
+            "longTermChangePercent": 0.7,
+            "recentMomentumPercent": -3.7,
+            "confidence": "limited"
+          }
         }
       ]
     }
@@ -459,7 +564,22 @@
               "areaSqm": 59.98,
               "floor": 15
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 96,
+            "observedMonths": 35,
+            "periodStart": "2023-08-14",
+            "periodEnd": "2026-07-04",
+            "transactionCount": 141,
+            "baselineSampleCount": 14,
+            "recentSampleCount": 29,
+            "baselineMedianPriceManwon": 66500,
+            "recentMedianPriceManwon": 95000,
+            "longTermChangePercent": 42.9,
+            "recentMomentumPercent": 21,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 76,
@@ -496,7 +616,13 @@
               "areaSqm": 75.93,
               "floor": 10
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 34,
+            "transactionCount": 57
+          }
         },
         {
           "areaTypeSqm": 84,
@@ -533,7 +659,22 @@
               "areaSqm": 84.69,
               "floor": 20
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 71,
+            "observedMonths": 34,
+            "periodStart": "2023-08-19",
+            "periodEnd": "2026-07-02",
+            "transactionCount": 129,
+            "baselineSampleCount": 15,
+            "recentSampleCount": 16,
+            "baselineMedianPriceManwon": 85400,
+            "recentMedianPriceManwon": 114250,
+            "longTermChangePercent": 33.8,
+            "recentMomentumPercent": 17.2,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 106,
@@ -570,7 +711,22 @@
               "areaSqm": 105.86,
               "floor": 23
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 42,
+            "observedMonths": 34,
+            "periodStart": "2023-09-13",
+            "periodEnd": "2026-06-29",
+            "transactionCount": 31,
+            "baselineSampleCount": 7,
+            "recentSampleCount": 7,
+            "baselineMedianPriceManwon": 108200,
+            "recentMedianPriceManwon": 135500,
+            "longTermChangePercent": 25.2,
+            "recentMomentumPercent": 9.7,
+            "confidence": "medium"
+          }
         }
       ]
     },
@@ -633,7 +789,22 @@
               "areaSqm": 59.98,
               "floor": 17
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 63,
+            "observedMonths": 35,
+            "periodStart": "2023-08-17",
+            "periodEnd": "2026-07-13",
+            "transactionCount": 90,
+            "baselineSampleCount": 13,
+            "recentSampleCount": 20,
+            "baselineMedianPriceManwon": 63500,
+            "recentMedianPriceManwon": 81900,
+            "longTermChangePercent": 29,
+            "recentMomentumPercent": 14.9,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 76,
@@ -670,14 +841,29 @@
               "areaSqm": 75.93,
               "floor": 1
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 39,
+            "observedMonths": 34,
+            "periodStart": "2023-09-05",
+            "periodEnd": "2026-07-01",
+            "transactionCount": 34,
+            "baselineSampleCount": 3,
+            "recentSampleCount": 7,
+            "baselineMedianPriceManwon": 75000,
+            "recentMedianPriceManwon": 91000,
+            "longTermChangePercent": 21.3,
+            "recentMomentumPercent": 10.3,
+            "confidence": "limited"
+          }
         },
         {
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.69,
-          "count": 43,
-          "averagePriceManwon": 93466,
+          "count": 42,
+          "averagePriceManwon": 93370,
           "minPriceManwon": 80000,
           "maxPriceManwon": 108500,
           "latestPriceManwon": 108500,
@@ -707,7 +893,22 @@
               "areaSqm": 84.69,
               "floor": 15
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 53,
+            "observedMonths": 35,
+            "periodStart": "2023-08-10",
+            "periodEnd": "2026-07-15",
+            "transactionCount": 87,
+            "baselineSampleCount": 11,
+            "recentSampleCount": 18,
+            "baselineMedianPriceManwon": 80500,
+            "recentMedianPriceManwon": 99750,
+            "longTermChangePercent": 23.9,
+            "recentMomentumPercent": 13.9,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 106,
@@ -744,7 +945,13 @@
               "areaSqm": 105.86,
               "floor": 11
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 21,
+            "transactionCount": 7
+          }
         }
       ]
     },
@@ -776,8 +983,8 @@
           "areaTypeSqm": 63,
           "areaLabel": "전용 63㎡ · 약 19평",
           "representativeAreaSqm": 62.66,
-          "count": 46,
-          "averagePriceManwon": 92828,
+          "count": 42,
+          "averagePriceManwon": 93097,
           "minPriceManwon": 79300,
           "maxPriceManwon": 121000,
           "latestPriceManwon": 121000,
@@ -807,7 +1014,22 @@
               "areaSqm": 62.5963,
               "floor": 24
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 80,
+            "observedMonths": 35,
+            "periodStart": "2023-08-05",
+            "periodEnd": "2026-07-08",
+            "transactionCount": 143,
+            "baselineSampleCount": 20,
+            "recentSampleCount": 19,
+            "baselineMedianPriceManwon": 73000,
+            "recentMedianPriceManwon": 100500,
+            "longTermChangePercent": 37.7,
+            "recentMomentumPercent": 17.3,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 71,
@@ -844,14 +1066,29 @@
               "areaSqm": 71.2981,
               "floor": 4
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 85,
+            "observedMonths": 35,
+            "periodStart": "2023-08-08",
+            "periodEnd": "2026-06-30",
+            "transactionCount": 91,
+            "baselineSampleCount": 16,
+            "recentSampleCount": 12,
+            "baselineMedianPriceManwon": 81500,
+            "recentMedianPriceManwon": 113000,
+            "longTermChangePercent": 38.7,
+            "recentMomentumPercent": 20.9,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.76,
-          "count": 66,
-          "averagePriceManwon": 116493,
+          "count": 64,
+          "averagePriceManwon": 116840,
           "minPriceManwon": 90000,
           "maxPriceManwon": 140000,
           "latestPriceManwon": 130000,
@@ -881,7 +1118,22 @@
               "areaSqm": 84.8897,
               "floor": 25
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 80,
+            "observedMonths": 35,
+            "periodStart": "2023-08-11",
+            "periodEnd": "2026-07-08",
+            "transactionCount": 183,
+            "baselineSampleCount": 17,
+            "recentSampleCount": 31,
+            "baselineMedianPriceManwon": 93900,
+            "recentMedianPriceManwon": 127000,
+            "longTermChangePercent": 35.3,
+            "recentMomentumPercent": 17.6,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 108,
@@ -918,7 +1170,13 @@
               "areaSqm": 107.7242,
               "floor": 10
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 27,
+            "transactionCount": 12
+          }
         }
       ]
     },
@@ -950,8 +1208,8 @@
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.94,
-          "count": 44,
-          "averagePriceManwon": 80975,
+          "count": 43,
+          "averagePriceManwon": 81021,
           "minPriceManwon": 71000,
           "maxPriceManwon": 94000,
           "latestPriceManwon": 92000,
@@ -981,14 +1239,29 @@
               "areaSqm": 84.94,
               "floor": 3
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 43,
+            "observedMonths": 35,
+            "periodStart": "2023-08-10",
+            "periodEnd": "2026-07-09",
+            "transactionCount": 99,
+            "baselineSampleCount": 9,
+            "recentSampleCount": 19,
+            "baselineMedianPriceManwon": 70500,
+            "recentMedianPriceManwon": 84000,
+            "longTermChangePercent": 19.1,
+            "recentMomentumPercent": 7.1,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 99,
           "areaLabel": "전용 99㎡ · 약 30평",
           "representativeAreaSqm": 97.92,
-          "count": 34,
-          "averagePriceManwon": 85721,
+          "count": 31,
+          "averagePriceManwon": 85468,
           "minPriceManwon": 78000,
           "maxPriceManwon": 91800,
           "latestPriceManwon": 91500,
@@ -1005,20 +1278,35 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 91500,
+              "contractDate": "2026-06-27",
+              "priceManwon": 91800,
               "areaSqm": 97.92,
-              "floor": 12
+              "floor": 22
             },
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
-              "contractDate": "2026-07-02",
-              "priceManwon": 91500,
-              "areaSqm": 97.92,
-              "floor": 12
+              "contractDate": "2026-06-10",
+              "priceManwon": 89300,
+              "areaSqm": 97.95,
+              "floor": 21
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 15,
+            "observedMonths": 34,
+            "periodStart": "2023-08-23",
+            "periodEnd": "2026-07-02",
+            "transactionCount": 55,
+            "baselineSampleCount": 6,
+            "recentSampleCount": 18,
+            "baselineMedianPriceManwon": 78850,
+            "recentMedianPriceManwon": 87750,
+            "longTermChangePercent": 11.3,
+            "recentMomentumPercent": 5.1,
+            "confidence": "medium"
+          }
         },
         {
           "areaTypeSqm": 116,
@@ -1055,7 +1343,13 @@
               "areaSqm": 115.83,
               "floor": 18
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 32,
+            "transactionCount": 16
+          }
         }
       ]
     },
@@ -1087,8 +1381,8 @@
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.96,
-          "count": 37,
-          "averagePriceManwon": 87185,
+          "count": 36,
+          "averagePriceManwon": 87246,
           "minPriceManwon": 80500,
           "maxPriceManwon": 96500,
           "latestPriceManwon": 90000,
@@ -1118,7 +1412,13 @@
               "areaSqm": 84.9835,
               "floor": 9
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 34,
+            "transactionCount": 54
+          }
         },
         {
           "areaTypeSqm": 107,
@@ -1155,7 +1455,13 @@
               "areaSqm": 107.426,
               "floor": 4
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 23,
+            "transactionCount": 6
+          }
         }
       ]
     },
@@ -1187,8 +1493,8 @@
           "areaTypeSqm": 99,
           "areaLabel": "전용 99㎡ · 약 30평",
           "representativeAreaSqm": 99.87,
-          "count": 13,
-          "averagePriceManwon": 93808,
+          "count": 11,
+          "averagePriceManwon": 94182,
           "minPriceManwon": 91000,
           "maxPriceManwon": 101000,
           "latestPriceManwon": 101000,
@@ -1218,14 +1524,29 @@
               "areaSqm": 99.87,
               "floor": 18
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 8,
+            "observedMonths": 34,
+            "periodStart": "2023-08-08",
+            "periodEnd": "2026-05-30",
+            "transactionCount": 27,
+            "baselineSampleCount": 5,
+            "recentSampleCount": 5,
+            "baselineMedianPriceManwon": 82000,
+            "recentMedianPriceManwon": 93000,
+            "longTermChangePercent": 13.4,
+            "recentMomentumPercent": -0.8,
+            "confidence": "medium"
+          }
         },
         {
           "areaTypeSqm": 134,
           "areaLabel": "전용 134㎡ · 약 41평",
           "representativeAreaSqm": 134.64,
-          "count": 7,
-          "averagePriceManwon": 95786,
+          "count": 6,
+          "averagePriceManwon": 95833,
           "minPriceManwon": 90000,
           "maxPriceManwon": 103500,
           "latestPriceManwon": 90000,
@@ -1255,14 +1576,20 @@
               "areaSqm": 134.64,
               "floor": 15
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 32,
+            "transactionCount": 13
+          }
         },
         {
           "areaTypeSqm": 165,
           "areaLabel": "전용 165㎡ · 약 50평",
           "representativeAreaSqm": 164.76,
-          "count": 3,
-          "averagePriceManwon": 97333,
+          "count": 2,
+          "averagePriceManwon": 97500,
           "minPriceManwon": 97000,
           "maxPriceManwon": 98000,
           "latestPriceManwon": 98000,
@@ -1283,16 +1610,14 @@
               "priceManwon": 97000,
               "areaSqm": 164.76,
               "floor": 1
-            },
-            {
-              "apartmentName": "청명마을대우",
-              "dongName": "영통동",
-              "contractDate": "2025-10-15",
-              "priceManwon": 97000,
-              "areaSqm": 164.76,
-              "floor": 1
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "insufficient",
+            "message": "비교 가능한 장기 거래가 부족합니다.",
+            "observedMonths": 32,
+            "transactionCount": 7
+          }
         }
       ]
     },
@@ -1324,8 +1649,8 @@
           "areaTypeSqm": 59,
           "areaLabel": "전용 59㎡ · 약 18평",
           "representativeAreaSqm": 59.95,
-          "count": 77,
-          "averagePriceManwon": 98942,
+          "count": 76,
+          "averagePriceManwon": 98822,
           "minPriceManwon": 81000,
           "maxPriceManwon": 117400,
           "latestPriceManwon": 113000,
@@ -1355,7 +1680,22 @@
               "areaSqm": 59.9831,
               "floor": 10
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 94,
+            "observedMonths": 35,
+            "periodStart": "2023-08-01",
+            "periodEnd": "2026-07-11",
+            "transactionCount": 240,
+            "baselineSampleCount": 22,
+            "recentSampleCount": 32,
+            "baselineMedianPriceManwon": 76250,
+            "recentMedianPriceManwon": 108000,
+            "longTermChangePercent": 41.6,
+            "recentMomentumPercent": 17.8,
+            "confidence": "high"
+          }
         },
         {
           "areaTypeSqm": 84,
@@ -1392,7 +1732,22 @@
               "areaSqm": 84.9832,
               "floor": 4
             }
-          ]
+          ],
+          "growthAnalysis": {
+            "status": "ok",
+            "score": 52,
+            "observedMonths": 34,
+            "periodStart": "2023-08-19",
+            "periodEnd": "2026-07-04",
+            "transactionCount": 39,
+            "baselineSampleCount": 4,
+            "recentSampleCount": 8,
+            "baselineMedianPriceManwon": 106500,
+            "recentMedianPriceManwon": 133600,
+            "longTermChangePercent": 25.4,
+            "recentMomentumPercent": 11.6,
+            "confidence": "medium"
+          }
         }
       ]
     }
