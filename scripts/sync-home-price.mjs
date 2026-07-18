@@ -7,6 +7,7 @@ const CANDIDATE_DATA_PATH = 'data/candidates.json';
 const SYNC_STATUS_DATA_PATH = 'data/sync-status.json';
 const MAP_CONFIG_DATA_PATH = 'data/map-config.json';
 const RECONSTRUCTION_SNAPSHOT_PATH = 'data/reconstruction-projects.json';
+const CANDIDATE_TREND_MONTHS = 36;
 const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade';
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
 const RECONSTRUCTION_CSV_URL = 'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003667489&fileDetailSn=1&insertDataPrcus=N';
@@ -306,8 +307,10 @@ function parseTransactions(xml) {
     const priceManwon = Number(tagValue(item, ['dealAmount', 'dealAmt']).replace(/[^0-9]/g, ''));
     const areaSqm = Number(tagValue(item, ['excluUseAr', 'excluUseArea']));
     const floor = Number(tagValue(item, ['floor']));
+    const cancellationType = tagValue(item, ['cdealType']);
+    const cancellationDate = tagValue(item, ['cdealDay']);
     const contractDate = year && month && day ? year + '-' + month + '-' + day : '';
-    if (!contractDate || !Number.isFinite(priceManwon)) continue;
+    if (!contractDate || !Number.isFinite(priceManwon) || cancellationType === 'O' || cancellationDate) continue;
     records.push({
       apartmentName: name,
       dongName: tagValue(item, ['umdNm', 'legalDong', 'dong']),
@@ -394,7 +397,102 @@ function areaTypeFor(areaSqm, requestedTypes) {
   return requestedTypes?.length ? null : Math.round(areaSqm);
 }
 
-function summarizeAreaPrices(records, requestedTypes) {
+function medianPrice(records) {
+  const prices = records.map((record) => record.priceManwon).filter(Number.isFinite).sort((left, right) => left - right);
+  if (!prices.length) return null;
+  const middle = Math.floor(prices.length / 2);
+  return Math.round(prices.length % 2 ? prices[middle] : (prices[middle - 1] + prices[middle]) / 2);
+}
+
+function shiftDateMonths(dateString, monthOffset) {
+  const date = new Date(dateString + 'T00:00:00Z');
+  date.setUTCMonth(date.getUTCMonth() + monthOffset);
+  return date.toISOString().slice(0, 10);
+}
+
+function monthDistance(startDate, endDate) {
+  const start = new Date(startDate + 'T00:00:00Z');
+  const end = new Date(endDate + 'T00:00:00Z');
+  return Math.max(0, Math.round((end - start) / (30.4375 * 24 * 60 * 60 * 1000)));
+}
+
+function percentChange(current, previous) {
+  if (!Number.isFinite(current) || !Number.isFinite(previous) || previous <= 0) return null;
+  return Number(((current / previous - 1) * 100).toFixed(1));
+}
+
+function analyzePriceGrowth(records) {
+  const sorted = [...records].sort((left, right) => left.contractDate.localeCompare(right.contractDate));
+  const firstDate = sorted[0]?.contractDate;
+  const latestDate = sorted.at(-1)?.contractDate;
+  if (!firstDate || !latestDate) return { status: 'insufficient', message: '분석할 거래가 부족합니다.' };
+
+  const observedMonths = monthDistance(firstDate, latestDate);
+  const baselineEnd = shiftDateMonths(firstDate, 6);
+  const recentStart = shiftDateMonths(latestDate, -6);
+  const previousStart = shiftDateMonths(latestDate, -12);
+  const baselineRecords = sorted.filter((record) => record.contractDate <= baselineEnd);
+  const recentRecords = sorted.filter((record) => record.contractDate >= recentStart);
+  const previousRecords = sorted.filter((record) => record.contractDate >= previousStart && record.contractDate < recentStart);
+
+  if (observedMonths < 18 || baselineRecords.length < 3 || recentRecords.length < 3) {
+    return {
+      status: 'insufficient',
+      message: '비교 가능한 장기 거래가 부족합니다.',
+      observedMonths,
+      transactionCount: sorted.length
+    };
+  }
+
+  const baselineMedianPriceManwon = medianPrice(baselineRecords);
+  const recentMedianPriceManwon = medianPrice(recentRecords);
+  const previousMedianPriceManwon = medianPrice(previousRecords);
+  const longTermChangePercent = percentChange(recentMedianPriceManwon, baselineMedianPriceManwon);
+  const recentMomentumPercent = percentChange(recentMedianPriceManwon, previousMedianPriceManwon);
+  const confidence = observedMonths >= 30 && baselineRecords.length >= 8 && recentRecords.length >= 8 && sorted.length >= 40
+    ? 'high'
+    : (observedMonths >= 24 && baselineRecords.length >= 4 && recentRecords.length >= 4 && sorted.length >= 16 ? 'medium' : 'limited');
+
+  return {
+    status: Number.isFinite(longTermChangePercent) ? 'ok' : 'insufficient',
+    score: null,
+    observedMonths,
+    periodStart: firstDate,
+    periodEnd: latestDate,
+    transactionCount: sorted.length,
+    baselineSampleCount: baselineRecords.length,
+    recentSampleCount: recentRecords.length,
+    baselineMedianPriceManwon,
+    recentMedianPriceManwon,
+    longTermChangePercent,
+    recentMomentumPercent,
+    confidence
+  };
+}
+
+function relativeRank(value, values) {
+  const validValues = values.filter(Number.isFinite);
+  if (!Number.isFinite(value) || !validValues.length) return 0;
+  if (validValues.length === 1) return 0.5;
+  const lowerCount = validValues.filter((candidate) => candidate < value).length;
+  const equalCount = validValues.filter((candidate) => candidate === value).length;
+  return (lowerCount + (equalCount - 1) / 2) / (validValues.length - 1);
+}
+
+function assignGrowthScores(items) {
+  const analyses = items.flatMap((item) => (item.areaPrices || []).map((area) => area.growthAnalysis)).filter((analysis) => analysis?.status === 'ok');
+  const changes = analyses.map((analysis) => analysis.longTermChangePercent);
+  const momentums = analyses.map((analysis) => analysis.recentMomentumPercent).filter(Number.isFinite);
+  const liquidities = analyses.map((analysis) => Math.log1p(analysis.transactionCount));
+  analyses.forEach((analysis) => {
+    const trendRank = relativeRank(analysis.longTermChangePercent, changes);
+    const momentumRank = Number.isFinite(analysis.recentMomentumPercent) ? relativeRank(analysis.recentMomentumPercent, momentums) : 0;
+    const liquidityRank = relativeRank(Math.log1p(analysis.transactionCount), liquidities);
+    analysis.score = Math.round((trendRank * 0.55 + momentumRank * 0.25 + liquidityRank * 0.2) * 100);
+  });
+}
+
+function summarizeAreaPrices(records, requestedTypes, options = {}) {
   const groups = new Map();
   records.forEach((record) => {
     const areaTypeSqm = areaTypeFor(record.areaSqm, requestedTypes);
@@ -403,7 +501,12 @@ function summarizeAreaPrices(records, requestedTypes) {
     groups.get(areaTypeSqm).push(record);
   });
   return [...groups.entries()].map(([areaTypeSqm, group]) => {
-    const sorted = [...group].sort((left, right) => right.contractDate.localeCompare(left.contractDate));
+    const summaryCutoff = options.summaryMonthCount ? cutoffDate(options.summaryMonthCount) : null;
+    const summaryRecords = summaryCutoff
+      ? group.filter((record) => new Date(record.contractDate + 'T00:00:00Z') >= summaryCutoff)
+      : group;
+    const sorted = [...summaryRecords].sort((left, right) => right.contractDate.localeCompare(left.contractDate));
+    if (!sorted.length) return null;
     const summary = summarizeTransactions(sorted);
     const representativeAreaSqm = sorted.reduce((total, record) => total + record.areaSqm, 0) / sorted.length;
     return {
@@ -416,12 +519,13 @@ function summarizeAreaPrices(records, requestedTypes) {
       maxPriceManwon: summary.maxPriceManwon,
       latestPriceManwon: summary.latestPriceManwon,
       latestContractDate: sorted[0].contractDate,
-      recentTransactions: sorted.slice(0, 3)
+      recentTransactions: sorted.slice(0, 3),
+      ...(options.analyzeGrowth ? { growthAnalysis: analyzePriceGrowth(group) } : {})
     };
-  }).sort((left, right) => left.areaTypeSqm - right.areaTypeSqm);
+  }).filter(Boolean).sort((left, right) => left.areaTypeSqm - right.areaTypeSqm);
 }
 
-async function fetchTransactions(serviceKey, target, monthCount = 3) {
+async function fetchTransactions(serviceKey, target, monthCount = 3, options = {}) {
   const cutoff = cutoffDate(monthCount);
   const responses = await Promise.all(recentMonths(monthCount).map((yearMonth) => fetchDistrictMonth(serviceKey, target.lawdCd, yearMonth)));
   const records = targetTransactions(responses.flat(), target, cutoff).sort((left, right) => right.contractDate.localeCompare(left.contractDate));
@@ -430,7 +534,7 @@ async function fetchTransactions(serviceKey, target, monthCount = 3) {
     message: records.length ? '' : '최근 ' + monthCount + '개월 내 ' + (target.areaLabel ? target.areaLabel + ' ' : '') + '신고 거래가 없어요.',
     periodLabel: '최근 ' + monthCount + '개월 계약일 기준' + (target.areaLabel ? ' · ' + target.areaLabel : '') + ' · ' + records.length + '건',
     summary: summarizeTransactions(records),
-    areaPrices: summarizeAreaPrices(records, target.requestedAreaTypes),
+    areaPrices: summarizeAreaPrices(records, target.requestedAreaTypes, options),
     records
   };
 }
@@ -863,7 +967,7 @@ async function syncReconstruction(serviceKey, reconstructionServiceKey, previous
 
 async function syncPriceTarget(serviceKey, target, previousItem) {
   try {
-    const trades = await fetchTransactions(serviceKey, target, 12);
+    const trades = await fetchTransactions(serviceKey, target, CANDIDATE_TREND_MONTHS, { analyzeGrowth: true, summaryMonthCount: 12 });
     return {
       ...target,
       priceStatus: trades.status,
@@ -894,13 +998,14 @@ async function syncCandidates(serviceKey, previous) {
     const previousItem = previous.recommendationPool?.find((item) => item.id === target.id);
     recommendationPool.push(await syncPriceTarget(serviceKey, target, previousItem));
   }
+  assignGrowthScores([...candidates, ...recommendationPool]);
   const hasError = [...candidates, ...recommendationPool].some((item) => item.priceStatus === 'error');
   return {
     status: hasError ? 'partial' : 'ok',
     source: {
       name: '국토교통부 아파트 매매 실거래자료',
       url: 'https://www.data.go.kr/data/15126469/openapi.do',
-      period: '최근 12개월 계약일 기준'
+      period: '최근 12개월 가격 · 최근 36개월 상승 흐름'
     },
     sync: {
       schedule: '매일 14:00 KST',
@@ -934,7 +1039,7 @@ function buildSyncStatus(homeData, reconstruction, candidates) {
       totalCount: candidateItems.length,
       optional: false,
       syncedAt: candidates.sync?.lastSuccessfulAt || null,
-      message: candidates.sync?.message || '최근 12개월 거래 갱신 완료'
+      message: candidates.sync?.message || '최근 12개월 가격과 36개월 상승 흐름 갱신 완료'
     },
     {
       id: 'reconstruction-projects',

@@ -336,6 +336,13 @@ html[data-map-provider="naver"] #property-map .map-popup { padding: .75rem; }
 .recommendation-card strong { display: block; margin-top: .7rem; font-size: 1.05rem; }
 .recommendation-card p { margin: .35rem 0 0; color: var(--muted); font-size: .61rem; line-height: 1.5; }
 .recommendation-card > small { display: block; margin-top: .7rem; padding-top: .6rem; border-top: 1px solid var(--line); color: var(--soft-ink); font-size: .62rem; font-weight: 600; }
+.growth-recommendation-section { padding-top: 2rem; border-top: 1px solid var(--line); }
+.growth-recommendation-card { border-top: .2rem solid var(--mint-deep); }
+.growth-trend { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: .7rem; }
+.growth-trend span { padding: .55rem .65rem; border-radius: .65rem; background: #f6f8f7; }
+.growth-trend small, .growth-trend b { display: block; }
+.growth-trend small { color: var(--muted); font-size: .59rem; }
+.growth-trend b { margin-top: .2rem; color: var(--mint-deep); font-size: .83rem; }
 .reconstruction-area-prices { grid-template-columns: 1fr; max-height: 15rem; padding-right: .2rem; overflow-y: auto; }
 .reconstruction-area-prices > p { margin: 0; padding: .7rem; border-radius: .6rem; color: var(--muted); background: #f6f8f7; font-size: .65rem; }
 

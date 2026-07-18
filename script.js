@@ -601,7 +601,7 @@ function renderRecommendations(items) {
     return;
   }
   setText('#recommendation-count', options.length + '개 추천');
-  setText('#recommendation-state', '가장 최근 실거래가가 ' + formatWon(movingBudgetWon) + ' 이하인 면적 기준');
+  setText('#recommendation-state', '가장 최근 실거래가가 ' + formatPriceManwon(movingBudgetWon / 10000) + ' 이하인 면적 기준');
   if (!options.length) {
     const empty = document.createElement('article');
     empty.className = 'listing-empty';
@@ -621,8 +621,91 @@ function renderRecommendations(items) {
     title.textContent = item.name;
     price.textContent = formatPriceManwon(Number(area.latestPriceManwon));
     meta.textContent = [item.location, area.count + '건', area.latestContractDate + ' 최근 거래'].join(' · ');
-    remainder.textContent = '예산 여유 ' + formatWon(movingBudgetWon - Number(area.latestPriceManwon) * 10000);
+    remainder.textContent = '예산 여유 ' + formatPriceManwon((movingBudgetWon - Number(area.latestPriceManwon) * 10000) / 10000);
     card.append(label, title, price, meta, remainder);
+    container.append(card);
+  });
+}
+
+function signedPercent(value) {
+  const number = Number(value);
+  if (!Number.isFinite(number)) return '자료 부족';
+  return (number > 0 ? '+' : '') + number.toFixed(1) + '%';
+}
+
+function growthConfidenceLabel(confidence) {
+  return { high: '높음', medium: '보통', limited: '참고' }[confidence] || '참고';
+}
+
+function growthRecommendationOptions(items) {
+  if (!Number.isFinite(movingBudgetWon)) return [];
+  return items.map((item) => {
+    const affordable = (item.areaPrices || [])
+      .filter((area) => Number(area.latestPriceManwon) * 10000 <= movingBudgetWon)
+      .filter((area) => area.growthAnalysis?.status === 'ok' && Number(area.growthAnalysis.longTermChangePercent) > 0)
+      .sort((left, right) => Number(right.growthAnalysis.score) - Number(left.growthAnalysis.score));
+    return affordable.length ? { item, area: affordable[0] } : null;
+  }).filter(Boolean).sort((left, right) => {
+    const scoreGap = Number(right.area.growthAnalysis.score) - Number(left.area.growthAnalysis.score);
+    return scoreGap || Number(right.area.growthAnalysis.longTermChangePercent) - Number(left.area.growthAnalysis.longTermChangePercent);
+  }).slice(0, 6);
+}
+
+function renderGrowthRecommendations(items) {
+  const container = document.querySelector('#growth-recommendation-list');
+  const allItems = items || [];
+  const options = growthRecommendationOptions(allItems);
+  const hasAnalysis = allItems.some((item) => (item.areaPrices || []).some((area) => area.growthAnalysis?.status === 'ok'));
+  container.replaceChildren();
+
+  if (!Number.isFinite(movingBudgetWon)) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>예산 설정이 필요해요.</h3><p>대출 관리의 이사 예산을 기준으로 상승 흐름이 좋은 단지를 추립니다.</p>';
+    container.append(empty);
+    setText('#growth-recommendation-state', '최근 3년 실거래 추세를 예산과 함께 비교합니다.');
+    setText('#growth-recommendation-count', '예산 입력 전');
+    return;
+  }
+
+  if (!hasAnalysis) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>3년 분석을 준비하고 있어요.</h3><p>다음 일일 동기화가 끝나면 상승 흐름 순위가 표시됩니다.</p>';
+    container.append(empty);
+    setText('#growth-recommendation-state', '국토교통부 36개월 실거래 동기화 대기');
+    setText('#growth-recommendation-count', '동기화 대기');
+    return;
+  }
+
+  setText('#growth-recommendation-state', '3년 중간 거래가 변화 55% · 최근 흐름 25% · 거래량 20% 상대점수');
+  setText('#growth-recommendation-count', options.length + '개 추천');
+  if (!options.length) {
+    const empty = document.createElement('article');
+    empty.className = 'listing-empty';
+    empty.innerHTML = '<h3>예산 안에서 상승 추세인 면적을 찾지 못했어요.</h3><p>예산 조건을 조정하거나 다음 동기화 후 다시 확인해 주세요.</p>';
+    container.append(empty);
+    return;
+  }
+
+  options.forEach(({ item, area }) => {
+    const analysis = area.growthAnalysis;
+    const card = document.createElement('article');
+    const label = document.createElement('span');
+    const title = document.createElement('h3');
+    const price = document.createElement('strong');
+    const trend = document.createElement('div');
+    const meta = document.createElement('p');
+    const remainder = document.createElement('small');
+    card.className = 'recommendation-card growth-recommendation-card';
+    label.textContent = area.areaLabel + ' · 상대점수 ' + analysis.score + '점';
+    title.textContent = item.displayName || item.name;
+    price.textContent = formatPriceManwon(Number(area.latestPriceManwon));
+    trend.className = 'growth-trend';
+    trend.innerHTML = '<span><small>장기 추세</small><b>' + signedPercent(analysis.longTermChangePercent) + '</b></span><span><small>최근 1년</small><b>' + signedPercent(analysis.recentMomentumPercent) + '</b></span>';
+    meta.textContent = analysis.observedMonths + '개월 · ' + analysis.transactionCount + '건 · 신뢰도 ' + growthConfidenceLabel(analysis.confidence);
+    remainder.textContent = '최근 거래 ' + area.latestContractDate + ' · 예산 여유 ' + formatPriceManwon((movingBudgetWon - Number(area.latestPriceManwon) * 10000) / 10000);
+    card.append(label, title, price, trend, meta, remainder);
     container.append(card);
   });
 }
@@ -647,6 +730,7 @@ function renderCandidates(data) {
     data.candidates.forEach((item) => container.append(makeCandidateCard(item)));
   }
   renderRecommendations(data.recommendationPool);
+  renderGrowthRecommendations([...(data.candidates || []), ...(data.recommendationPool || [])]);
 }
 
 function makeDetailRow(label, value) {
