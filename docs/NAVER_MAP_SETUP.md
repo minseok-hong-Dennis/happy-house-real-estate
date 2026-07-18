@@ -22,7 +22,7 @@
 4. Value에는 앞에서 복사한 Client ID만 입력하고 저장합니다.
 5. [Actions secrets 설정](https://github.com/minseok-hong-Dennis/happy-house-real-estate/settings/secrets/actions)을 열고 `New repository secret`을 누릅니다.
 6. Name에는 `NAVER_MAPS_CLIENT_SECRET`, Value에는 Client Secret을 입력하고 저장합니다.
-7. [Sync home price data Action](https://github.com/minseok-hong-Dennis/happy-house-real-estate/actions/workflows/sync-home-price.yml)에서 `Run workflow`를 한 번 실행합니다. 최초 좌표 생성 후 한 번 더 실행하면 새로 확보된 실거래 지번까지 보조 주소로 활용합니다.
+7. [Sync home price data Action](https://github.com/minseok-hong-Dennis/happy-house-real-estate/actions/workflows/sync-home-price.yml)에서 `Run workflow`를 한 번 실행합니다. 한 번의 실행 안에서 단지명 검색과 매칭된 실거래 지번 보조 검색을 모두 처리합니다.
 
 Action은 공개 가능한 Client ID만 `data/map-config.json`에 반영합니다. Client Secret은 GitHub Actions 안에서 NAVER Geocoding을 호출할 때만 사용하며 파일, 브라우저, 로그에 기록하지 않습니다. 잘못된 추정 좌표는 제거하고 지역이 일치하는 NAVER 주소 검색 결과만 저장합니다.
 
