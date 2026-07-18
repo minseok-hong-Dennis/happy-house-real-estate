@@ -2,7 +2,7 @@
 
 이 프로젝트는 공공데이터포털 키를 용도별 GitHub Secret인 `MOLIT_SERVICE_KEY`와 `RECONSTRUCTION_SERVICE_KEY`에 등록합니다. 포털에서 복사하는 실제 서비스키 값은 같을 수 있지만, 두 API의 `활용신청`과 Action의 연결 상태를 구분하기 위해 Secret 이름을 분리합니다. 현재 매물가나 KB 시세 제공자용 키와는 별개입니다. 키 값은 HTML, JavaScript, 커밋, 이슈, Actions 로그에 적지 말고 GitHub Actions Secret에만 등록합니다.
 
-네이버 지도용 Client ID 발급과 도메인 등록은 [NAVER_MAP_SETUP.md](NAVER_MAP_SETUP.md)를 참고하세요. 지도에는 Client ID만 사용하며 Client Secret은 등록하지 않습니다.
+네이버 지도용 Client ID 발급과 도메인 등록은 [NAVER_MAP_SETUP.md](NAVER_MAP_SETUP.md)를 참고하세요. 지도 화면은 공개 가능한 Client ID를 사용하지만, 재건축 단지의 정확한 핀 좌표를 매일 동기화하려면 Client Secret을 GitHub Actions Secret으로도 등록해야 합니다.
 
 ## 1. MOLIT_SERVICE_KEY 발급
 

@@ -17,7 +17,18 @@ let latestHomePriceManwon = Number.NaN;
 let latestHomePriceContractDate = '';
 let salePriceTouched = false;
 let priceRecommendationFilter = 'all';
+let reconstructionGeocodingStatus = 'unknown';
+let browserGeocodeState = 'idle';
 const reconstructionMarkers = new Map();
+const browserGeocodeAttempted = new Set();
+const browserGeocodeCache = new Map();
+
+try {
+  Object.entries(JSON.parse(localStorage.getItem('happy-house-geocode-v1') || '{}'))
+    .forEach(([id, value]) => browserGeocodeCache.set(id, value));
+} catch (error) {
+  console.warn('[map] 브라우저 좌표 캐시를 불러오지 못했습니다.', error);
+}
 
 const COMPANY_LOAN = {
   capEok: 5,
@@ -63,6 +74,7 @@ function showTab(tabName) {
     window.setTimeout(() => {
       if (mapProvider === 'naver') window.naver.maps.Event.trigger(propertyMap, 'resize');
       else propertyMap.invalidateSize();
+      renderMapProjects();
     }, 50);
   }
 }
@@ -980,9 +992,22 @@ function reconstructionDisplayName(item) {
 
 function verifiedMapPoint(item) {
   const point = item.mapPoint;
-  return Number.isFinite(point?.latitude) && Number.isFinite(point?.longitude) && point.source === 'naver-geocode'
+  return Number.isFinite(point?.latitude)
+    && Number.isFinite(point?.longitude)
+    && ['naver-geocode', 'naver-browser-geocode'].includes(point.source)
     ? point
     : null;
+}
+
+function browserGeocodeQuery(item) {
+  const transaction = item.latestTransaction;
+  if (!transaction?.dongName || !transaction?.jibun) return '';
+  return [item.location, transaction.dongName, transaction.jibun].filter(Boolean).join(' ');
+}
+
+function cachedBrowserMapPoint(item) {
+  const cached = browserGeocodeCache.get(item.id);
+  return cached?.query === browserGeocodeQuery(item) ? verifiedMapPoint({ mapPoint: cached.mapPoint }) : null;
 }
 
 function stageRank(stage = '') {
@@ -1014,14 +1039,15 @@ function normalizeReconstructionItem(item) {
   const location = legacyLocation
     ? ['경기도', administrativeRegion.cityName, administrativeRegion.districtName].filter(Boolean).join(' ')
     : item.location;
-  return {
+  const normalized = {
     ...item,
     ...administrativeRegion,
     location,
     apartmentName: reconstructionDisplayName(item),
-    regionName: inferredRegion(item),
-    mapPoint: verifiedMapPoint(item)
+    regionName: inferredRegion(item)
   };
+  normalized.mapPoint = verifiedMapPoint(normalized) || cachedBrowserMapPoint(normalized);
+  return normalized;
 }
 
 function locationFilterElements(scope) {
@@ -1287,7 +1313,7 @@ function loadNaverMapsScript(clientId) {
       else fallbackFromNaverMap();
     };
     const script = document.createElement('script');
-    script.src = 'https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=' + encodeURIComponent(clientId) + '&callback=' + callbackName;
+    script.src = 'https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=' + encodeURIComponent(clientId) + '&submodules=geocoder&callback=' + callbackName;
     script.async = true;
     script.onerror = () => finish(reject, new Error('네이버 지도 스크립트를 불러오지 못했습니다.'));
     const timeoutId = window.setTimeout(() => finish(reject, new Error('네이버 지도 로딩 시간이 초과됐습니다.')), 10000);
@@ -1552,6 +1578,81 @@ function appendMapProjectListItem(list, item) {
   list.append(button);
 }
 
+function browserGeocodeAddressText(address) {
+  return [address?.roadAddress, address?.jibunAddress].filter(Boolean).join(' ');
+}
+
+function browserGeocodeAddressMatchesRegion(address, item) {
+  const addressText = browserGeocodeAddressText(address);
+  return String(item.location || '').split(/\s+/).filter(Boolean).every((token) => addressText.includes(token));
+}
+
+function requestBrowserGeocode(item) {
+  return new Promise((resolve, reject) => {
+    const service = window.naver?.maps?.Service;
+    if (!service) {
+      reject(new Error('NAVER Geocoder 모듈을 사용할 수 없습니다.'));
+      return;
+    }
+    service.geocode({ query: browserGeocodeQuery(item) }, (status, response) => {
+      if (status !== service.Status.OK) {
+        reject(new Error('NAVER Geocoding 사용 권한이 없습니다.'));
+        return;
+      }
+      const address = (response?.v2?.addresses || []).find((candidate) => browserGeocodeAddressMatchesRegion(candidate, item));
+      if (!address) {
+        resolve(null);
+        return;
+      }
+      const latitude = Number(address.y);
+      const longitude = Number(address.x);
+      if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+        resolve(null);
+        return;
+      }
+      resolve({
+        latitude,
+        longitude,
+        accuracy: '실거래 지번 · NAVER Geocoding',
+        source: 'naver-browser-geocode'
+      });
+    });
+  });
+}
+
+async function hydrateBrowserMapPoints(scopedItems) {
+  if (mapProvider !== 'naver' || browserGeocodeState === 'running' || browserGeocodeState === 'error') return;
+  const targets = scopedItems
+    .filter((item) => !item.mapPoint && browserGeocodeQuery(item) && !browserGeocodeAttempted.has(item.id))
+    .slice(0, 40);
+  if (!targets.length) return;
+  browserGeocodeState = 'running';
+  setText('#map-accuracy-note', '실거래 지번이 있는 단지의 NAVER 좌표를 확인하고 있습니다.');
+  let mappedCount = 0;
+  for (const item of targets) {
+    browserGeocodeAttempted.add(item.id);
+    try {
+      const mapPoint = await requestBrowserGeocode(item);
+      if (!mapPoint) continue;
+      item.mapPoint = mapPoint;
+      browserGeocodeCache.set(item.id, { query: browserGeocodeQuery(item), mapPoint });
+      mappedCount += 1;
+    } catch (error) {
+      browserGeocodeState = 'error';
+      setText('#map-accuracy-note', '재건축 핀을 표시하려면 NAVER Maps Application에서 Geocoding을 선택하고 GitHub Secret NAVER_MAPS_CLIENT_SECRET을 등록해 주세요.');
+      return;
+    }
+  }
+  browserGeocodeState = 'complete';
+  try {
+    localStorage.setItem('happy-house-geocode-v1', JSON.stringify(Object.fromEntries(browserGeocodeCache)));
+  } catch (error) {
+    console.warn('[map] 확인한 좌표를 브라우저에 저장하지 못했습니다.', error);
+  }
+  if (mappedCount) renderMapProjects();
+  else setText('#map-accuracy-note', '실거래 지번과 지역이 일치하는 NAVER 좌표를 찾지 못했습니다. 서버 좌표 동기화 결과를 확인해 주세요.');
+}
+
 function renderMapProjects() {
   initializePropertyMap();
   const list = document.querySelector('#map-project-list');
@@ -1581,8 +1682,11 @@ function renderMapProjects() {
   setText('#map-pin-count', providerLabel + ' · 정확 좌표 ' + items.length.toLocaleString('ko-KR') + '개 · 확인 대기 ' + pendingCount.toLocaleString('ko-KR') + '개');
   setText('#map-accuracy-note', items.length
     ? 'NAVER 주소 검색으로 지역이 일치한 좌표만 표시합니다. 라벨 가격은 국토교통부 최근 신고 거래입니다.'
-    : '잘못된 시군구 중심 추정 핀은 제거했습니다. NAVER Geocoding 동기화가 끝난 단지만 표시합니다.');
+    : (reconstructionGeocodingStatus === 'not_configured'
+      ? '재건축 핀 좌표 동기화가 설정되지 않았습니다. NAVER Maps Application의 Geocoding과 GitHub Secret을 확인해 주세요.'
+      : '잘못된 시군구 중심 추정 핀은 제거했습니다. NAVER Geocoding 동기화가 끝난 단지만 표시합니다.'));
   updateMapLabelVisibility();
+  if (!document.querySelector('#map-panel').hidden) void hydrateBrowserMapPoints(scopedItems);
 }
 
 function renderReconstruction(data) {
@@ -1593,6 +1697,7 @@ function renderReconstruction(data) {
   setText('#reconstruction-synced-at', syncedAt ? syncedAt + ' 기준' : (sync.message || '국토교통부 API 연결 후 갱신됩니다.'));
   syncDot.classList.toggle('is-synced', Boolean(syncedAt));
   syncDot.classList.toggle('is-error', data.status === 'error');
+  reconstructionGeocodingStatus = data.geocoding?.status || 'unknown';
   reconstructionItems = (data.items || []).map(normalizeReconstructionItem);
   const countLabel = reconstructionItems.length ? reconstructionItems.length.toLocaleString('ko-KR') + '개 진행 사업' : '진행 사업';
   setText('#reconstruction-count', countLabel);

@@ -12,7 +12,7 @@ const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMS
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
 const RECONSTRUCTION_CSV_URL = 'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003667489&fileDetailSn=1&insertDataPrcus=N';
 const RECONSTRUCTION_SOURCE_URL = 'https://www.data.go.kr/data/15160169/fileData.do';
-const NAVER_GEOCODE_URL = 'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode';
+const NAVER_GEOCODE_URL = 'https://maps.apigw.ntruss.com/map-geocode/v2/geocode';
 const SOUTHERN_GYEONGGI_CITIES = new Set([
   '수원장안구', '수원권선구', '수원팔달구', '수원영통구',
   '용인처인구', '용인기흥구', '용인수지구',
