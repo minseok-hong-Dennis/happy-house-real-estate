@@ -67,3 +67,4 @@
 63. Show each project's latest official transaction price and add minimum and maximum transaction-price filters.
 64. Replace the flat district filter with dependent city and district filters, such as selecting Suwon first and then Paldal-gu.
 65. Refresh every time-sensitive real-estate dataset through the daily GitHub Action, preserve the last successful optional-provider data on transient failures, and record each source's sync status.
+66. Replace the primary map with NAVER Web Dynamic Map while preserving all home and reconstruction markers, filters, labels, and detail popups; fall back safely when NAVER Maps is not configured or authentication fails.

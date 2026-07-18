@@ -11,6 +11,8 @@ let movingBudgetWon = Number.NaN;
 let propertyMap = null;
 let reconstructionMapLayer = null;
 let homeMapMarker = null;
+let activeMapInfoWindow = null;
+let mapProvider = 'loading';
 let latestHomePriceManwon = Number.NaN;
 let latestHomePriceContractDate = '';
 let salePriceTouched = false;
@@ -57,7 +59,10 @@ function showTab(tabName) {
   tabPanels.forEach((panel) => { panel.hidden = panel.dataset.tabPanel !== tabName; });
   window.scrollTo({ top: 0, left: 0 });
   if (tabName === 'map' && propertyMap) {
-    window.setTimeout(() => propertyMap.invalidateSize(), 50);
+    window.setTimeout(() => {
+      if (mapProvider === 'naver') window.naver.maps.Event.trigger(propertyMap, 'resize');
+      else propertyMap.invalidateSize();
+    }, 50);
   }
 }
 
@@ -732,9 +737,9 @@ function stageGroup(stage = '') {
   return 'other';
 }
 
-function googleMapsUrl(item) {
+function naverMapsUrl(item) {
   const query = item.mapQuery || [item.location, item.name].filter(Boolean).join(' ');
-  return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(query);
+  return 'https://map.naver.com/p/search/' + encodeURIComponent(query);
 }
 
 function normalizeReconstructionItem(item) {
@@ -951,16 +956,130 @@ function mapPopupContent(item) {
   detailButton.type = 'button';
   detailButton.dataset.reconstructionDetail = item.id;
   detailButton.textContent = '재건축 탭에서 상세 보기';
-  link.href = googleMapsUrl(item);
+  link.href = naverMapsUrl(item);
   link.target = '_blank';
   link.rel = 'noreferrer';
-  link.textContent = 'Google Maps에서 확인';
+  link.textContent = '네이버 지도에서 확인';
   wrapper.append(stage, title, location, transaction, areaList, details, detailButton, link);
   return wrapper;
 }
 
-function initializePropertyMap() {
-  if (propertyMap || !window.L) return;
+function homeMapPopupContent() {
+  const homePopup = document.createElement('div');
+  const homeTitle = document.createElement('b');
+  const homeCopy = document.createElement('small');
+  const homeLink = document.createElement('a');
+  homePopup.className = 'map-popup';
+  homeTitle.textContent = '힐스테이트 푸르지오 수원';
+  homeCopy.textContent = '현재 우리집 · 전용 59㎡형';
+  homeLink.href = naverMapsUrl({ mapQuery: '힐스테이트 푸르지오 수원' });
+  homeLink.target = '_blank';
+  homeLink.rel = 'noreferrer';
+  homeLink.textContent = '네이버 지도에서 확인';
+  homePopup.append(homeTitle, homeCopy, homeLink);
+  return homePopup;
+}
+
+function setMapProvider(provider) {
+  mapProvider = provider;
+  document.documentElement.dataset.mapProvider = provider;
+}
+
+function fallbackFromNaverMap() {
+  if (mapProvider !== 'naver') return;
+  if (propertyMap?.destroy) propertyMap.destroy();
+  propertyMap = null;
+  homeMapMarker = null;
+  activeMapInfoWindow = null;
+  reconstructionMapLayer = null;
+  reconstructionMarkers.clear();
+  setMapProvider('leaflet');
+  renderMapProjects();
+}
+
+function loadNaverMapsScript(clientId) {
+  if (window.naver?.maps) return Promise.resolve();
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const callbackName = '__happyHouseNaverMapsReady';
+    const finish = (handler, value) => {
+      if (settled) return;
+      settled = true;
+      window.clearTimeout(timeoutId);
+      handler(value);
+    };
+    window[callbackName] = () => finish(resolve);
+    window.navermap_authFailure = () => {
+      if (!settled) finish(reject, new Error('네이버 지도 도메인 인증에 실패했습니다.'));
+      else fallbackFromNaverMap();
+    };
+    const script = document.createElement('script');
+    script.src = 'https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=' + encodeURIComponent(clientId) + '&callback=' + callbackName;
+    script.async = true;
+    script.onerror = () => finish(reject, new Error('네이버 지도 스크립트를 불러오지 못했습니다.'));
+    const timeoutId = window.setTimeout(() => finish(reject, new Error('네이버 지도 로딩 시간이 초과됐습니다.')), 10000);
+    document.head.append(script);
+  });
+}
+
+async function loadMapProvider() {
+  try {
+    const response = await fetch('data/map-config.json', { cache: 'no-store' });
+    if (!response.ok) throw new Error('지도 설정 파일 없음');
+    const config = await response.json();
+    const clientId = String(config.naverMapsClientId || '').trim();
+    if (!clientId) throw new Error('NAVER Maps Client ID 미설정');
+    await loadNaverMapsScript(clientId);
+    setMapProvider('naver');
+  } catch (error) {
+    console.warn('[map] ' + error.message + ' · 기본 지도로 대체합니다.');
+    setMapProvider('leaflet');
+  }
+}
+
+function initializeNaverPropertyMap() {
+  const naverMaps = window.naver.maps;
+  propertyMap = new naverMaps.Map('property-map', {
+    center: new naverMaps.LatLng(37.32, 127.01),
+    zoom: 10,
+    minZoom: 6,
+    maxZoom: 19,
+    scrollWheel: true,
+    pinchZoom: true,
+    zoomControl: true,
+    zoomControlOptions: { position: naverMaps.Position.TOP_RIGHT },
+    scaleControl: true,
+    mapDataControl: false
+  });
+  homeMapMarker = new naverMaps.Marker({
+    map: propertyMap,
+    position: new naverMaps.LatLng(HOME_MAP_POINT[0], HOME_MAP_POINT[1]),
+    title: '힐스테이트 푸르지오 수원',
+    icon: {
+      content: '<div class="home-map-marker"><span aria-hidden="true">🏠</span></div>',
+      size: new naverMaps.Size(36, 36),
+      anchor: new naverMaps.Point(18, 31)
+    }
+  });
+  const homeInfoWindow = new naverMaps.InfoWindow({
+    content: homeMapPopupContent(),
+    maxWidth: 320,
+    backgroundColor: '#ffffff',
+    borderColor: '#dfe5e2',
+    borderWidth: 1,
+    anchorSize: new naverMaps.Size(12, 8),
+    pixelOffset: new naverMaps.Point(0, -8)
+  });
+  naverMaps.Event.addListener(homeMapMarker, 'click', () => {
+    activeMapInfoWindow?.close();
+    homeInfoWindow.open(propertyMap, homeMapMarker);
+    activeMapInfoWindow = homeInfoWindow;
+  });
+  naverMaps.Event.addListener(propertyMap, 'zoom_changed', updateMapLabelVisibility);
+}
+
+function initializeLeafletPropertyMap() {
+  if (!window.L) return;
   propertyMap = window.L.map('property-map', {
     scrollWheelZoom: true,
     wheelDebounceTime: 30,
@@ -975,20 +1094,14 @@ function initializePropertyMap() {
   reconstructionMapLayer = window.L.layerGroup().addTo(propertyMap);
   const homeIcon = window.L.divIcon({ className: 'home-map-marker', html: '<span aria-hidden="true">🏠</span>', iconSize: [36, 36], iconAnchor: [18, 31] });
   homeMapMarker = window.L.marker(HOME_MAP_POINT, { icon: homeIcon, title: '힐스테이트 푸르지오 수원' }).addTo(propertyMap);
-  const homePopup = document.createElement('div');
-  const homeTitle = document.createElement('b');
-  const homeCopy = document.createElement('small');
-  const homeLink = document.createElement('a');
-  homePopup.className = 'map-popup';
-  homeTitle.textContent = '힐스테이트 푸르지오 수원';
-  homeCopy.textContent = '현재 우리집 · 전용 59㎡형';
-  homeLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('힐스테이트 푸르지오 수원');
-  homeLink.target = '_blank';
-  homeLink.rel = 'noreferrer';
-  homeLink.textContent = 'Google Maps에서 확인';
-  homePopup.append(homeTitle, homeCopy, homeLink);
-  homeMapMarker.bindPopup(homePopup);
+  homeMapMarker.bindPopup(homeMapPopupContent());
   propertyMap.on('zoomend', updateMapLabelVisibility);
+}
+
+function initializePropertyMap() {
+  if (propertyMap) return;
+  if (mapProvider === 'naver' && window.naver?.maps) initializeNaverPropertyMap();
+  else initializeLeafletPropertyMap();
   updateMapLabelVisibility();
 }
 
@@ -998,13 +1111,13 @@ function updateMapLabelVisibility() {
   const district = document.querySelector('#map-district-filter')?.value || 'all';
   const cityProjectCount = city === 'all' ? reconstructionItems.length : reconstructionItems.filter((item) => item.cityName === city).length;
   const hasFocusedArea = district !== 'all' || (city !== 'all' && cityProjectCount <= 40);
-  propertyMap.getContainer().classList.toggle('show-all-project-labels', propertyMap.getZoom() >= 12 || hasFocusedArea);
+  document.querySelector('#property-map').classList.toggle('show-all-project-labels', propertyMap.getZoom() >= 12 || hasFocusedArea);
 }
 
 function updateSelectedMapProject(item) {
-  const googleLink = document.querySelector('#selected-google-map-link');
-  googleLink.href = googleMapsUrl(item);
-  googleLink.textContent = item.apartmentName + ' · Google Maps';
+  const naverLink = document.querySelector('#selected-naver-map-link');
+  naverLink.href = naverMapsUrl(item);
+  naverLink.textContent = item.apartmentName + ' · 네이버 지도';
 }
 
 function focusMapProject(item) {
@@ -1012,10 +1125,18 @@ function focusMapProject(item) {
   document.querySelector('#map-city-filter').value = 'all';
   updateDistrictFilter('map');
   renderMapProjects();
-  const marker = reconstructionMarkers.get(item.id);
-  if (marker && propertyMap) {
-    propertyMap.setView(marker.getLatLng(), 14, { animate: true });
-    marker.openPopup();
+  const entry = reconstructionMarkers.get(item.id);
+  if (entry && propertyMap) {
+    if (entry.provider === 'naver') {
+      propertyMap.setCenter(entry.marker.getPosition());
+      propertyMap.setZoom(14);
+      activeMapInfoWindow?.close();
+      entry.infoWindow.open(propertyMap, entry.marker);
+      activeMapInfoWindow = entry.infoWindow;
+    } else {
+      propertyMap.setView(entry.marker.getLatLng(), 14, { animate: true });
+      entry.marker.openPopup();
+    }
   }
   updateSelectedMapProject(item);
 }
@@ -1039,21 +1160,70 @@ function focusReconstructionProject(item) {
   }, 50);
 }
 
-function renderMapProjects() {
-  initializePropertyMap();
-  const list = document.querySelector('#map-project-list');
-  const city = document.querySelector('#map-city-filter').value;
-  const district = document.querySelector('#map-district-filter').value;
-  const items = reconstructionItems.filter((item) => (city === 'all' || item.cityName === city) && (district === 'all' || item.districtName === district) && item.mapPoint);
-  list.replaceChildren();
-  if (!propertyMap || !reconstructionMapLayer) {
-    const copy = document.createElement('p');
-    copy.textContent = '지도를 불러오지 못했어요. Google Maps 버튼을 이용해 주세요.';
-    list.append(copy);
-    return;
+function clearMapProjectMarkers() {
+  if (mapProvider === 'naver') {
+    activeMapInfoWindow?.close();
+    activeMapInfoWindow = null;
+    reconstructionMarkers.forEach((entry) => entry.marker.setMap(null));
+  } else {
+    reconstructionMapLayer?.clearLayers();
   }
-  reconstructionMapLayer.clearLayers();
   reconstructionMarkers.clear();
+}
+
+function naverProjectMarkerContent(item) {
+  const marker = document.createElement('div');
+  const dot = document.createElement('i');
+  const label = document.createElement('span');
+  marker.className = 'naver-project-marker';
+  dot.className = 'naver-project-dot';
+  label.className = 'reconstruction-map-label' + (item.latestTransaction ? ' is-priority' : '');
+  label.textContent = item.apartmentName;
+  marker.append(dot, label);
+  return marker;
+}
+
+function renderNaverMapProjects(items) {
+  const naverMaps = window.naver.maps;
+  const homePosition = new naverMaps.LatLng(HOME_MAP_POINT[0], HOME_MAP_POINT[1]);
+  const bounds = new naverMaps.LatLngBounds(homePosition, homePosition);
+  items.forEach((item) => {
+    const position = new naverMaps.LatLng(item.mapPoint.latitude, item.mapPoint.longitude);
+    const marker = new naverMaps.Marker({
+      map: propertyMap,
+      position,
+      title: item.apartmentName,
+      icon: {
+        content: naverProjectMarkerContent(item),
+        size: new naverMaps.Size(16, 16),
+        anchor: new naverMaps.Point(8, 8)
+      }
+    });
+    const infoWindow = new naverMaps.InfoWindow({
+      content: mapPopupContent(item),
+      maxWidth: 320,
+      backgroundColor: '#ffffff',
+      borderColor: '#dfe5e2',
+      borderWidth: 1,
+      anchorSize: new naverMaps.Size(12, 8),
+      pixelOffset: new naverMaps.Point(0, -8)
+    });
+    naverMaps.Event.addListener(marker, 'click', () => {
+      activeMapInfoWindow?.close();
+      infoWindow.open(propertyMap, marker);
+      activeMapInfoWindow = infoWindow;
+      updateSelectedMapProject(item);
+    });
+    reconstructionMarkers.set(item.id, { provider: 'naver', marker, infoWindow });
+    bounds.extend(position);
+  });
+  if (items.length) {
+    const maxZoom = document.querySelector('#map-district-filter').value !== 'all' ? 14 : (document.querySelector('#map-city-filter').value !== 'all' ? 11 : 9);
+    propertyMap.fitBounds(bounds, { top: 28, right: 28, bottom: 28, left: 28, maxZoom });
+  }
+}
+
+function renderLeafletMapProjects(items) {
   const bounds = window.L.latLngBounds([HOME_MAP_POINT]);
   items.forEach((item) => {
     const point = [item.mapPoint.latitude, item.mapPoint.longitude];
@@ -1068,20 +1238,48 @@ function renderMapProjects() {
     });
     marker.on('click', () => updateSelectedMapProject(item));
     marker.addTo(reconstructionMapLayer);
-    reconstructionMarkers.set(item.id, marker);
+    reconstructionMarkers.set(item.id, { provider: 'leaflet', marker });
     bounds.extend(point);
-    const button = document.createElement('button');
-    const name = document.createElement('b');
-    const meta = document.createElement('small');
-    button.type = 'button';
-    button.dataset.mapProject = item.id;
-    name.textContent = item.apartmentName;
-    meta.textContent = [item.location, item.latestTransaction ? formatPriceManwon(Number(item.latestTransaction.priceManwon)) : null, item.stage].filter(Boolean).join(' · ');
-    button.append(name, meta);
-    list.append(button);
   });
-  setText('#map-pin-count', '우리집 1개 · 재건축 ' + items.length.toLocaleString('ko-KR') + '개 핀');
-  if (items.length) propertyMap.fitBounds(bounds, { padding: [28, 28], maxZoom: district !== 'all' ? 14 : (city !== 'all' ? 11 : 9) });
+  if (items.length) {
+    const city = document.querySelector('#map-city-filter').value;
+    const district = document.querySelector('#map-district-filter').value;
+    propertyMap.fitBounds(bounds, { padding: [28, 28], maxZoom: district !== 'all' ? 14 : (city !== 'all' ? 11 : 9) });
+  }
+}
+
+function appendMapProjectListItem(list, item) {
+  const button = document.createElement('button');
+  const name = document.createElement('b');
+  const meta = document.createElement('small');
+  button.type = 'button';
+  button.dataset.mapProject = item.id;
+  name.textContent = item.apartmentName;
+  meta.textContent = [item.location, item.latestTransaction ? formatPriceManwon(Number(item.latestTransaction.priceManwon)) : null, item.stage].filter(Boolean).join(' · ');
+  button.append(name, meta);
+  list.append(button);
+}
+
+function renderMapProjects() {
+  initializePropertyMap();
+  const list = document.querySelector('#map-project-list');
+  const city = document.querySelector('#map-city-filter').value;
+  const district = document.querySelector('#map-district-filter').value;
+  const items = reconstructionItems.filter((item) => (city === 'all' || item.cityName === city) && (district === 'all' || item.districtName === district) && item.mapPoint);
+  list.replaceChildren();
+  const mapReady = propertyMap && (mapProvider === 'naver' || reconstructionMapLayer);
+  if (!mapReady) {
+    const copy = document.createElement('p');
+    copy.textContent = '지도를 불러오지 못했어요. 네이버 지도 버튼을 이용해 주세요.';
+    list.append(copy);
+    return;
+  }
+  clearMapProjectMarkers();
+  if (mapProvider === 'naver') renderNaverMapProjects(items);
+  else renderLeafletMapProjects(items);
+  items.forEach((item) => appendMapProjectListItem(list, item));
+  const providerLabel = mapProvider === 'naver' ? '네이버 지도' : '기본 지도';
+  setText('#map-pin-count', providerLabel + ' · 우리집 1개 · 재건축 ' + items.length.toLocaleString('ko-KR') + '개 핀');
   updateMapLabelVisibility();
 }
 
@@ -1208,4 +1406,4 @@ document.addEventListener('click', (event) => {
 calculateFinance();
 loadHomePrice();
 loadCandidates();
-loadReconstruction();
+loadMapProvider().then(loadReconstruction);

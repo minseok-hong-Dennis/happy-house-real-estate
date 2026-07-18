@@ -2,6 +2,8 @@
 
 이 프로젝트는 공공데이터포털 키를 용도별 GitHub Secret인 `MOLIT_SERVICE_KEY`와 `RECONSTRUCTION_SERVICE_KEY`에 등록합니다. 포털에서 복사하는 실제 서비스키 값은 같을 수 있지만, 두 API의 `활용신청`과 Action의 연결 상태를 구분하기 위해 Secret 이름을 분리합니다. 현재 매물가나 KB 시세 제공자용 키와는 별개입니다. 키 값은 HTML, JavaScript, 커밋, 이슈, Actions 로그에 적지 말고 GitHub Actions Secret에만 등록합니다.
 
+네이버 지도용 Client ID 발급과 도메인 등록은 [NAVER_MAP_SETUP.md](NAVER_MAP_SETUP.md)를 참고하세요. 지도에는 Client ID만 사용하며 Client Secret은 등록하지 않습니다.
+
 ## 1. MOLIT_SERVICE_KEY 발급
 
 ### 신청할 공식 API
@@ -105,4 +107,6 @@ KB부동산은 웹과 데이터허브에서 KB시세를 조회할 수 있지만,
 - [공공데이터포털 OpenAPI 활용 FAQ](https://www.data.go.kr/data/15124045/fileData.do?recommendDataYn=Y)
 - [공공데이터포털 Swagger 인증키 가이드](https://www.data.go.kr/images/biz/swagger-guide/gw/gateway_swagger_guide.pdf)
 - [네이버 공식 OpenAPI 종류](https://developers.naver.com/docs/common/openapiguide/apilist.md)
+- [네이버 Maps Application 등록](https://guide.ncloud-docs.com/docs/application-maps-app-vpc)
+- [네이버 Web Dynamic Map 시작](https://navermaps.github.io/maps.js.ncp/docs/tutorial-2-Getting-Started.html)
 - [GitHub Actions Secret 등록 가이드](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets?tool=webui)

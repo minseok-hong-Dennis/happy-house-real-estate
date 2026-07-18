@@ -5,6 +5,7 @@ const HOME_DATA_PATH = 'data/home-price.json';
 const RECONSTRUCTION_DATA_PATH = 'data/reconstruction.json';
 const CANDIDATE_DATA_PATH = 'data/candidates.json';
 const SYNC_STATUS_DATA_PATH = 'data/sync-status.json';
+const MAP_CONFIG_DATA_PATH = 'data/map-config.json';
 const RECONSTRUCTION_SNAPSHOT_PATH = 'data/reconstruction-projects.json';
 const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade';
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
@@ -1031,11 +1032,15 @@ async function main() {
     kbMarketPrice
   };
   const syncStatus = buildSyncStatus(homeData, reconstruction, candidates);
+  const mapConfig = {
+    naverMapsClientId: process.env.NAVER_MAPS_CLIENT_ID?.trim() || ''
+  };
   await mkdir('data', { recursive: true });
   await writeFile(HOME_DATA_PATH, JSON.stringify(homeData, null, 2) + '\n', 'utf8');
   await writeFile(RECONSTRUCTION_DATA_PATH, JSON.stringify(reconstruction, null, 2) + '\n', 'utf8');
   await writeFile(CANDIDATE_DATA_PATH, JSON.stringify(candidates, null, 2) + '\n', 'utf8');
   await writeFile(SYNC_STATUS_DATA_PATH, JSON.stringify(syncStatus, null, 2) + '\n', 'utf8');
+  await writeFile(MAP_CONFIG_DATA_PATH, JSON.stringify(mapConfig, null, 2) + '\n', 'utf8');
   await writeGithubSummary(syncStatus);
   console.log('[sync-status] ' + syncStatus.overallStatus + ' · ' + syncStatus.sources.map((source) => source.id + '=' + source.status).join(', '));
 }

@@ -40,16 +40,17 @@ jobs:
           KB_MARKET_API_URL: ${{ secrets.KB_MARKET_API_URL }}
           KB_MARKET_API_TOKEN: ${{ secrets.KB_MARKET_API_TOKEN }}
           KB_MARKET_SOURCE_NAME: ${{ secrets.KB_MARKET_SOURCE_NAME }}
+          NAVER_MAPS_CLIENT_ID: ${{ vars.NAVER_MAPS_CLIENT_ID }}
         run: node scripts/sync-home-price.mjs
 
       - name: Commit refreshed price data
         run: |
-          if git diff --quiet -- data/home-price.json data/reconstruction.json data/candidates.json data/sync-status.json; then
+          if git diff --quiet -- data/home-price.json data/reconstruction.json data/candidates.json data/sync-status.json data/map-config.json; then
             echo "No price data changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/home-price.json data/reconstruction.json data/candidates.json data/sync-status.json
+          git add data/home-price.json data/reconstruction.json data/candidates.json data/sync-status.json data/map-config.json
           git commit -m "chore: sync real estate data"
           git push
