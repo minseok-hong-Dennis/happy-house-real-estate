@@ -793,7 +793,11 @@ async function syncReconstruction(serviceKey, previous) {
     };
   }
 
-  const targets = officialReconstructionTargets(dataset.rows);
+  let targets = officialReconstructionTargets(dataset.rows);
+  if (dataset.transport === '저장된 공식 데이터' && previous.items?.length > targets.length) {
+    console.warn('[reconstruction] 저장된 목록이 기존 목록보다 작아 기존 사업 범위를 유지합니다.');
+    targets = previous.items.map(({ priceStatus, priceMessage, latestTransaction, areaPrices, ...target }) => target);
+  }
   const items = [];
   for (const target of targets) {
     const previousItem = previous.items?.find((item) => item.id === target.id);
