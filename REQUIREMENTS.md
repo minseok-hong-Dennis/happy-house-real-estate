@@ -72,3 +72,4 @@
 68. Ensure NAVER Maps configuration changes are not hidden by stale browser or CDN caches, and accept the public Client ID from either the recommended repository variable or a same-named repository secret.
 69. Audit every reconstruction map coordinate, remove district-center pseudo-pins, and publish only region-validated NAVER Geocoding results while preserving the last verified coordinates across sync failures.
 70. Show each mapped reconstruction project's latest official transaction price and exclusive area directly below its apartment name on the map label.
+71. Add a concise reconstruction process guide to the Reconstruction tab showing the usual stage order, what happens at each stage, typical duration benchmarks, acceleration targets, major delay factors, and official reference links without making the page visually busy.

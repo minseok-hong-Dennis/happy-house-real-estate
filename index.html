@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <link rel="stylesheet" href="styles.css?v=map-pin-fix-1" />
+    <link rel="stylesheet" href="styles.css?v=rebuild-guide-1" />
   </head>
   <body>
     <a class="skip-link" href="#content">본문으로 바로가기</a>
@@ -266,6 +266,50 @@
         <section class="tab-panel" id="reconstruction-panel" role="tabpanel" aria-labelledby="reconstruction-tab" data-tab-panel="reconstruction" hidden>
           <header class="page-heading price-heading"><div><span class="eyebrow">REBUILDING</span><h1>재건축</h1><p>서울·경기 남부 <b id="reconstruction-count">진행 단지</b></p></div><div class="sync-state"><i class="sync-dot" id="reconstruction-sync-dot"></i><span><b id="reconstruction-sync-state">동기화 대기</b><small id="reconstruction-synced-at">국토교통부 데이터 연결 후 갱신됩니다.</small></span></div></header>
           <p class="source-line"><a href="https://www.data.go.kr/data/15160169/fileData.do" target="_blank" rel="noreferrer">국토교통부 전국 도시정비사업 통합 데이터</a> · 최근 실거래가는 국토교통부 API 연동</p>
+
+          <section class="rebuild-guide" aria-labelledby="rebuild-guide-title">
+            <div class="rebuild-guide-heading">
+              <div><span class="card-kicker">PROCESS GUIDE</span><h2 id="rebuild-guide-title">재건축 순서</h2><p>단지의 진행 단계를 아래 순서로 보면 됩니다.</p></div>
+              <div class="rebuild-total-time"><span>전체 참고 기간</span><strong>보통 15년 이상</strong><small>서울 신속통합기획 목표 12년</small></div>
+            </div>
+            <ol class="rebuild-phase-grid">
+              <li class="rebuild-phase">
+                <div class="rebuild-phase-top"><span>01</span><em>평균 5년 · 목표 2년</em></div>
+                <h3>시작과 구역 지정</h3>
+                <p class="rebuild-stage-flow">재건축진단 → 정비계획 → 구역지정</p>
+                <small>건물 상태를 확인하고 용적률, 세대수, 기반시설 계획을 정합니다.</small>
+              </li>
+              <li class="rebuild-phase">
+                <div class="rebuild-phase-top"><span>02</span><em>평균 3.5년 · 목표 1년</em></div>
+                <h3>조합 만들기</h3>
+                <p class="rebuild-stage-flow">추진위원회 → 조합설립인가</p>
+                <small>주민 동의를 모으고 사업을 실행할 조합과 의사결정 구조를 만듭니다.</small>
+              </li>
+              <li class="rebuild-phase">
+                <div class="rebuild-phase-top"><span>03</span><em>평균 8.5년 · 목표 5년</em></div>
+                <h3>인허가와 이주</h3>
+                <p class="rebuild-stage-flow">사업시행인가 → 관리처분인가 → 이주·철거 → 착공</p>
+                <small>설계와 사업비, 새 집 배정과 분담금을 확정한 뒤 이주와 철거를 진행합니다.</small>
+              </li>
+              <li class="rebuild-phase">
+                <div class="rebuild-phase-top"><span>04</span><em>평균 3~4년</em></div>
+                <h3>공사와 입주</h3>
+                <p class="rebuild-stage-flow">공사 → 준공·입주 → 소유권 이전 → 청산</p>
+                <small>통상 3~4년 공사 후 입주하고 소유권 이전과 조합 청산으로 마무리합니다.</small>
+              </li>
+            </ol>
+            <details class="rebuild-delay-guide">
+              <summary>기간을 가장 많이 바꾸는 요인</summary>
+              <div>
+                <span><b>주민 동의</b><small>동의율 확보와 조합 내부 갈등</small></span>
+                <span><b>사업성</b><small>용적률, 일반분양, 공사비와 분담금</small></span>
+                <span><b>인허가</b><small>도시계획·건축심의와 계획 변경</small></span>
+                <span><b>이주·권리</b><small>현금청산, 명도와 각종 소송</small></span>
+              </div>
+            </details>
+            <p class="rebuild-guide-note">재건축진단은 사업시행계획인가 전까지 병행할 수 있어 단지별 순서가 달라질 수 있습니다. 기간은 서울시 최근 5년 준공 사업 평균과 정책 목표를 비교한 참고치이며 확정 일정이 아닙니다. <a href="https://cleanup.seoul.go.kr/cleanup/view/rebuild.do" target="_blank" rel="noreferrer">공식 절차</a><a href="https://housing.seoul.go.kr/site/main/content/sh_080001" target="_blank" rel="noreferrer">기간 근거</a><a href="https://www.law.go.kr/LSW/lsSideInfoP.do?docCls=jo&amp;joBrNo=00&amp;joNo=0012&amp;lsiSeq=286549&amp;urlMode=lsScJoRltInfoR" target="_blank" rel="noreferrer">재건축진단 법령</a></p>
+          </section>
+
           <section class="reconstruction-filters" aria-label="재건축 목록 필터">
             <label class="filter-search" for="reconstruction-search"><span>단지 검색</span><input id="reconstruction-search" type="search" placeholder="단지명 또는 지역" autocomplete="off" /></label>
             <label for="reconstruction-city-filter"><span>시</span><select id="reconstruction-city-filter"><option value="all">전체 시</option></select></label>
