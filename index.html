@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?v=map-pin-fix-1" />
   </head>
   <body>
     <a class="skip-link" href="#content">본문으로 바로가기</a>
@@ -258,7 +258,7 @@
                 </label>
               </div>
               <div class="map-project-list" id="map-project-list"><p>재건축 위치를 불러오는 중입니다.</p></div>
-              <p class="map-accuracy-note">재건축 핀은 공개 데이터의 시군구 중심을 기준으로 한 참고 위치입니다. 핀을 선택하면 네이버 지도에서 단지명을 확인할 수 있습니다.</p>
+              <p class="map-accuracy-note" id="map-accuracy-note">잘못된 추정 핀은 표시하지 않고 NAVER 주소 검색으로 확인된 좌표만 표시합니다.</p>
             </aside>
           </div>
         </section>
@@ -284,6 +284,6 @@
       </main>
     </div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script src="script.js?v=naver-cache-fix-1"></script>
+    <script src="script.js?v=map-pin-fix-1"></script>
   </body>
 </html>

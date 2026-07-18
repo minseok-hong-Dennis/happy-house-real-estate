@@ -789,18 +789,11 @@ function reconstructionDisplayName(item) {
   return zoneName ? zoneName + (/구역|촉진|계획|재건축|정비$/.test(zoneName) ? '' : ' 정비구역') : '재건축 단지';
 }
 
-function fallbackMapPoint(item) {
-  if (Number.isFinite(item.mapPoint?.latitude) && Number.isFinite(item.mapPoint?.longitude)) return item.mapPoint;
-  const region = LEGACY_REGION_POINTS.find((candidate) => candidate.name === inferredRegion(item));
-  if (!region) return null;
-  const hash = Array.from(item.name || '').reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 17);
-  const angle = (hash % 360) * Math.PI / 180;
-  const radius = 0.0025 + ((hash >>> 8) % 7) * 0.0012;
-  return {
-    latitude: region.point[0] + Math.sin(angle) * radius,
-    longitude: region.point[1] + Math.cos(angle) * radius,
-    accuracy: '시군구 중심 기준 추정 위치'
-  };
+function verifiedMapPoint(item) {
+  const point = item.mapPoint;
+  return Number.isFinite(point?.latitude) && Number.isFinite(point?.longitude) && point.source === 'naver-geocode'
+    ? point
+    : null;
 }
 
 function stageRank(stage = '') {
@@ -838,7 +831,7 @@ function normalizeReconstructionItem(item) {
     location,
     apartmentName: reconstructionDisplayName(item),
     regionName: inferredRegion(item),
-    mapPoint: fallbackMapPoint(item)
+    mapPoint: verifiedMapPoint(item)
   };
 }
 
@@ -1034,6 +1027,7 @@ function mapPopupContent(item) {
   details.className = 'map-popup-details';
   details.append(
     makeDetailRow('정비구역', item.name || '확인 필요'),
+    makeDetailRow('지도 좌표', item.mapPoint?.accuracy || 'NAVER 주소 확인 대기'),
     makeDetailRow('남은 기간', item.remainingEstimate || '사업 일정 확인 필요'),
     makeDetailRow('예정 세대수', Number.isFinite(item.supplyHouseholds) && item.supplyHouseholds > 0 ? item.supplyHouseholds.toLocaleString('ko-KR') + '세대' : '확인 필요')
   );
@@ -1071,13 +1065,19 @@ function setMapProvider(provider) {
 
 function fallbackFromNaverMap() {
   if (mapProvider !== 'naver') return;
-  if (propertyMap?.destroy) propertyMap.destroy();
+  const failedMap = propertyMap;
   propertyMap = null;
   homeMapMarker = null;
   activeMapInfoWindow = null;
   reconstructionMapLayer = null;
   reconstructionMarkers.clear();
   setMapProvider('leaflet');
+  try {
+    failedMap?.destroy?.();
+  } catch (error) {
+    console.warn('네이버 지도 정리 중 오류가 발생해 대체 지도로 전환합니다.', error);
+    document.querySelector('#property-map')?.replaceChildren();
+  }
   renderMapProjects();
 }
 
@@ -1257,15 +1257,32 @@ function clearMapProjectMarkers() {
   reconstructionMarkers.clear();
 }
 
+function mapLatestTransactionLabel(item) {
+  if (!item.latestTransaction) return '';
+  const area = Number(item.latestTransaction.areaSqm);
+  return formatPriceManwon(Number(item.latestTransaction.priceManwon))
+    + (Number.isFinite(area) ? ' · 전용 ' + Math.round(area) + '㎡' : '');
+}
+
+function projectMapLabelContent(item, includeClass = true) {
+  const label = document.createElement('span');
+  const name = document.createElement('b');
+  const price = document.createElement('small');
+  if (includeClass) label.className = 'reconstruction-map-label' + (item.latestTransaction ? ' is-priority' : '');
+  else label.className = 'map-label-content';
+  name.textContent = item.apartmentName;
+  price.textContent = mapLatestTransactionLabel(item);
+  label.append(name);
+  if (price.textContent) label.append(price);
+  return label;
+}
+
 function naverProjectMarkerContent(item) {
   const marker = document.createElement('div');
   const dot = document.createElement('i');
-  const label = document.createElement('span');
   marker.className = 'naver-project-marker';
   dot.className = 'naver-project-dot';
-  label.className = 'reconstruction-map-label' + (item.latestTransaction ? ' is-priority' : '');
-  label.textContent = item.apartmentName;
-  marker.append(dot, label);
+  marker.append(dot, projectMapLabelContent(item));
   return marker;
 }
 
@@ -1315,7 +1332,7 @@ function renderLeafletMapProjects(items) {
     const point = [item.mapPoint.latitude, item.mapPoint.longitude];
     const marker = window.L.circleMarker(point, { radius: 7, color: '#ffffff', weight: 2, fillColor: '#ff6659', fillOpacity: 0.95 });
     marker.bindPopup(mapPopupContent(item), { minWidth: 250, maxWidth: 320 });
-    marker.bindTooltip(item.apartmentName, {
+    marker.bindTooltip(projectMapLabelContent(item, false), {
       permanent: true,
       direction: 'top',
       offset: [0, -7],
@@ -1341,7 +1358,7 @@ function appendMapProjectListItem(list, item) {
   button.type = 'button';
   button.dataset.mapProject = item.id;
   name.textContent = item.apartmentName;
-  meta.textContent = [item.location, item.latestTransaction ? formatPriceManwon(Number(item.latestTransaction.priceManwon)) : null, item.stage].filter(Boolean).join(' · ');
+  meta.textContent = [item.location, mapLatestTransactionLabel(item), item.stage].filter(Boolean).join(' · ');
   button.append(name, meta);
   list.append(button);
 }
@@ -1351,7 +1368,9 @@ function renderMapProjects() {
   const list = document.querySelector('#map-project-list');
   const city = document.querySelector('#map-city-filter').value;
   const district = document.querySelector('#map-district-filter').value;
-  const items = reconstructionItems.filter((item) => (city === 'all' || item.cityName === city) && (district === 'all' || item.districtName === district) && item.mapPoint);
+  const scopedItems = reconstructionItems.filter((item) => (city === 'all' || item.cityName === city) && (district === 'all' || item.districtName === district));
+  const items = scopedItems.filter((item) => item.mapPoint);
+  const pendingCount = scopedItems.length - items.length;
   list.replaceChildren();
   const mapReady = propertyMap && (mapProvider === 'naver' || reconstructionMapLayer);
   if (!mapReady) {
@@ -1364,8 +1383,16 @@ function renderMapProjects() {
   if (mapProvider === 'naver') renderNaverMapProjects(items);
   else renderLeafletMapProjects(items);
   items.forEach((item) => appendMapProjectListItem(list, item));
+  if (pendingCount) {
+    const pending = document.createElement('p');
+    pending.textContent = '주소 확인 대기 ' + pendingCount.toLocaleString('ko-KR') + '개 · 잘못된 추정 핀은 표시하지 않습니다.';
+    list.append(pending);
+  }
   const providerLabel = mapProvider === 'naver' ? '네이버 지도' : '기본 지도';
-  setText('#map-pin-count', providerLabel + ' · 우리집 1개 · 재건축 ' + items.length.toLocaleString('ko-KR') + '개 핀');
+  setText('#map-pin-count', providerLabel + ' · 정확 좌표 ' + items.length.toLocaleString('ko-KR') + '개 · 확인 대기 ' + pendingCount.toLocaleString('ko-KR') + '개');
+  setText('#map-accuracy-note', items.length
+    ? 'NAVER 주소 검색으로 지역이 일치한 좌표만 표시합니다. 라벨 가격은 국토교통부 최근 신고 거래입니다.'
+    : '잘못된 시군구 중심 추정 핀은 제거했습니다. NAVER Geocoding 동기화가 끝난 단지만 표시합니다.');
   updateMapLabelVisibility();
 }
 

@@ -236,7 +236,11 @@ tr:last-child td { border-bottom: 0; }
 .naver-project-marker { position: relative; display: grid; place-items: center; width: 1rem; height: 1rem; }
 .naver-project-dot { display: block; width: .85rem; height: .85rem; border: 2px solid white; border-radius: 50%; background: var(--accent); box-shadow: 0 3px 9px rgba(23, 32, 29, .24); }
 .naver-project-marker .reconstruction-map-label { position: absolute; bottom: calc(100% + .35rem); left: 50%; display: block; transform: translateX(-50%); }
-.reconstruction-map-label { max-width: 10rem; overflow: hidden; padding: .25rem .42rem; border: 1px solid rgba(255, 255, 255, .9); border-radius: .4rem; color: var(--ink); background: rgba(255, 255, 255, .94); box-shadow: 0 3px 10px rgba(23, 32, 29, .14); font-family: var(--sans); font-size: .6rem; font-weight: 700; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; pointer-events: none; }
+.reconstruction-map-label { display: grid; width: max-content; max-width: 12rem; overflow: hidden; padding: .28rem .45rem; border: 1px solid rgba(255, 255, 255, .9); border-radius: .45rem; color: var(--ink); background: rgba(255, 255, 255, .94); box-shadow: 0 3px 10px rgba(23, 32, 29, .14); font-family: var(--sans); line-height: 1.2; white-space: nowrap; pointer-events: none; }
+.reconstruction-map-label b, .reconstruction-map-label small { display: block; overflow: hidden; text-overflow: ellipsis; }
+.reconstruction-map-label b { font-size: .6rem; }
+.reconstruction-map-label small { margin-top: .16rem; color: var(--accent-dark); font-size: .55rem; font-weight: 700; }
+.reconstruction-map-label .map-label-content { display: contents; }
 .reconstruction-map-label::before { display: none; }
 #property-map:not(.show-all-project-labels) .reconstruction-map-label:not(.is-priority) { display: none; }
 .map-popup { display: grid; gap: .35rem; min-width: 14rem; max-height: 24rem; overflow-y: auto; padding-right: .15rem; font-family: var(--sans); }

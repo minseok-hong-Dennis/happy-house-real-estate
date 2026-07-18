@@ -12,6 +12,7 @@ const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMS
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
 const RECONSTRUCTION_CSV_URL = 'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003667489&fileDetailSn=1&insertDataPrcus=N';
 const RECONSTRUCTION_SOURCE_URL = 'https://www.data.go.kr/data/15160169/fileData.do';
+const NAVER_GEOCODE_URL = 'https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode';
 const SOUTHERN_GYEONGGI_CITIES = new Set([
   '수원장안구', '수원권선구', '수원팔달구', '수원영통구',
   '용인처인구', '용인기흥구', '용인수지구',
@@ -25,32 +26,6 @@ const SEOUL_DISTRICTS = new Set([
   '성북구', '강북구', '도봉구', '노원구', '은평구', '서대문구', '마포구',
   '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구', '관악구',
   '서초구', '강남구', '송파구', '강동구'
-]);
-const REGION_CENTERS = new Map([
-  ['수원장안구', [37.3035, 127.0104]], ['수원권선구', [37.2577, 126.9718]],
-  ['수원팔달구', [37.2826, 127.02]], ['수원영통구', [37.2596, 127.0464]],
-  ['용인처인구', [37.2343, 127.2011]], ['용인기흥구', [37.2804, 127.1147]],
-  ['용인수지구', [37.3222, 127.0971]], ['성남수정구', [37.4504, 127.1456]],
-  ['성남중원구', [37.4307, 127.1373]], ['성남분당구', [37.3828, 127.1189]],
-  ['안양만안구', [37.3866, 126.9327]], ['안양동안구', [37.3943, 126.9568]],
-  ['안산상록구', [37.3014, 126.8469]], ['안산단원구', [37.3219, 126.8309]],
-  ['화성병점구', [37.2068, 127.0349]], ['과천시', [37.4292, 126.9876]],
-  ['군포시', [37.3617, 126.9352]], ['의왕시', [37.3449, 126.9683]],
-  ['오산시', [37.1498, 127.0772]], ['평택시', [36.9921, 127.1127]],
-  ['광명시', [37.4786, 126.8645]], ['시흥시', [37.38, 126.8029]],
-  ['서울특별시|종로구', [37.5735, 126.979]], ['서울특별시|중구', [37.5641, 126.9979]],
-  ['서울특별시|용산구', [37.5326, 126.9905]], ['서울특별시|성동구', [37.5633, 127.0369]],
-  ['서울특별시|광진구', [37.5385, 127.0823]], ['서울특별시|동대문구', [37.5744, 127.0396]],
-  ['서울특별시|중랑구', [37.6063, 127.0927]], ['서울특별시|성북구', [37.5894, 127.0167]],
-  ['서울특별시|강북구', [37.6396, 127.0257]], ['서울특별시|도봉구', [37.6688, 127.0471]],
-  ['서울특별시|노원구', [37.6542, 127.0568]], ['서울특별시|은평구', [37.6027, 126.9291]],
-  ['서울특별시|서대문구', [37.5791, 126.9368]], ['서울특별시|마포구', [37.5663, 126.9019]],
-  ['서울특별시|양천구', [37.517, 126.8666]], ['서울특별시|강서구', [37.5509, 126.8495]],
-  ['서울특별시|구로구', [37.4955, 126.8876]], ['서울특별시|금천구', [37.4569, 126.8955]],
-  ['서울특별시|영등포구', [37.5264, 126.8963]], ['서울특별시|동작구', [37.5124, 126.9393]],
-  ['서울특별시|관악구', [37.4784, 126.9516]], ['서울특별시|서초구', [37.4837, 127.0324]],
-  ['서울특별시|강남구', [37.5172, 127.0473]], ['서울특별시|송파구', [37.5145, 127.1059]],
-  ['서울특별시|강동구', [37.5301, 127.1238]]
 ]);
 const REGION_LAWD_CODES = new Map([
   ['수원장안구', '41111'], ['수원권선구', '41113'], ['수원팔달구', '41115'], ['수원영통구', '41117'],
@@ -291,7 +266,7 @@ function matchesTarget(name, target) {
     const expectedNumbers = expected.match(/\d+/g) || [];
     if (nameNumbers.join(',') !== expectedNumbers.join(',')) return false;
     const minimumLength = nameNumbers.length ? 3 : 4;
-    return normalized.length >= minimumLength && normalized.length / expected.length >= 0.45;
+    return normalized.length >= minimumLength && normalized.length / expected.length >= 0.8;
   });
 }
 
@@ -314,6 +289,7 @@ function parseTransactions(xml) {
     records.push({
       apartmentName: name,
       dongName: tagValue(item, ['umdNm', 'legalDong', 'dong']),
+      jibun: tagValue(item, ['jibun']),
       contractDate,
       priceManwon,
       areaSqm: Number.isFinite(areaSqm) ? areaSqm : null,
@@ -730,16 +706,176 @@ function projectIdFor(provinceName, regionName, zoneName) {
   return 'official-' + normalizedName(source).slice(0, 60) + '-' + hash;
 }
 
-function mapPointFor(provinceName, regionName, zoneName) {
-  const center = REGION_CENTERS.get(regionDataKey(provinceName, regionName));
-  if (!center) return null;
-  const hash = Array.from(zoneName).reduce((total, character) => ((total * 31) + character.charCodeAt(0)) >>> 0, 17);
-  const angle = (hash % 360) * Math.PI / 180;
-  const radius = 0.0025 + ((hash >>> 8) % 7) * 0.0012;
+function isVerifiedMapPoint(point) {
+  return Number.isFinite(point?.latitude)
+    && Number.isFinite(point?.longitude)
+    && point.source === 'naver-geocode';
+}
+
+function strongTransactionMatch(record, target) {
+  const actual = normalizedName(record?.apartmentName);
+  if (!actual) return false;
+  return (target.matchNames || []).some((candidate) => {
+    const expected = normalizedName(candidate);
+    if (actual === expected || actual.includes(expected)) return true;
+    return expected.includes(actual) && actual.length / expected.length >= 0.8;
+  });
+}
+
+function reconstructionGeocodeQueries(item) {
+  const queries = [];
+  const add = (query, basis) => {
+    const normalized = String(query || '').replace(/\s+/g, ' ').trim();
+    if (normalized && !queries.some((entry) => entry.query === normalized)) queries.push({ query: normalized, basis });
+  };
+  add([item.location, item.apartmentName].filter(Boolean).join(' '), 'project-name');
+  (item.matchNames || []).slice(0, 2).forEach((name) => add([item.location, name].join(' '), 'project-name'));
+  if (item.latestTransaction?.dongName && item.latestTransaction?.jibun && strongTransactionMatch(item.latestTransaction, item)) {
+    add([item.location, item.latestTransaction.dongName, item.latestTransaction.jibun].join(' '), 'transaction-jibun');
+  }
+  return queries;
+}
+
+function geocodeAddressText(address) {
+  return [
+    address.roadAddress,
+    address.jibunAddress,
+    ...(address.addressElements || []).map((element) => element.longName)
+  ].filter(Boolean).join(' ');
+}
+
+function geocodeAddressMatchesRegion(address, item) {
+  const fullAddress = geocodeAddressText(address);
+  return String(item.location || '').split(/\s+/).filter(Boolean).every((token) => fullAddress.includes(token));
+}
+
+function geocodeAddressMatchesProject(address, item) {
+  const addressName = normalizedName(geocodeAddressText(address));
+  return [item.apartmentName, ...(item.matchNames || [])]
+    .map((name) => normalizedName(name).replace(/재건축정비구역|재건축사업|정비구역|재건축|아파트|단지|구역/g, ''))
+    .filter((name) => name.length >= 4)
+    .some((name) => addressName.includes(name));
+}
+
+function geocodedDongName(address) {
+  return address.addressElements?.find((element) => element.types?.includes('DONGMYUN'))?.longName || '';
+}
+
+async function requestNaverGeocode(clientId, clientSecret, item, entry) {
+  const url = new URL(NAVER_GEOCODE_URL);
+  url.searchParams.set('query', entry.query);
+  url.searchParams.set('count', '5');
+  const response = await fetch(url, {
+    headers: {
+      Accept: 'application/json',
+      'x-ncp-apigw-api-key-id': clientId,
+      'x-ncp-apigw-api-key': clientSecret
+    }
+  });
+  if (!response.ok) {
+    const error = new Error('NAVER Geocoding HTTP ' + response.status);
+    error.status = response.status;
+    throw error;
+  }
+  const payload = await response.json();
+  const address = (payload.addresses || []).find((candidate) => (
+    geocodeAddressMatchesRegion(candidate, item)
+    && (entry.basis === 'transaction-jibun' || geocodeAddressMatchesProject(candidate, item))
+  ));
+  if (!address) return null;
+  const longitude = Number(address.x);
+  const latitude = Number(address.y);
+  if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return null;
+  const dongName = geocodedDongName(address);
   return {
-    latitude: Number((center[0] + Math.sin(angle) * radius).toFixed(6)),
-    longitude: Number((center[1] + Math.cos(angle) * radius).toFixed(6)),
-    accuracy: '시군구 중심 기준 추정 위치'
+    mapPoint: {
+      latitude,
+      longitude,
+      accuracy: entry.basis === 'transaction-jibun' ? '실거래 지번 · NAVER Geocoding' : '단지명 · NAVER Geocoding',
+      source: 'naver-geocode'
+    },
+    geocodeStatus: 'ok',
+    geocodeQuery: entry.query,
+    geocodeAddress: address.roadAddress || address.jibunAddress || '',
+    geocodedDongName: dongName,
+    ...(dongName ? { dongNames: [...new Set([...(item.dongNames || []), dongName])] } : {})
+  };
+}
+
+function preserveVerifiedCoordinate(item, previousItem, status, message, signature) {
+  if (isVerifiedMapPoint(previousItem?.mapPoint)) {
+    const dongName = previousItem.geocodedDongName || '';
+    return {
+      ...item,
+      mapPoint: previousItem.mapPoint,
+      geocodeStatus: 'ok',
+      geocodeQuery: previousItem.geocodeQuery,
+      geocodeAddress: previousItem.geocodeAddress,
+      geocodedDongName: dongName,
+      geocodeSignature: previousItem.geocodeSignature || signature,
+      ...(dongName ? { dongNames: [...new Set([...(item.dongNames || []), dongName])] } : {})
+    };
+  }
+  return { ...item, mapPoint: null, geocodeStatus: status, geocodeMessage: message, geocodeSignature: signature };
+}
+
+async function geocodeReconstructionTargets(targets, previous, clientId, clientSecret) {
+  const previousItems = new Map((previous.items || []).map((item) => [item.id, item]));
+  if (!clientId || !clientSecret) {
+    const items = targets.map((item) => preserveVerifiedCoordinate(
+      item,
+      previousItems.get(item.id),
+      'not_configured',
+      'NAVER Geocoding 설정 대기',
+      ''
+    ));
+    return {
+      items,
+      summary: {
+        status: 'not_configured',
+        mappedCount: items.filter((item) => isVerifiedMapPoint(item.mapPoint)).length,
+        totalCount: items.length,
+        message: 'Geocoding API와 NAVER_MAPS_CLIENT_SECRET 설정이 필요합니다.'
+      }
+    };
+  }
+
+  let fatalError = null;
+  const items = [];
+  for (let index = 0; index < targets.length; index += 4) {
+    const batch = targets.slice(index, index + 4);
+    const results = await Promise.all(batch.map(async (item) => {
+      const previousItem = previousItems.get(item.id);
+      const queries = reconstructionGeocodeQueries(item);
+      const signature = 'v1|' + queries.map((entry) => entry.query).join('|');
+      if (isVerifiedMapPoint(previousItem?.mapPoint)) return preserveVerifiedCoordinate(item, previousItem, 'ok', '', signature);
+      if (previousItem?.geocodeStatus === 'not_found' && previousItem.geocodeSignature === signature) {
+        return preserveVerifiedCoordinate(item, previousItem, 'not_found', '주소 검색 결과 없음', signature);
+      }
+      if (fatalError) return preserveVerifiedCoordinate(item, previousItem, 'error', fatalError.message, signature);
+      try {
+        for (const entry of queries) {
+          const result = await requestNaverGeocode(clientId, clientSecret, item, entry);
+          if (result) return { ...item, ...result, geocodeSignature: signature, geocodeCheckedAt: formatKstTimestamp() };
+        }
+        return preserveVerifiedCoordinate(item, previousItem, 'not_found', '주소 검색 결과 없음', signature);
+      } catch (error) {
+        if ([401, 403, 429].includes(error.status)) fatalError = error;
+        return preserveVerifiedCoordinate(item, previousItem, 'error', error.message, signature);
+      }
+    }));
+    items.push(...results);
+    if (index + 4 < targets.length && !fatalError) await new Promise((resolve) => setTimeout(resolve, 120));
+  }
+  const mappedCount = items.filter((item) => isVerifiedMapPoint(item.mapPoint)).length;
+  return {
+    items,
+    summary: {
+      status: fatalError ? 'error' : (mappedCount === items.length ? 'ok' : 'partial'),
+      mappedCount,
+      totalCount: items.length,
+      message: fatalError ? fatalError.message : 'NAVER 주소 검색으로 확인된 좌표만 표시합니다.'
+    }
   };
 }
 
@@ -809,7 +945,7 @@ function officialReconstructionTargets(rows) {
         cityName: administrativeRegion.cityName,
         districtName: administrativeRegion.districtName,
         regionName,
-        mapPoint: mapPointFor(provinceName, regionName, zoneName),
+        mapPoint: null,
         mapQuery: [administrativeRegion.location, apartmentName].join(' '),
         lawdCd: override.lawdCd || REGION_LAWD_CODES.get(regionDataKey(provinceName, regionName)) || null,
         matchNames,
@@ -904,7 +1040,7 @@ async function fetchReconstructionDataset(serviceKey) {
   }
 }
 
-async function syncReconstruction(serviceKey, reconstructionServiceKey, previous) {
+async function syncReconstruction(serviceKey, reconstructionServiceKey, previous, naverClientId, naverClientSecret) {
   let dataset;
   try {
     dataset = await fetchReconstructionDataset(reconstructionServiceKey);
@@ -923,7 +1059,13 @@ async function syncReconstruction(serviceKey, reconstructionServiceKey, previous
     console.warn('[reconstruction] 저장된 목록이 기존 목록보다 작아 기존 사업 범위를 유지합니다.');
     targets = previous.items.map(({ priceStatus, priceMessage, latestTransaction, areaPrices, ...target }) => target);
   }
-  const items = [];
+  const geocodeSeedTargets = targets.map((target) => ({
+    ...target,
+    latestTransaction: previous.items?.find((item) => item.id === target.id)?.latestTransaction || null
+  }));
+  const initialGeocoding = await geocodeReconstructionTargets(geocodeSeedTargets, previous, naverClientId, naverClientSecret);
+  targets = initialGeocoding.items;
+  let items = [];
   for (const target of targets) {
     const previousItem = previous.items?.find((item) => item.id === target.id);
     if (!target.lawdCd || !target.matchNames?.length) {
@@ -956,11 +1098,14 @@ async function syncReconstruction(serviceKey, reconstructionServiceKey, previous
       });
     }
   }
+  const finalGeocoding = await geocodeReconstructionTargets(items, { items: initialGeocoding.items }, naverClientId, naverClientSecret);
+  items = finalGeocoding.items;
   const hasError = items.some((item) => item.priceStatus === 'error');
   return {
     status: hasError ? 'partial' : 'ok',
     source: { name: '국토교통부 전국 도시정비사업 통합 데이터', transport: dataset.transport, datasetDate: dataset.datasetDate || null, url: RECONSTRUCTION_SOURCE_URL },
     sync: { lastSuccessfulAt: formatKstTimestamp(), message: hasError ? '사업 목록은 갱신했고 일부 실거래가는 기존 값을 유지합니다.' : '' },
+    geocoding: finalGeocoding.summary,
     items
   };
 }
@@ -1061,6 +1206,16 @@ function buildSyncStatus(homeData, reconstruction, candidates) {
       message: reconstruction.sync?.message || '매칭 가능한 단지 가격 갱신 완료'
     },
     {
+      id: 'reconstruction-geocoding',
+      label: '재건축 지도 좌표',
+      status: reconstruction.geocoding?.status || 'not_configured',
+      itemCount: reconstruction.geocoding?.mappedCount || 0,
+      totalCount: reconstruction.geocoding?.totalCount || reconstructionItems.length,
+      optional: false,
+      syncedAt: reconstruction.sync?.lastSuccessfulAt || null,
+      message: reconstruction.geocoding?.message || 'NAVER Geocoding 설정 대기'
+    },
+    {
       id: 'current-listings',
       label: '현재 매물',
       status: homeData.currentListings.status,
@@ -1119,11 +1274,13 @@ async function main() {
   const previousCandidates = await readExistingData(CANDIDATE_DATA_PATH);
   const serviceKey = process.env.MOLIT_SERVICE_KEY?.trim();
   const reconstructionServiceKey = process.env.RECONSTRUCTION_SERVICE_KEY?.trim();
+  const naverClientId = process.env.NAVER_MAPS_CLIENT_ID?.trim();
+  const naverClientSecret = process.env.NAVER_MAPS_CLIENT_SECRET?.trim();
   if (!serviceKey) throw new Error('MOLIT_SERVICE_KEY GitHub Secret이 비어 있습니다. 저장소 Actions Secret을 확인해 주세요.');
   const recentTransactions = await fetchTransactions(serviceKey, HOME_APARTMENT);
   console.log('[MOLIT] ' + HOME_APARTMENT.name + ': 최근 거래 ' + recentTransactions.records.length + '건 동기화');
 
-  const reconstruction = await syncReconstruction(serviceKey, reconstructionServiceKey, previousReconstruction);
+  const reconstruction = await syncReconstruction(serviceKey, reconstructionServiceKey, previousReconstruction, naverClientId, naverClientSecret);
   const candidates = await syncCandidates(serviceKey, previousCandidates);
   const listingsAttempt = await fetchCurrentListings();
   const kbAttempt = await fetchKbMarketPrice();
