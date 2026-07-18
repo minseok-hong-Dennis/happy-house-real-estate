@@ -1,9 +1,10 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { appendFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import process from 'node:process';
 
 const HOME_DATA_PATH = 'data/home-price.json';
 const RECONSTRUCTION_DATA_PATH = 'data/reconstruction.json';
 const CANDIDATE_DATA_PATH = 'data/candidates.json';
+const SYNC_STATUS_DATA_PATH = 'data/sync-status.json';
 const RECONSTRUCTION_SNAPSHOT_PATH = 'data/reconstruction-projects.json';
 const SERVICE_URL = 'https://apis.data.go.kr/1613000/RTMSDataSvcAptTrade/getRTMSDataSvcAptTrade';
 const RECONSTRUCTION_API_URL = 'https://api.odcloud.kr/api/15160169/v1/uddi:4d7f16a9-b0fd-4d07-b266-d0ad82aeaf34';
@@ -508,6 +509,17 @@ async function fetchKbMarketPrice() {
   }
 }
 
+function preservePreviousOnError(current, previous, hasUsableData) {
+  if (current.status !== 'error' || !hasUsableData(previous)) return current;
+  return {
+    ...previous,
+    status: 'stale',
+    message: current.message + ' 마지막 정상 동기화 값을 유지합니다.',
+    lastAttemptAt: formatKstTimestamp(),
+    lastAttemptStatus: 'error'
+  };
+}
+
 async function readExistingData(path) {
   try {
     return JSON.parse(await readFile(path, 'utf8'));
@@ -752,7 +764,24 @@ async function fetchWithRetry(url, attempts = 3) {
   throw lastError || new Error('요청 실패');
 }
 
+async function fetchReconstructionFallback() {
+  try {
+    const response = await fetchWithRetry(RECONSTRUCTION_CSV_URL);
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    return { rows: parseReconstructionCsv(new TextDecoder('euc-kr').decode(bytes)), transport: '공식 CSV' };
+  } catch (csvError) {
+    console.warn('[reconstruction] 공식 CSV 사용 불가, 저장된 공식 데이터로 대체: ' + csvError.message);
+    const snapshot = JSON.parse(await readFile(RECONSTRUCTION_SNAPSHOT_PATH, 'utf8'));
+    if (!Array.isArray(snapshot.rows) || !snapshot.rows.length) throw csvError;
+    return { rows: snapshot.rows, transport: '저장된 공식 데이터', datasetDate: snapshot.datasetDate };
+  }
+}
+
 async function fetchReconstructionDataset(serviceKey) {
+  if (!serviceKey) {
+    console.warn('[reconstruction] RECONSTRUCTION_SERVICE_KEY 미설정, 공식 CSV로 대체합니다.');
+    return fetchReconstructionFallback();
+  }
   try {
     const url = new URL(RECONSTRUCTION_API_URL);
     url.searchParams.set('serviceKey', decodeURIComponent(serviceKey.trim()));
@@ -766,23 +795,14 @@ async function fetchReconstructionDataset(serviceKey) {
     return { rows: payload.data, transport: 'Open API' };
   } catch (error) {
     console.warn('[reconstruction] Open API 사용 불가, 공식 CSV로 대체: ' + error.message);
-    try {
-      const response = await fetchWithRetry(RECONSTRUCTION_CSV_URL);
-      const bytes = new Uint8Array(await response.arrayBuffer());
-      return { rows: parseReconstructionCsv(new TextDecoder('euc-kr').decode(bytes)), transport: '공식 CSV' };
-    } catch (csvError) {
-      console.warn('[reconstruction] 공식 CSV 사용 불가, 저장된 공식 데이터로 대체: ' + csvError.message);
-      const snapshot = JSON.parse(await readFile(RECONSTRUCTION_SNAPSHOT_PATH, 'utf8'));
-      if (!Array.isArray(snapshot.rows) || !snapshot.rows.length) throw csvError;
-      return { rows: snapshot.rows, transport: '저장된 공식 데이터', datasetDate: snapshot.datasetDate };
-    }
+    return fetchReconstructionFallback();
   }
 }
 
-async function syncReconstruction(serviceKey, previous) {
+async function syncReconstruction(serviceKey, reconstructionServiceKey, previous) {
   let dataset;
   try {
-    dataset = await fetchReconstructionDataset(serviceKey);
+    dataset = await fetchReconstructionDataset(reconstructionServiceKey);
   } catch (error) {
     console.warn('[reconstruction] 전국 정비사업 데이터를 불러오지 못함: ' + error.message);
     if (previous.items?.length) return previous;
@@ -891,19 +911,118 @@ async function syncCandidates(serviceKey, previous) {
   };
 }
 
+function buildSyncStatus(homeData, reconstruction, candidates) {
+  const reconstructionItems = reconstruction.items || [];
+  const candidateItems = [...(candidates.candidates || []), ...(candidates.recommendationPool || [])];
+  const projectTransport = reconstruction.source?.transport || '확인 불가';
+  const sources = [
+    {
+      id: 'home-transactions',
+      label: '우리집 실거래가',
+      status: homeData.recentTransactions.status,
+      itemCount: homeData.recentTransactions.records?.length || 0,
+      optional: false,
+      syncedAt: homeData.sync?.lastSuccessfulAt || null,
+      message: homeData.recentTransactions.message || '최근 3개월 거래 갱신 완료'
+    },
+    {
+      id: 'candidate-transactions',
+      label: '이사 후보지 실거래가',
+      status: candidates.status,
+      itemCount: candidateItems.filter((item) => item.priceStatus === 'ok').length,
+      totalCount: candidateItems.length,
+      optional: false,
+      syncedAt: candidates.sync?.lastSuccessfulAt || null,
+      message: candidates.sync?.message || '최근 12개월 거래 갱신 완료'
+    },
+    {
+      id: 'reconstruction-projects',
+      label: '재건축 사업 원본',
+      status: projectTransport === '저장된 공식 데이터' ? 'fallback' : (reconstructionItems.length ? 'ok' : 'error'),
+      itemCount: reconstructionItems.length,
+      optional: false,
+      syncedAt: reconstruction.sync?.lastSuccessfulAt || null,
+      message: projectTransport + (reconstruction.source?.datasetDate ? ' · ' + reconstruction.source.datasetDate + ' 데이터' : '')
+    },
+    {
+      id: 'reconstruction-transactions',
+      label: '재건축 단지 실거래가',
+      status: reconstruction.status,
+      itemCount: reconstructionItems.filter((item) => item.latestTransaction).length,
+      totalCount: reconstructionItems.length,
+      optional: false,
+      syncedAt: reconstruction.sync?.lastSuccessfulAt || null,
+      message: reconstruction.sync?.message || '매칭 가능한 단지 가격 갱신 완료'
+    },
+    {
+      id: 'current-listings',
+      label: '현재 매물',
+      status: homeData.currentListings.status,
+      itemCount: homeData.currentListings.items?.length || 0,
+      optional: true,
+      syncedAt: homeData.currentListings.syncedAt || null,
+      message: homeData.currentListings.message || '현재 매물 갱신 완료'
+    },
+    {
+      id: 'kb-market-price',
+      label: 'KB 시세',
+      status: homeData.kbMarketPrice.status,
+      itemCount: ['ok', 'stale'].includes(homeData.kbMarketPrice.status) ? 1 : 0,
+      optional: true,
+      syncedAt: homeData.kbMarketPrice.syncedAt || null,
+      message: homeData.kbMarketPrice.message || 'KB 상·하한 시세 갱신 완료'
+    }
+  ];
+  const hasDegradedSource = sources.some((source) => ['error', 'partial', 'stale', 'fallback'].includes(source.status));
+  const hasUnconfiguredSource = sources.some((source) => ['not_available', 'not_configured'].includes(source.status));
+  return {
+    generatedAt: formatKstTimestamp(),
+    schedule: '매일 14:00 KST',
+    overallStatus: hasDegradedSource ? 'partial' : (hasUnconfiguredSource ? 'needs_configuration' : 'ok'),
+    sources
+  };
+}
+
+function markdownCell(value) {
+  return String(value ?? '').replaceAll('|', '\\|').replaceAll('\n', ' ');
+}
+
+async function writeGithubSummary(syncStatus) {
+  if (!process.env.GITHUB_STEP_SUMMARY) return;
+  const rows = syncStatus.sources.map((source) => {
+    const count = source.totalCount == null ? source.itemCount : source.itemCount + '/' + source.totalCount;
+    return '| ' + markdownCell(source.label) + ' | `' + markdownCell(source.status) + '` | ' + count + ' | ' + markdownCell(source.message) + ' |';
+  });
+  const summary = [
+    '## 부동산 데이터 동기화',
+    '',
+    '- 실행 시각: ' + syncStatus.generatedAt,
+    '- 전체 상태: `' + syncStatus.overallStatus + '`',
+    '',
+    '| 데이터 | 상태 | 건수 | 설명 |',
+    '| --- | --- | ---: | --- |',
+    ...rows,
+    ''
+  ].join('\n');
+  await appendFile(process.env.GITHUB_STEP_SUMMARY, summary, 'utf8');
+}
+
 async function main() {
   const previousHome = await readExistingData(HOME_DATA_PATH);
   const previousReconstruction = await readExistingData(RECONSTRUCTION_DATA_PATH);
   const previousCandidates = await readExistingData(CANDIDATE_DATA_PATH);
   const serviceKey = process.env.MOLIT_SERVICE_KEY?.trim();
+  const reconstructionServiceKey = process.env.RECONSTRUCTION_SERVICE_KEY?.trim();
   if (!serviceKey) throw new Error('MOLIT_SERVICE_KEY GitHub Secret이 비어 있습니다. 저장소 Actions Secret을 확인해 주세요.');
   const recentTransactions = await fetchTransactions(serviceKey, HOME_APARTMENT);
   console.log('[MOLIT] ' + HOME_APARTMENT.name + ': 최근 거래 ' + recentTransactions.records.length + '건 동기화');
 
-  const reconstruction = await syncReconstruction(serviceKey, previousReconstruction);
+  const reconstruction = await syncReconstruction(serviceKey, reconstructionServiceKey, previousReconstruction);
   const candidates = await syncCandidates(serviceKey, previousCandidates);
-  const currentListings = await fetchCurrentListings();
-  const kbMarketPrice = await fetchKbMarketPrice();
+  const listingsAttempt = await fetchCurrentListings();
+  const kbAttempt = await fetchKbMarketPrice();
+  const currentListings = preservePreviousOnError(listingsAttempt, previousHome.currentListings, (value) => Boolean(value?.items?.length));
+  const kbMarketPrice = preservePreviousOnError(kbAttempt, previousHome.kbMarketPrice, (value) => Number.isFinite(value?.lowPriceEok) && Number.isFinite(value?.highPriceEok));
   const homeData = {
     apartment: HOME_APARTMENT,
     sync: { schedule: '매일 14:00 KST', lastSuccessfulAt: formatKstTimestamp() },
@@ -911,10 +1030,14 @@ async function main() {
     currentListings,
     kbMarketPrice
   };
+  const syncStatus = buildSyncStatus(homeData, reconstruction, candidates);
   await mkdir('data', { recursive: true });
   await writeFile(HOME_DATA_PATH, JSON.stringify(homeData, null, 2) + '\n', 'utf8');
   await writeFile(RECONSTRUCTION_DATA_PATH, JSON.stringify(reconstruction, null, 2) + '\n', 'utf8');
   await writeFile(CANDIDATE_DATA_PATH, JSON.stringify(candidates, null, 2) + '\n', 'utf8');
+  await writeFile(SYNC_STATUS_DATA_PATH, JSON.stringify(syncStatus, null, 2) + '\n', 'utf8');
+  await writeGithubSummary(syncStatus);
+  console.log('[sync-status] ' + syncStatus.overallStatus + ' · ' + syncStatus.sources.map((source) => source.id + '=' + source.status).join(', '));
 }
 
 main().catch((error) => {

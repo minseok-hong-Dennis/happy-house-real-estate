@@ -29,9 +29,10 @@ jobs:
         with:
           node-version: 20
 
-      - name: Sync official transaction and listings data
+      - name: Sync all real estate data
         env:
           MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
+          RECONSTRUCTION_SERVICE_KEY: ${{ secrets.RECONSTRUCTION_SERVICE_KEY }}
           MOLIT_LAWD_CD: '41115'
           LISTINGS_API_URL: ${{ secrets.LISTINGS_API_URL }}
           LISTINGS_API_TOKEN: ${{ secrets.LISTINGS_API_TOKEN }}
@@ -43,12 +44,12 @@ jobs:
 
       - name: Commit refreshed price data
         run: |
-          if git diff --quiet -- data/home-price.json data/reconstruction.json data/candidates.json; then
+          if git diff --quiet -- data/home-price.json data/reconstruction.json data/candidates.json data/sync-status.json; then
             echo "No price data changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/home-price.json data/reconstruction.json data/candidates.json
+          git add data/home-price.json data/reconstruction.json data/candidates.json data/sync-status.json
           git commit -m "chore: sync real estate data"
           git push

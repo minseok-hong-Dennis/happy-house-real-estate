@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-07-18 15:21 KST",
+  "schedule": "매일 14:00 KST",
+  "overallStatus": "partial",
+  "sources": [
+    {
+      "id": "home-transactions",
+      "label": "우리집 실거래가",
+      "status": "ok",
+      "itemCount": 28,
+      "optional": false,
+      "syncedAt": "2026-07-18 15:21 KST",
+      "message": "최근 3개월 거래 갱신 완료"
+    },
+    {
+      "id": "candidate-transactions",
+      "label": "이사 후보지 실거래가",
+      "status": "ok",
+      "itemCount": 10,
+      "totalCount": 10,
+      "optional": false,
+      "syncedAt": "2026-07-18 15:21 KST",
+      "message": "최근 12개월 거래 갱신 완료"
+    },
+    {
+      "id": "reconstruction-projects",
+      "label": "재건축 사업 원본",
+      "status": "fallback",
+      "itemCount": 270,
+      "optional": false,
+      "syncedAt": "2026-07-18 15:21 KST",
+      "message": "저장된 공식 데이터 · 2026-05-18 데이터"
+    },
+    {
+      "id": "reconstruction-transactions",
+      "label": "재건축 단지 실거래가",
+      "status": "ok",
+      "itemCount": 58,
+      "totalCount": 270,
+      "optional": false,
+      "syncedAt": "2026-07-18 15:21 KST",
+      "message": "매칭 가능한 단지 가격 갱신 완료"
+    },
+    {
+      "id": "current-listings",
+      "label": "현재 매물",
+      "status": "not_configured",
+      "itemCount": 0,
+      "optional": true,
+      "syncedAt": null,
+      "message": "반복 수집이 허용된 매물 데이터 API를 연결하면 최신 매물가를 표시합니다."
+    },
+    {
+      "id": "kb-market-price",
+      "label": "KB 시세",
+      "status": "not_available",
+      "itemCount": 0,
+      "optional": true,
+      "syncedAt": null,
+      "message": "KB 시세 공개 API가 없어 현재는 직접 입력합니다."
+    }
+  ]
+}

@@ -32,6 +32,10 @@ const DEFAULT_KB_MARKET = {
   asOf: '2026.07.17',
   sourceUrl: 'https://kbland.kr/se/c/48414'
 };
+const activeKbMarket = {
+  lowEok: DEFAULT_KB_MARKET.lowEok,
+  highEok: DEFAULT_KB_MARKET.highEok
+};
 
 const fields = {
   salePrice: document.querySelector('#current-sale-price'),
@@ -368,7 +372,7 @@ function renderListings(listingData) {
   const items = listingData?.items || [];
   container.replaceChildren();
   sourceName.textContent = listingData?.sourceName || '허용된 매물 데이터 제공자 연결 대기';
-  if (listingData?.status !== 'ok' || !items.length) {
+  if (!['ok', 'stale'].includes(listingData?.status) || !items.length) {
     const card = document.createElement('article');
     card.className = 'listing-empty';
     const title = document.createElement('h3');
@@ -380,7 +384,7 @@ function renderListings(listingData) {
     state.textContent = description.textContent;
     return;
   }
-  state.textContent = '총 ' + items.length + '건 · ' + (listingData.syncedAt || '최근') + ' 기준';
+  state.textContent = '총 ' + items.length + '건 · ' + (listingData.syncedAt || '최근') + ' 기준' + (listingData.status === 'stale' ? ' · 이전 정상값' : '');
   items.slice(0, 6).forEach((item) => {
     const card = document.createElement('article');
     card.className = 'listing-card';
@@ -433,10 +437,12 @@ function renderHomePrice(data) {
 
   const kbMarket = data.kbMarketPrice || {};
   const kbSyncCopy = document.querySelector('#kb-sync-copy');
-  if (kbMarket.status === 'ok' && Number.isFinite(kbMarket.lowPriceEok) && Number.isFinite(kbMarket.highPriceEok)) {
+  if (['ok', 'stale'].includes(kbMarket.status) && Number.isFinite(kbMarket.lowPriceEok) && Number.isFinite(kbMarket.highPriceEok)) {
+    activeKbMarket.lowEok = kbMarket.lowPriceEok;
+    activeKbMarket.highEok = kbMarket.highPriceEok;
     fields.kbLow.value = kbMarket.lowPriceEok;
     fields.kbHigh.value = kbMarket.highPriceEok;
-    setText('#kb-sync-copy', (kbMarket.sourceName || '연결된 시세 제공자') + ' · ' + (kbMarket.syncedAt || '동기화 완료'));
+    setText('#kb-sync-copy', (kbMarket.sourceName || '연결된 시세 제공자') + ' · ' + (kbMarket.syncedAt || '동기화 완료') + (kbMarket.status === 'stale' ? ' · 이전 정상값' : ''));
     if (kbMarket.sourceUrl) kbSyncCopy.href = kbMarket.sourceUrl;
     else kbSyncCopy.removeAttribute('href');
   } else {
@@ -1143,8 +1149,8 @@ document.querySelector('#finance-reset').addEventListener('click', () => {
   if (Number.isFinite(latestHomePriceManwon)) {
     setText('#current-sale-reference', '최근 실거래 ' + formatPriceManwon(latestHomePriceManwon) + (latestHomePriceContractDate ? ' · ' + latestHomePriceContractDate : '') + ' 기준 자동 입력');
   }
-  fields.kbLow.value = String(DEFAULT_KB_MARKET.lowEok);
-  fields.kbHigh.value = String(DEFAULT_KB_MARKET.highEok);
+  fields.kbLow.value = String(activeKbMarket.lowEok);
+  fields.kbHigh.value = String(activeKbMarket.highEok);
   fields.creditAmount.value = '0';
   fields.creditRate.value = '5';
   fields.creditInterestOnly.checked = true;
