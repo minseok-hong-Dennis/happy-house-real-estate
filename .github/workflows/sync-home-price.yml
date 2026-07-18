@@ -29,6 +29,16 @@ jobs:
         with:
           node-version: 20
 
+      - name: Verify NAVER Maps configuration
+        env:
+          NAVER_MAPS_CLIENT_ID: ${{ vars.NAVER_MAPS_CLIENT_ID || secrets.NAVER_MAPS_CLIENT_ID }}
+        run: |
+          if [ -z "$NAVER_MAPS_CLIENT_ID" ]; then
+            echo "::warning::NAVER_MAPS_CLIENT_ID is not configured as a repository variable or secret."
+          else
+            echo "NAVER Maps Client ID is configured."
+          fi
+
       - name: Sync all real estate data
         env:
           MOLIT_SERVICE_KEY: ${{ secrets.MOLIT_SERVICE_KEY }}
@@ -40,7 +50,7 @@ jobs:
           KB_MARKET_API_URL: ${{ secrets.KB_MARKET_API_URL }}
           KB_MARKET_API_TOKEN: ${{ secrets.KB_MARKET_API_TOKEN }}
           KB_MARKET_SOURCE_NAME: ${{ secrets.KB_MARKET_SOURCE_NAME }}
-          NAVER_MAPS_CLIENT_ID: ${{ vars.NAVER_MAPS_CLIENT_ID }}
+          NAVER_MAPS_CLIENT_ID: ${{ vars.NAVER_MAPS_CLIENT_ID || secrets.NAVER_MAPS_CLIENT_ID }}
         run: node scripts/sync-home-price.mjs
 
       - name: Commit refreshed price data

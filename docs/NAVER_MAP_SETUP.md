@@ -22,12 +22,13 @@
 4. Value에는 앞에서 복사한 Client ID만 입력하고 저장합니다.
 5. [Sync home price data Action](https://github.com/minseok-hong-Dennis/happy-house-real-estate/actions/workflows/sync-home-price.yml)에서 `Run workflow`를 한 번 실행합니다.
 
-Action은 Repository Variable을 `data/map-config.json`에 반영합니다. Web Dynamic Map은 브라우저가 Client ID를 요청 URL에 포함하므로 Client ID는 사용자에게 보일 수 있으며, 등록한 Web 서비스 URL 제한으로 보호합니다. **Client Secret은 이 웹사이트와 GitHub Variable 또는 Secret 어디에도 등록하지 않습니다.**
+Action은 Repository Variable을 `data/map-config.json`에 반영합니다. 실수로 같은 이름의 Repository Secret에 등록한 경우도 동작하지만, 브라우저에 공개되는 값이므로 Variable 사용을 권장합니다. Web Dynamic Map은 브라우저가 Client ID를 요청 URL에 포함하므로 Client ID는 사용자에게 보일 수 있으며, 등록한 Web 서비스 URL 제한으로 보호합니다. **Client Secret은 이 웹사이트와 GitHub Variable 또는 Secret 어디에도 등록하지 않습니다.**
 
 ## 3. 확인과 문제 해결
 
 - 지도 상단에 `네이버 지도`가 표시되면 전환이 완료된 상태입니다.
 - 계속 `기본 지도`가 표시되면 `data/map-config.json`의 `naverMapsClientId`가 비어 있는지 확인합니다.
+- 설정 파일에 Client ID가 있는데도 기본 지도가 표시되면 열려 있던 페이지를 새로고침합니다. 지도 설정 요청에는 캐시 무효화가 적용되어 이후 Client ID 변경도 즉시 확인합니다.
 - 인증 오류가 발생하면 Maps Application의 Web 서비스 URL이 `https://minseok-hong-dennis.github.io`인지 확인합니다. 포트나 `/happy-house-real-estate` 경로가 있으면 제거합니다.
 - Client ID를 변경했다면 GitHub Repository Variable을 교체하고 Action을 다시 수동 실행합니다.
 - 네이버 지도 스크립트가 일시적으로 실패해도 기존 지도로 자동 대체됩니다.

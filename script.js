@@ -1108,7 +1108,9 @@ function loadNaverMapsScript(clientId) {
 
 async function loadMapProvider() {
   try {
-    const response = await fetch('data/map-config.json', { cache: 'no-store' });
+    const configUrl = new URL('data/map-config.json', document.baseURI);
+    configUrl.searchParams.set('cacheBust', Date.now().toString());
+    const response = await fetch(configUrl, { cache: 'no-store' });
     if (!response.ok) throw new Error('지도 설정 파일 없음');
     const config = await response.json();
     const clientId = String(config.naverMapsClientId || '').trim();
