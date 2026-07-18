@@ -7,7 +7,7 @@
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-18 23:00 KST",
+    "lastSuccessfulAt": "2026-07-18 23:36 KST",
     "message": ""
   },
   "candidates": [
@@ -48,6 +48,7 @@
       "latestTransaction": {
         "apartmentName": "매교역푸르지오SKVIEW",
         "dongName": "매교동",
+        "jibun": "300",
         "contractDate": "2026-07-11",
         "priceManwon": 107500,
         "areaSqm": 84.97,
@@ -68,6 +69,7 @@
             {
               "apartmentName": "매교역푸르지오SKVIEW",
               "dongName": "매교동",
+              "jibun": "300",
               "contractDate": "2026-07-11",
               "priceManwon": 99000,
               "areaSqm": 74.94,
@@ -76,6 +78,7 @@
             {
               "apartmentName": "매교역푸르지오SKVIEW",
               "dongName": "매교동",
+              "jibun": "300",
               "contractDate": "2026-07-10",
               "priceManwon": 96000,
               "areaSqm": 74.94,
@@ -84,6 +87,7 @@
             {
               "apartmentName": "매교역푸르지오SKVIEW",
               "dongName": "매교동",
+              "jibun": "300",
               "contractDate": "2026-07-07",
               "priceManwon": 97500,
               "areaSqm": 74.69,
@@ -120,6 +124,7 @@
             {
               "apartmentName": "매교역푸르지오SKVIEW",
               "dongName": "매교동",
+              "jibun": "300",
               "contractDate": "2026-07-11",
               "priceManwon": 107500,
               "areaSqm": 84.97,
@@ -128,6 +133,7 @@
             {
               "apartmentName": "매교역푸르지오SKVIEW",
               "dongName": "매교동",
+              "jibun": "300",
               "contractDate": "2026-07-10",
               "priceManwon": 105000,
               "areaSqm": 84.97,
@@ -136,6 +142,7 @@
             {
               "apartmentName": "매교역푸르지오SKVIEW",
               "dongName": "매교동",
+              "jibun": "300",
               "contractDate": "2026-07-08",
               "priceManwon": 88700,
               "areaSqm": 84.97,
@@ -194,6 +201,7 @@
       "latestTransaction": {
         "apartmentName": "영통SKVIEW",
         "dongName": "망포동",
+        "jibun": "725",
         "contractDate": "2026-06-30",
         "priceManwon": 85500,
         "areaSqm": 59.5761,
@@ -214,6 +222,7 @@
             {
               "apartmentName": "영통SKVIEW",
               "dongName": "망포동",
+              "jibun": "725",
               "contractDate": "2026-06-30",
               "priceManwon": 85500,
               "areaSqm": 59.5761,
@@ -222,6 +231,7 @@
             {
               "apartmentName": "영통SKVIEW",
               "dongName": "망포동",
+              "jibun": "725",
               "contractDate": "2026-06-19",
               "priceManwon": 89000,
               "areaSqm": 59.5404,
@@ -230,6 +240,7 @@
             {
               "apartmentName": "영통SKVIEW",
               "dongName": "망포동",
+              "jibun": "725",
               "contractDate": "2026-06-18",
               "priceManwon": 86900,
               "areaSqm": 58.9742,
@@ -266,6 +277,7 @@
             {
               "apartmentName": "영통SKVIEW",
               "dongName": "망포동",
+              "jibun": "725",
               "contractDate": "2026-06-20",
               "priceManwon": 99500,
               "areaSqm": 84.6149,
@@ -274,6 +286,7 @@
             {
               "apartmentName": "영통SKVIEW",
               "dongName": "망포동",
+              "jibun": "725",
               "contractDate": "2026-06-20",
               "priceManwon": 100000,
               "areaSqm": 84.7372,
@@ -282,6 +295,7 @@
             {
               "apartmentName": "영통SKVIEW",
               "dongName": "망포동",
+              "jibun": "725",
               "contractDate": "2026-06-19",
               "priceManwon": 104000,
               "areaSqm": 84.4619,
@@ -339,6 +353,7 @@
       "latestTransaction": {
         "apartmentName": "현대",
         "dongName": "영통동",
+        "jibun": "989-2",
         "contractDate": "2026-06-29",
         "priceManwon": 119000,
         "areaSqm": 134.76,
@@ -359,6 +374,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-06-09",
               "priceManwon": 95000,
               "areaSqm": 99.58,
@@ -367,6 +383,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-05-20",
               "priceManwon": 94500,
               "areaSqm": 99.58,
@@ -375,6 +392,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-05-12",
               "priceManwon": 97800,
               "areaSqm": 99.58,
@@ -411,6 +429,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-06-29",
               "priceManwon": 119000,
               "areaSqm": 134.76,
@@ -419,6 +438,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-06-27",
               "priceManwon": 119500,
               "areaSqm": 134.76,
@@ -427,6 +447,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-06-20",
               "priceManwon": 102000,
               "areaSqm": 134.76,
@@ -463,6 +484,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-04-17",
               "priceManwon": 105000,
               "areaSqm": 164.89,
@@ -471,6 +493,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-03-12",
               "priceManwon": 115000,
               "areaSqm": 164.89,
@@ -479,6 +502,7 @@
             {
               "apartmentName": "현대",
               "dongName": "영통동",
+              "jibun": "989-2",
               "contractDate": "2026-03-03",
               "priceManwon": 103000,
               "areaSqm": 164.89,
@@ -523,6 +547,7 @@
       "latestTransaction": {
         "apartmentName": "영통아이파크캐슬1단지",
         "dongName": "망포동",
+        "jibun": "766",
         "contractDate": "2026-07-04",
         "priceManwon": 98000,
         "areaSqm": 59.98,
@@ -543,6 +568,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-07-04",
               "priceManwon": 98000,
               "areaSqm": 59.98,
@@ -551,6 +577,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-07-04",
               "priceManwon": 98000,
               "areaSqm": 59.83,
@@ -559,6 +586,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-30",
               "priceManwon": 96500,
               "areaSqm": 59.98,
@@ -595,6 +623,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-05",
               "priceManwon": 107000,
               "areaSqm": 75.93,
@@ -603,6 +632,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-05-04",
               "priceManwon": 103000,
               "areaSqm": 75.93,
@@ -611,6 +641,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-04-15",
               "priceManwon": 106300,
               "areaSqm": 75.93,
@@ -638,6 +669,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-07-02",
               "priceManwon": 125000,
               "areaSqm": 84.69,
@@ -646,6 +678,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-20",
               "priceManwon": 117500,
               "areaSqm": 84.69,
@@ -654,6 +687,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-20",
               "priceManwon": 118500,
               "areaSqm": 84.69,
@@ -690,6 +724,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-29",
               "priceManwon": 138000,
               "areaSqm": 105.86,
@@ -698,6 +733,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-29",
               "priceManwon": 137000,
               "areaSqm": 105.86,
@@ -706,6 +742,7 @@
             {
               "apartmentName": "영통아이파크캐슬1단지",
               "dongName": "망포동",
+              "jibun": "766",
               "contractDate": "2026-06-09",
               "priceManwon": 139500,
               "areaSqm": 105.86,
@@ -748,6 +785,7 @@
       "latestTransaction": {
         "apartmentName": "영통아이파크캐슬2단지",
         "dongName": "망포동",
+        "jibun": "760",
         "contractDate": "2026-07-15",
         "priceManwon": 108500,
         "areaSqm": 84.69,
@@ -768,6 +806,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-07-13",
               "priceManwon": 94500,
               "areaSqm": 59.83,
@@ -776,6 +815,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-05-29",
               "priceManwon": 83500,
               "areaSqm": 59.98,
@@ -784,6 +824,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-05-15",
               "priceManwon": 88000,
               "areaSqm": 59.98,
@@ -820,6 +861,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-07-01",
               "priceManwon": 99000,
               "areaSqm": 75.93,
@@ -828,6 +870,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-05-21",
               "priceManwon": 90000,
               "areaSqm": 75.93,
@@ -836,6 +879,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-05-02",
               "priceManwon": 84800,
               "areaSqm": 75.93,
@@ -872,6 +916,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-07-15",
               "priceManwon": 108500,
               "areaSqm": 84.69,
@@ -880,6 +925,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-07-01",
               "priceManwon": 102000,
               "areaSqm": 84.69,
@@ -888,6 +934,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-06-20",
               "priceManwon": 108000,
               "areaSqm": 84.69,
@@ -924,6 +971,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-06-20",
               "priceManwon": 118000,
               "areaSqm": 105.86,
@@ -932,6 +980,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-02-10",
               "priceManwon": 99000,
               "areaSqm": 105.86,
@@ -940,6 +989,7 @@
             {
               "apartmentName": "영통아이파크캐슬2단지",
               "dongName": "망포동",
+              "jibun": "760",
               "contractDate": "2026-01-13",
               "priceManwon": 112000,
               "areaSqm": 105.86,
@@ -973,6 +1023,7 @@
       "latestTransaction": {
         "apartmentName": "힐스테이트영통",
         "dongName": "망포동",
+        "jibun": "728",
         "contractDate": "2026-07-08",
         "priceManwon": 130000,
         "areaSqm": 84.8897,
@@ -993,6 +1044,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-07-08",
               "priceManwon": 121000,
               "areaSqm": 62.6303,
@@ -1001,6 +1053,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-06-29",
               "priceManwon": 109500,
               "areaSqm": 62.6303,
@@ -1009,6 +1062,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-06-26",
               "priceManwon": 111500,
               "areaSqm": 62.5963,
@@ -1045,6 +1099,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-06-30",
               "priceManwon": 120000,
               "areaSqm": 71.2981,
@@ -1053,6 +1108,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-06-23",
               "priceManwon": 117500,
               "areaSqm": 71.2981,
@@ -1061,6 +1117,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-06-22",
               "priceManwon": 113000,
               "areaSqm": 71.2981,
@@ -1097,6 +1154,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-07-08",
               "priceManwon": 130000,
               "areaSqm": 84.8897,
@@ -1105,6 +1163,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-07-06",
               "priceManwon": 129700,
               "areaSqm": 84.5303,
@@ -1113,6 +1172,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-07-03",
               "priceManwon": 138000,
               "areaSqm": 84.8897,
@@ -1149,6 +1209,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-07-07",
               "priceManwon": 158000,
               "areaSqm": 107.7242,
@@ -1157,6 +1218,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2026-03-09",
               "priceManwon": 147000,
               "areaSqm": 107.7242,
@@ -1165,6 +1227,7 @@
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
+              "jibun": "728",
               "contractDate": "2025-10-18",
               "priceManwon": 144000,
               "areaSqm": 107.7242,
@@ -1198,6 +1261,7 @@
       "latestTransaction": {
         "apartmentName": "래미안영통마크원2단지",
         "dongName": "신동",
+        "jibun": "940",
         "contractDate": "2026-07-09",
         "priceManwon": 92000,
         "areaSqm": 84.94,
@@ -1218,6 +1282,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-07-09",
               "priceManwon": 92000,
               "areaSqm": 84.94,
@@ -1226,6 +1291,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-06-25",
               "priceManwon": 91300,
               "areaSqm": 84.94,
@@ -1234,6 +1300,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-06-20",
               "priceManwon": 85000,
               "areaSqm": 84.94,
@@ -1270,6 +1337,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-07-02",
               "priceManwon": 91500,
               "areaSqm": 97.92,
@@ -1278,6 +1346,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-06-27",
               "priceManwon": 91800,
               "areaSqm": 97.92,
@@ -1286,6 +1355,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-06-10",
               "priceManwon": 89300,
               "areaSqm": 97.95,
@@ -1322,6 +1392,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-05-19",
               "priceManwon": 82500,
               "areaSqm": 115.71,
@@ -1330,6 +1401,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-04-30",
               "priceManwon": 93000,
               "areaSqm": 115.83,
@@ -1338,6 +1410,7 @@
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
+              "jibun": "940",
               "contractDate": "2026-04-18",
               "priceManwon": 90500,
               "areaSqm": 115.83,
@@ -1371,6 +1444,7 @@
       "latestTransaction": {
         "apartmentName": "영통롯데캐슬엘클래스1단지",
         "dongName": "망포동",
+        "jibun": "805",
         "contractDate": "2026-07-04",
         "priceManwon": 90000,
         "areaSqm": 84.9836,
@@ -1391,6 +1465,7 @@
             {
               "apartmentName": "영통롯데캐슬엘클래스1단지",
               "dongName": "망포동",
+              "jibun": "805",
               "contractDate": "2026-07-04",
               "priceManwon": 90000,
               "areaSqm": 84.9836,
@@ -1399,6 +1474,7 @@
             {
               "apartmentName": "영통롯데캐슬엘클래스1단지",
               "dongName": "망포동",
+              "jibun": "805",
               "contractDate": "2026-06-17",
               "priceManwon": 96500,
               "areaSqm": 84.9836,
@@ -1407,6 +1483,7 @@
             {
               "apartmentName": "영통롯데캐슬엘클래스1단지",
               "dongName": "망포동",
+              "jibun": "805",
               "contractDate": "2026-06-11",
               "priceManwon": 95000,
               "areaSqm": 84.9835,
@@ -1434,6 +1511,7 @@
             {
               "apartmentName": "영통롯데캐슬엘클래스1단지",
               "dongName": "망포동",
+              "jibun": "805",
               "contractDate": "2026-06-10",
               "priceManwon": 119000,
               "areaSqm": 107.426,
@@ -1442,6 +1520,7 @@
             {
               "apartmentName": "영통롯데캐슬엘클래스1단지",
               "dongName": "망포동",
+              "jibun": "805",
               "contractDate": "2026-02-06",
               "priceManwon": 108500,
               "areaSqm": 107.1115,
@@ -1450,6 +1529,7 @@
             {
               "apartmentName": "영통롯데캐슬엘클래스1단지",
               "dongName": "망포동",
+              "jibun": "805",
               "contractDate": "2026-01-09",
               "priceManwon": 99000,
               "areaSqm": 107.426,
@@ -1483,6 +1563,7 @@
       "latestTransaction": {
         "apartmentName": "청명마을대우",
         "dongName": "영통동",
+        "jibun": "956-2",
         "contractDate": "2026-05-30",
         "priceManwon": 101000,
         "areaSqm": 99.87,
@@ -1503,6 +1584,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-05-30",
               "priceManwon": 101000,
               "areaSqm": 99.87,
@@ -1511,6 +1593,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-05-18",
               "priceManwon": 92000,
               "areaSqm": 99.87,
@@ -1519,6 +1602,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-05-08",
               "priceManwon": 94500,
               "areaSqm": 99.87,
@@ -1555,6 +1639,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-05-16",
               "priceManwon": 90000,
               "areaSqm": 134.64,
@@ -1563,6 +1648,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-04-09",
               "priceManwon": 97000,
               "areaSqm": 134.64,
@@ -1571,6 +1657,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-03-07",
               "priceManwon": 99000,
               "areaSqm": 134.64,
@@ -1598,6 +1685,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2026-05-02",
               "priceManwon": 98000,
               "areaSqm": 164.76,
@@ -1606,6 +1694,7 @@
             {
               "apartmentName": "청명마을대우",
               "dongName": "영통동",
+              "jibun": "956-2",
               "contractDate": "2025-10-15",
               "priceManwon": 97000,
               "areaSqm": 164.76,
@@ -1639,6 +1728,7 @@
       "latestTransaction": {
         "apartmentName": "광교호반베르디움",
         "dongName": "원천동",
+        "jibun": "606",
         "contractDate": "2026-07-11",
         "priceManwon": 113000,
         "areaSqm": 59.9306,
@@ -1659,6 +1749,7 @@
             {
               "apartmentName": "광교호반베르디움",
               "dongName": "원천동",
+              "jibun": "606",
               "contractDate": "2026-07-11",
               "priceManwon": 113000,
               "areaSqm": 59.9306,
@@ -1667,6 +1758,7 @@
             {
               "apartmentName": "광교호반베르디움",
               "dongName": "원천동",
+              "jibun": "606",
               "contractDate": "2026-07-04",
               "priceManwon": 115000,
               "areaSqm": 59.9306,
@@ -1675,6 +1767,7 @@
             {
               "apartmentName": "광교호반베르디움",
               "dongName": "원천동",
+              "jibun": "606",
               "contractDate": "2026-06-24",
               "priceManwon": 116500,
               "areaSqm": 59.9831,
@@ -1711,6 +1804,7 @@
             {
               "apartmentName": "광교호반베르디움",
               "dongName": "원천동",
+              "jibun": "606",
               "contractDate": "2026-07-04",
               "priceManwon": 140000,
               "areaSqm": 84.9424,
@@ -1719,6 +1813,7 @@
             {
               "apartmentName": "광교호반베르디움",
               "dongName": "원천동",
+              "jibun": "606",
               "contractDate": "2026-07-03",
               "priceManwon": 140000,
               "areaSqm": 84.9424,
@@ -1727,6 +1822,7 @@
             {
               "apartmentName": "광교호반베르디움",
               "dongName": "원천동",
+              "jibun": "606",
               "contractDate": "2026-06-17",
               "priceManwon": 133500,
               "areaSqm": 84.9832,

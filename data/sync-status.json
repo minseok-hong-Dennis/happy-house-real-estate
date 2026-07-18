@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18 23:00 KST",
+  "generatedAt": "2026-07-18 23:36 KST",
   "schedule": "매일 14:00 KST",
   "overallStatus": "needs_configuration",
   "sources": [
@@ -9,7 +9,7 @@
       "status": "ok",
       "itemCount": 28,
       "optional": false,
-      "syncedAt": "2026-07-18 23:00 KST",
+      "syncedAt": "2026-07-18 23:36 KST",
       "message": "최근 3개월 거래 갱신 완료"
     },
     {
@@ -19,7 +19,7 @@
       "itemCount": 10,
       "totalCount": 10,
       "optional": false,
-      "syncedAt": "2026-07-18 23:00 KST",
+      "syncedAt": "2026-07-18 23:36 KST",
       "message": "최근 12개월 가격과 36개월 상승 흐름 갱신 완료"
     },
     {
@@ -28,18 +28,28 @@
       "status": "ok",
       "itemCount": 270,
       "optional": false,
-      "syncedAt": "2026-07-18 23:00 KST",
+      "syncedAt": "2026-07-18 23:36 KST",
       "message": "공식 CSV"
     },
     {
       "id": "reconstruction-transactions",
       "label": "재건축 단지 실거래가",
       "status": "ok",
-      "itemCount": 58,
+      "itemCount": 32,
       "totalCount": 270,
       "optional": false,
-      "syncedAt": "2026-07-18 23:00 KST",
+      "syncedAt": "2026-07-18 23:36 KST",
       "message": "매칭 가능한 단지 가격 갱신 완료"
+    },
+    {
+      "id": "reconstruction-geocoding",
+      "label": "재건축 지도 좌표",
+      "status": "not_configured",
+      "itemCount": 0,
+      "totalCount": 270,
+      "optional": false,
+      "syncedAt": "2026-07-18 23:36 KST",
+      "message": "Geocoding API와 NAVER_MAPS_CLIENT_SECRET 설정이 필요합니다."
     },
     {
       "id": "current-listings",
