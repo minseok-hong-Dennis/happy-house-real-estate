@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-18 22:27 KST",
+  "generatedAt": "2026-07-18 22:53 KST",
   "schedule": "매일 14:00 KST",
   "overallStatus": "partial",
   "sources": [
@@ -9,7 +9,7 @@
       "status": "ok",
       "itemCount": 28,
       "optional": false,
-      "syncedAt": "2026-07-18 22:27 KST",
+      "syncedAt": "2026-07-18 22:53 KST",
       "message": "최근 3개월 거래 갱신 완료"
     },
     {
@@ -19,7 +19,7 @@
       "itemCount": 10,
       "totalCount": 10,
       "optional": false,
-      "syncedAt": "2026-07-18 22:27 KST",
+      "syncedAt": "2026-07-18 22:53 KST",
       "message": "최근 12개월 가격과 36개월 상승 흐름 갱신 완료"
     },
     {
@@ -28,7 +28,7 @@
       "status": "fallback",
       "itemCount": 270,
       "optional": false,
-      "syncedAt": "2026-07-18 22:26 KST",
+      "syncedAt": "2026-07-18 22:53 KST",
       "message": "저장된 공식 데이터 · 2026-05-18 데이터"
     },
     {
@@ -38,7 +38,7 @@
       "itemCount": 58,
       "totalCount": 270,
       "optional": false,
-      "syncedAt": "2026-07-18 22:26 KST",
+      "syncedAt": "2026-07-18 22:53 KST",
       "message": "매칭 가능한 단지 가격 갱신 완료"
     },
     {
