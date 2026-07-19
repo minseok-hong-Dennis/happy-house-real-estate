@@ -389,11 +389,12 @@ html[data-map-provider="naver"] #property-map .map-popup { padding: .75rem; }
 .range-recommendation-summary .range-price-card { color: white; background: var(--mint-deep); }
 .range-recommendation-summary .range-price-card span, .range-recommendation-summary .range-price-card small { color: rgba(255, 255, 255, .74); }
 .range-recommendation-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .65rem; padding: .8rem; border: 1px solid var(--line); border-radius: .85rem; background: white; }
-.range-filter-buttons { display: flex; flex-wrap: wrap; gap: .4rem; }
+.range-filter-buttons { display: flex; flex: 1; flex-wrap: wrap; gap: .4rem; }
 .range-filter-buttons button { min-height: 2.15rem; padding: 0 .7rem; border: 1px solid var(--line); border-radius: 2rem; color: var(--soft-ink); background: white; font-size: .62rem; font-weight: 700; }
 .range-filter-buttons button.is-active { color: white; border-color: var(--mint-deep); background: var(--mint-deep); }
-.range-recommendation-toolbar > label { display: flex; align-items: center; gap: .5rem; color: var(--muted); font-size: .62rem; font-weight: 700; }
-.range-recommendation-toolbar select { min-width: 8.5rem; min-height: 2.35rem; }
+.range-recommendation-selects { display: grid; flex: 0 0 auto; grid-template-columns: 1fr 1fr; gap: .45rem; }
+.range-recommendation-selects label { display: grid; gap: .3rem; color: var(--muted); font-size: .58rem; font-weight: 700; }
+.range-recommendation-selects select { min-width: 8.5rem; min-height: 2.35rem; }
 .range-recommendation-result { margin: 0 0 .75rem; color: var(--muted); font-size: .64rem; }
 .price-recommendation-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
 .price-recommendation-grid > .listing-empty { grid-column: 1 / -1; }
@@ -412,6 +413,10 @@ html[data-map-provider="naver"] #property-map .map-popup { padding: .75rem; }
 .price-recommendation-metrics small, .price-recommendation-metrics b { display: block; }
 .price-recommendation-metrics small { color: var(--muted); font-size: .55rem; }
 .price-recommendation-metrics b { margin-top: .22rem; overflow: hidden; color: var(--soft-ink); font-size: .64rem; text-overflow: ellipsis; white-space: nowrap; }
+.price-recommendation-commute { display: grid; grid-template-columns: 1fr 1fr; gap: .45rem; margin-top: .6rem; }
+.price-recommendation-commute span { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .6rem .7rem; border-radius: .65rem; color: var(--mint-deep); background: var(--mint-soft); }
+.price-recommendation-commute small { font-size: .57rem; }
+.price-recommendation-commute b { font-size: .68rem; white-space: nowrap; }
 .price-recommendation-tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .7rem; }
 .price-recommendation-tags span { padding: .28rem .48rem; border-radius: 2rem; color: var(--mint-deep); background: var(--mint-soft); font-size: .56rem; font-weight: 700; }
 .price-recommendation-reason { margin: .65rem 0 0; color: var(--soft-ink); font-size: .63rem; font-weight: 600; line-height: 1.5; }
@@ -524,8 +529,8 @@ html[data-map-provider="naver"] #property-map .map-popup { padding: .75rem; }
   .range-recommendation-toolbar { align-items: stretch; flex-direction: column; }
   .range-filter-buttons { display: grid; grid-template-columns: repeat(3, 1fr); }
   .range-filter-buttons button { min-width: 0; padding: 0 .35rem; }
-  .range-recommendation-toolbar > label { justify-content: space-between; }
-  .range-recommendation-toolbar select { flex: 1; }
+  .range-recommendation-selects { grid-template-columns: 1fr 1fr; }
+  .range-recommendation-selects select { width: 100%; min-width: 0; }
   .price-recommendation-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 420px) {

@@ -116,7 +116,19 @@ const RECOMMENDATION_TARGETS = [
   { id: 'rec-raemian-markone-2', name: '래미안영통마크원2단지', location: '수원시 영통구 신동', lawdCd: '41117', dongNames: ['신동'], matchNames: ['래미안영통마크원2단지'], households: 963, completionYear: 2013 },
   { id: 'rec-lotte-elclass-1', name: '영통롯데캐슬엘클래스1단지', location: '수원시 영통구 망포동', lawdCd: '41117', dongNames: ['망포동'], matchNames: ['영통롯데캐슬엘클래스1단지'], households: 642, completionYear: 2022 },
   { id: 'rec-cheongmyeong-daewoo', name: '청명마을대우', location: '수원시 영통구 영통동', lawdCd: '41117', dongNames: ['영통동'], matchNames: ['청명마을대우'], households: 1200, completionYear: 1998 },
-  { id: 'rec-gwanggyo-hoban', name: '광교호반베르디움', location: '수원시 영통구 원천동', lawdCd: '41117', dongNames: ['원천동'], matchNames: ['광교호반베르디움'], households: 1330, completionYear: 2014 }
+  { id: 'rec-gwanggyo-hoban', name: '광교호반베르디움', location: '수원시 영통구 원천동', lawdCd: '41117', dongNames: ['원천동'], matchNames: ['광교호반베르디움'], households: 1330, completionYear: 2014 },
+  { id: 'rec-suji-woncheon-prugio', name: '원천마을푸르지오', location: '용인시 수지구 동천동', lawdCd: '41465', dongNames: ['동천동'], matchNames: ['원천마을푸르지오'] },
+  { id: 'rec-suji-manhyeon-seongwon', name: '만현마을3단지성원쌍떼빌', location: '용인시 수지구 상현동', lawdCd: '41465', dongNames: ['상현동'], matchNames: ['만현마을3단지성원쌍떼빌'] },
+  { id: 'rec-suji-sunny-valley', name: '써니벨리', location: '용인시 수지구 동천동', lawdCd: '41465', dongNames: ['동천동'], matchNames: ['써니벨리'] },
+  { id: 'rec-bundang-maehwa-public-2', name: '매화마을공무원2', location: '성남시 분당구 야탑동', lawdCd: '41135', dongNames: ['야탑동'], matchNames: ['매화마을공무원2'], completionYear: 1995 },
+  { id: 'rec-bundang-maehwa-public-1', name: '매화마을공무원1', location: '성남시 분당구 야탑동', lawdCd: '41135', dongNames: ['야탑동'], matchNames: ['매화마을공무원1'], completionYear: 1995 },
+  { id: 'rec-bundang-rainbow-3', name: '무지개(3단지)(건영)', location: '성남시 분당구 구미동', lawdCd: '41135', dongNames: ['구미동'], matchNames: ['무지개(3단지)(건영)'] },
+  { id: 'rec-bundang-sk-view', name: 'SK-VIEW', location: '성남시 분당구 야탑동', lawdCd: '41135', dongNames: ['야탑동'], matchNames: ['SK-VIEW'] },
+  { id: 'rec-old-seongnam-gold-5', name: 'e편한세상금빛그랑메종5단지', location: '성남시 중원구 금광동', lawdCd: '41133', dongNames: ['금광동'], matchNames: ['e편한세상금빛그랑메종5단지'], completionYear: 2022 },
+  { id: 'rec-old-seongnam-sky-2', name: '신흥역하늘채랜더스원2단지', location: '성남시 중원구 중앙동', lawdCd: '41133', dongNames: ['중앙동'], matchNames: ['신흥역하늘채랜더스원2단지'], completionYear: 2022 },
+  { id: 'rec-old-seongnam-hoban', name: '판교밸리호반써밋', location: '성남시 수정구 고등동', lawdCd: '41131', dongNames: ['고등동'], matchNames: ['판교밸리호반써밋'], completionYear: 2019, households: 768 },
+  { id: 'rec-old-seongnam-kolon', name: '코오롱하늘채', location: '성남시 수정구 단대동', lawdCd: '41131', dongNames: ['단대동'], matchNames: ['코오롱하늘채'] },
+  { id: 'rec-giheung-central-prugio', name: '기흥역센트럴푸르지오', location: '용인시 기흥구 구갈동', lawdCd: '41463', dongNames: ['구갈동'], matchNames: ['기흥역센트럴푸르지오'], completionYear: 2018, households: 1316 }
 ];
 const CURATED_RECONSTRUCTION_TARGETS = [
   {

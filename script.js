@@ -17,6 +17,7 @@ let latestHomePriceManwon = Number.NaN;
 let latestHomePriceContractDate = '';
 let salePriceTouched = false;
 let priceRecommendationFilter = 'all';
+let priceRecommendationRegionFilter = 'all';
 let reconstructionGeocodingStatus = 'unknown';
 let browserGeocodeState = 'idle';
 const reconstructionMarkers = new Map();
@@ -730,18 +731,38 @@ function bounded(value, minimum, maximum) {
   return Math.max(minimum, Math.min(maximum, value));
 }
 
+function commuteProfileFor(item) {
+  const location = String(item.location || '');
+  if (location.includes('용인시 수지구 상현동')) return { region: '수지', cityHall: 3, digitalCity: 4, route: '신분당선 서울 접근 · 디지털시티는 광교중앙 환승 또는 차량' };
+  if (location.includes('용인시 수지구')) return { region: '수지', cityHall: 4, digitalCity: 4, route: '신분당선 서울 접근 · 정자 환승 또는 차량으로 디지털시티' };
+  if (location.includes('성남시 분당구 야탑동')) return { region: '분당', cityHall: 3, digitalCity: 4, route: '수인분당선으로 디지털시티 접근 · 서울시청역은 도심 환승' };
+  if (location.includes('성남시 분당구')) return { region: '분당', cityHall: 4, digitalCity: 4, route: '수인분당선과 신분당선 조합으로 두 직장 균형' };
+  if (location.includes('성남시 수정구 고등동')) return { region: '구성남', cityHall: 3, digitalCity: 3, route: '광역버스와 차량 중심 · 두 직장 출근 시간대 경로 확인 필요' };
+  if (/성남시 (수정구|중원구)/.test(location)) return { region: '구성남', cityHall: 4, digitalCity: 3, route: '8호선 서울 접근 · 복정 환승 또는 차량으로 디지털시티' };
+  if (location.includes('용인시 기흥구')) return { region: '기흥', cityHall: 3, digitalCity: 5, route: '수인분당선으로 디지털시티 접근 · 서울 도심은 환승' };
+  if (location.includes('수원시')) return { region: '수원', cityHall: 2, digitalCity: 5, route: '디지털시티 출퇴근 우수 · 서울시청역은 장거리' };
+  return { region: '기타', cityHall: 3, digitalCity: 3, route: '두 직장까지 실제 출근 시간대 경로 확인 필요' };
+}
+
+function commuteBalanceScore(profile) {
+  return profile.cityHall + profile.digitalCity + Math.min(profile.cityHall, profile.digitalCity);
+}
+
 function priceRecommendationScore(item, area) {
   const completionYear = Number(item.completionYear);
   const households = Number(item.households);
   const transactionCount = Number(area.count);
   const growthScore = area.growthAnalysis?.status === 'ok' ? Number(area.growthAnalysis.score) : 42;
   const areaType = Number(area.areaTypeSqm);
-  const newness = Number.isFinite(completionYear) ? bounded((completionYear - 1995) / 30 * 18, 0, 18) : 8;
-  const scale = Number.isFinite(households) ? bounded(households / 1500 * 16, 0, 16) : 7;
-  const liquidity = Number.isFinite(transactionCount) ? bounded(transactionCount / 40 * 18, 0, 18) : 7;
-  const trend = Number.isFinite(growthScore) ? bounded(growthScore / 100 * 24, 0, 24) : 10;
-  const space = Number.isFinite(areaType) ? bounded(areaType / 84 * 14, 0, 14) : 7;
-  return Math.round(10 + newness + scale + liquidity + trend + space);
+  const commute = commuteProfileFor(item);
+  const commuteAverage = ((commute.cityHall + commute.digitalCity) / 2) / 5 * 24;
+  const commuteFloor = Math.min(commute.cityHall, commute.digitalCity) / 5 * 12;
+  const newness = Number.isFinite(completionYear) ? bounded((completionYear - 1995) / 30 * 12, 0, 12) : 6;
+  const scale = Number.isFinite(households) ? bounded(households / 1500 * 10, 0, 10) : 5;
+  const liquidity = Number.isFinite(transactionCount) ? bounded(transactionCount / 40 * 12, 0, 12) : 5;
+  const trend = Number.isFinite(growthScore) ? bounded(growthScore / 100 * 14, 0, 14) : 6;
+  const space = Number.isFinite(areaType) ? bounded(areaType / 84 * 8, 0, 8) : 4;
+  return Math.round(8 + commuteAverage + commuteFloor + newness + scale + liquidity + trend + space);
 }
 
 function priceRangeAreas(item) {
@@ -751,27 +772,37 @@ function priceRangeAreas(item) {
   });
 }
 
-function priceRecommendationAreaMatches(area, filter) {
+function priceRecommendationAreaMatches(item, area, filter) {
+  const commute = commuteProfileFor(item);
+  if (filter === 'balanced') return commute.cityHall >= 4 && commute.digitalCity >= 4;
+  if (filter === 'city-hall') return commute.cityHall >= 4;
+  if (filter === 'digital-city') return commute.digitalCity >= 4;
   if (filter === 'large-area') return Number(area.areaTypeSqm) >= 84;
   if (filter === 'growth') return area.growthAnalysis?.status === 'ok' && Number(area.growthAnalysis.longTermChangePercent) > 0;
   return true;
 }
 
-function priceRecommendationOptions(data, filter = priceRecommendationFilter) {
+function priceRecommendationOptions(data, filter = priceRecommendationFilter, region = priceRecommendationRegionFilter) {
   const items = [...(data?.candidates || []), ...(data?.recommendationPool || [])];
   return items.map((item) => {
-    if (filter === 'newer' && Number(item.completionYear) < 2016) return null;
-    if (filter === 'large-complex' && Number(item.households) < 1000) return null;
+    const commute = commuteProfileFor(item);
+    if (region !== 'all' && commute.region !== region) return null;
+    if (filter === 'newer' && !(Number(item.completionYear) >= 2016)) return null;
+    if (filter === 'large-complex' && !(Number(item.households) >= 1000)) return null;
     const allAreas = priceRangeAreas(item);
-    const matchingAreas = allAreas.filter((area) => priceRecommendationAreaMatches(area, filter));
+    const matchingAreas = allAreas.filter((area) => priceRecommendationAreaMatches(item, area, filter));
     if (!matchingAreas.length) return null;
     const rankedAreas = [...matchingAreas].sort((left, right) => priceRecommendationScore(item, right) - priceRecommendationScore(item, left));
-    return { item, area: rankedAreas[0], allAreas, score: priceRecommendationScore(item, rankedAreas[0]) };
+    return { item, area: rankedAreas[0], allAreas, commute, score: priceRecommendationScore(item, rankedAreas[0]) };
   }).filter(Boolean);
 }
 
 function priceRecommendationTags(item, area) {
   const tags = [];
+  const commute = commuteProfileFor(item);
+  if (commute.cityHall >= 4 && commute.digitalCity >= 4) tags.push('출퇴근 균형');
+  else if (commute.cityHall >= 4) tags.push('서울시청 접근');
+  else if (commute.digitalCity >= 4) tags.push('디지털시티 접근');
   if (Number(item.completionYear) >= 2020) tags.push('신축급');
   else if (Number(item.completionYear) >= 2015) tags.push('준신축');
   if (Number(item.households) >= 1500) tags.push('1,500세대+');
@@ -783,16 +814,19 @@ function priceRecommendationTags(item, area) {
 }
 
 function priceRecommendationReason(item, area) {
-  const reasons = [];
+  const reasons = [commuteProfileFor(item).route];
   if (Number(area.areaTypeSqm) >= 84) reasons.push('예산 안에서 전용 84㎡ 이상 선택 가능');
   if (Number(item.completionYear) >= 2019) reasons.push('비교적 새 아파트');
   if (Number(item.households) >= 1500) reasons.push('대단지 규모');
   if (Number(area.count) >= 30) reasons.push('최근 거래 표본이 충분한 편');
   if (Number(area.growthAnalysis?.score) >= 70) reasons.push('36개월 거래 흐름 점수가 높은 편');
-  return (reasons.length ? reasons.slice(0, 2) : ['9~11억원 실거래 범위 충족']).join(' · ');
+  return reasons.slice(0, 2).join(' · ');
 }
 
 function priceRecommendationWatchout(item, area) {
+  const commute = commuteProfileFor(item);
+  if (commute.cityHall <= 2) return '서울시청역 출근 시간대 실제 경로 확인';
+  if (commute.digitalCity <= 2) return '디지털시티 출근 시간대 실제 경로 확인';
   if (Number(item.completionYear) <= 2000) return '연식에 따른 주차·배관·수리 상태 확인';
   if (Number(area.areaTypeSqm) < 74) return '가격 대비 면적 우선순위 확인';
   if (Number(area.count) < 10) return '최근 거래 표본이 적어 현재 매물과 추가 비교';
@@ -800,7 +834,7 @@ function priceRecommendationWatchout(item, area) {
 }
 
 function makePriceRecommendationCard(option, rank) {
-  const { item, area, allAreas, score } = option;
+  const { item, area, allAreas, commute, score } = option;
   const card = document.createElement('article');
   const heading = document.createElement('div');
   const rankBadge = document.createElement('span');
@@ -813,6 +847,7 @@ function makePriceRecommendationCard(option, rank) {
   const price = document.createElement('strong');
   const contract = document.createElement('small');
   const metrics = document.createElement('div');
+  const commuteMetrics = document.createElement('div');
   const tags = document.createElement('div');
   const reason = document.createElement('p');
   const areaOptions = document.createElement('div');
@@ -838,7 +873,12 @@ function makePriceRecommendationCard(option, rank) {
   priceBlock.append(areaLabel, price, contract);
 
   metrics.className = 'price-recommendation-metrics';
-  metrics.innerHTML = '<span><small>준공</small><b>' + (item.completionYear || '-') + '년</b></span><span><small>세대수</small><b>' + (Number(item.households) || 0).toLocaleString('ko-KR') + '세대</b></span><span><small>최근 12개월</small><b>' + Number(area.count || 0).toLocaleString('ko-KR') + '건</b></span>';
+  const completionLabel = Number(item.completionYear) > 0 ? item.completionYear + '년' : '정보 확인';
+  const householdLabel = Number(item.households) > 0 ? Number(item.households).toLocaleString('ko-KR') + '세대' : '정보 확인';
+  metrics.innerHTML = '<span><small>준공</small><b>' + completionLabel + '</b></span><span><small>세대수</small><b>' + householdLabel + '</b></span><span><small>최근 12개월</small><b>' + Number(area.count || 0).toLocaleString('ko-KR') + '건</b></span>';
+
+  commuteMetrics.className = 'price-recommendation-commute';
+  commuteMetrics.innerHTML = '<span><small>아내 · 서울시청역</small><b>' + commute.cityHall + ' / 5</b></span><span><small>본인 · 디지털시티</small><b>' + commute.digitalCity + ' / 5</b></span>';
 
   tags.className = 'price-recommendation-tags';
   priceRecommendationTags(item, area).forEach((tag) => {
@@ -868,7 +908,7 @@ function makePriceRecommendationCard(option, rank) {
   mapLink.rel = 'noreferrer';
   mapLink.textContent = '네이버 지도';
   footer.append(watchout, mapLink);
-  card.append(heading, priceBlock, metrics, tags, reason, areaOptions, footer);
+  card.append(heading, priceBlock, commuteMetrics, metrics, tags, reason, areaOptions, footer);
   return card;
 }
 
@@ -878,12 +918,14 @@ function renderPriceRecommendations(data) {
   const sync = data?.sync || {};
   const syncedAt = sync.lastSuccessfulAt || null;
   const syncDot = document.querySelector('#range-recommendation-sync-dot');
-  const allOptions = priceRecommendationOptions(data, 'all');
+  const allOptions = priceRecommendationOptions(data, 'all', 'all');
   const allAreaCount = allOptions.reduce((total, option) => total + option.allAreas.length, 0);
   let options = priceRecommendationOptions(data);
   const sort = document.querySelector('#price-recommendation-sort')?.value || 'recommended';
   const sorters = {
     recommended: (left, right) => right.score - left.score,
+    'city-hall': (left, right) => right.commute.cityHall - left.commute.cityHall || commuteBalanceScore(right.commute) - commuteBalanceScore(left.commute) || right.score - left.score,
+    'digital-city': (left, right) => right.commute.digitalCity - left.commute.digitalCity || commuteBalanceScore(right.commute) - commuteBalanceScore(left.commute) || right.score - left.score,
     'price-asc': (left, right) => Number(left.area.latestPriceManwon) - Number(right.area.latestPriceManwon),
     'price-desc': (left, right) => Number(right.area.latestPriceManwon) - Number(left.area.latestPriceManwon),
     'area-desc': (left, right) => Number(right.area.areaTypeSqm) - Number(left.area.areaTypeSqm),
@@ -898,7 +940,8 @@ function renderPriceRecommendations(data) {
   syncDot?.classList.toggle('is-error', data?.status === 'error');
   setText('#range-recommendation-complex-count', allOptions.length.toLocaleString('ko-KR') + '곳');
   setText('#range-recommendation-area-count', allAreaCount.toLocaleString('ko-KR') + '개');
-  setText('#range-recommendation-result', '조건에 맞는 단지 ' + options.length.toLocaleString('ko-KR') + '곳 · 최근 거래가 9억원 이상 11억원 이하');
+  const regionLabel = priceRecommendationRegionFilter === 'all' ? '전체 지역' : priceRecommendationRegionFilter;
+  setText('#range-recommendation-result', regionLabel + ' · 조건에 맞는 단지 ' + options.length.toLocaleString('ko-KR') + '곳 · 최근 거래가 9억원 이상 11억원 이하');
   container.replaceChildren();
   if (!options.length) {
     const empty = document.createElement('article');
@@ -1809,6 +1852,10 @@ document.querySelectorAll('[data-price-recommendation-filter]').forEach((button)
   });
 });
 document.querySelector('#price-recommendation-sort').addEventListener('change', () => {
+  if (candidateData) renderPriceRecommendations(candidateData);
+});
+document.querySelector('#price-recommendation-region').addEventListener('change', (event) => {
+  priceRecommendationRegionFilter = event.target.value;
   if (candidateData) renderPriceRecommendations(candidateData);
 });
 
