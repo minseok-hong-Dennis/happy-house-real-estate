@@ -14,15 +14,15 @@
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-20 21:38 KST"
+    "lastSuccessfulAt": "2026-07-21 20:32 KST"
   },
   "recentTransactions": {
     "status": "ok",
     "message": "",
-    "periodLabel": "최근 3개월 계약일 기준 · 전용 59㎡형 · 28건",
+    "periodLabel": "최근 3개월 계약일 기준 · 전용 59㎡형 · 30건",
     "summary": {
-      "count": 28,
-      "averagePriceManwon": 75146,
+      "count": 30,
+      "averagePriceManwon": 75163,
       "minPriceManwon": 64500,
       "maxPriceManwon": 83000,
       "latestPriceManwon": 83000
@@ -32,8 +32,8 @@
         "areaTypeSqm": 59,
         "areaLabel": "전용 59㎡ · 약 18평",
         "representativeAreaSqm": 59.92,
-        "count": 28,
-        "averagePriceManwon": 75146,
+        "count": 30,
+        "averagePriceManwon": 75163,
         "minPriceManwon": 64500,
         "maxPriceManwon": 83000,
         "latestPriceManwon": 83000,
@@ -61,10 +61,10 @@
             "apartmentName": "힐스테이트푸르지오수원",
             "dongName": "매교동",
             "jibun": "292",
-            "contractDate": "2026-07-10",
-            "priceManwon": 78000,
+            "contractDate": "2026-07-11",
+            "priceManwon": 82000,
             "areaSqm": 59.88,
-            "floor": 3
+            "floor": 10
           }
         ]
       }
@@ -92,6 +92,15 @@
         "apartmentName": "힐스테이트푸르지오수원",
         "dongName": "매교동",
         "jibun": "292",
+        "contractDate": "2026-07-11",
+        "priceManwon": 82000,
+        "areaSqm": 59.88,
+        "floor": 10
+      },
+      {
+        "apartmentName": "힐스테이트푸르지오수원",
+        "dongName": "매교동",
+        "jibun": "292",
         "contractDate": "2026-07-10",
         "priceManwon": 78000,
         "areaSqm": 59.88,
@@ -105,6 +114,15 @@
         "priceManwon": 76000,
         "areaSqm": 59.95,
         "floor": 13
+      },
+      {
+        "apartmentName": "힐스테이트푸르지오수원",
+        "dongName": "매교동",
+        "jibun": "292",
+        "contractDate": "2026-07-07",
+        "priceManwon": 68800,
+        "areaSqm": 59.88,
+        "floor": 1
       },
       {
         "apartmentName": "힐스테이트푸르지오수원",
