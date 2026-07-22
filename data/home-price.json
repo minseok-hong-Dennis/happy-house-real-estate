@@ -14,15 +14,15 @@
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-21 20:32 KST"
+    "lastSuccessfulAt": "2026-07-22 20:35 KST"
   },
   "recentTransactions": {
     "status": "ok",
     "message": "",
-    "periodLabel": "최근 3개월 계약일 기준 · 전용 59㎡형 · 30건",
+    "periodLabel": "최근 3개월 계약일 기준 · 전용 59㎡형 · 31건",
     "summary": {
-      "count": 30,
-      "averagePriceManwon": 75163,
+      "count": 31,
+      "averagePriceManwon": 75368,
       "minPriceManwon": 64500,
       "maxPriceManwon": 83000,
       "latestPriceManwon": 83000
@@ -31,9 +31,9 @@
       {
         "areaTypeSqm": 59,
         "areaLabel": "전용 59㎡ · 약 18평",
-        "representativeAreaSqm": 59.92,
-        "count": 30,
-        "averagePriceManwon": 75163,
+        "representativeAreaSqm": 59.91,
+        "count": 31,
+        "averagePriceManwon": 75368,
         "minPriceManwon": 64500,
         "maxPriceManwon": 83000,
         "latestPriceManwon": 83000,
@@ -52,19 +52,19 @@
             "apartmentName": "힐스테이트푸르지오수원",
             "dongName": "매교동",
             "jibun": "292",
-            "contractDate": "2026-07-11",
-            "priceManwon": 66700,
+            "contractDate": "2026-07-14",
+            "priceManwon": 81500,
             "areaSqm": 59.88,
-            "floor": 1
+            "floor": 12
           },
           {
             "apartmentName": "힐스테이트푸르지오수원",
             "dongName": "매교동",
             "jibun": "292",
             "contractDate": "2026-07-11",
-            "priceManwon": 82000,
+            "priceManwon": 66700,
             "areaSqm": 59.88,
-            "floor": 10
+            "floor": 1
           }
         ]
       }
@@ -76,6 +76,15 @@
         "jibun": "292",
         "contractDate": "2026-07-14",
         "priceManwon": 83000,
+        "areaSqm": 59.88,
+        "floor": 12
+      },
+      {
+        "apartmentName": "힐스테이트푸르지오수원",
+        "dongName": "매교동",
+        "jibun": "292",
+        "contractDate": "2026-07-14",
+        "priceManwon": 81500,
         "areaSqm": 59.88,
         "floor": 12
       },
