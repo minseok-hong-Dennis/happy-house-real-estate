@@ -1,5 +1,5 @@
 {
-  "status": "partial",
+  "status": "ok",
   "source": {
     "name": "국토교통부 아파트 매매 실거래자료",
     "url": "https://www.data.go.kr/data/15126469/openapi.do",
@@ -7,8 +7,8 @@
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-24 20:26 KST",
-    "message": "일부 단지는 이전 동기화 가격을 유지합니다."
+    "lastSuccessfulAt": "2026-07-25 19:20 KST",
+    "message": ""
   },
   "candidates": [
     {
@@ -59,8 +59,8 @@
           "areaTypeSqm": 74,
           "areaLabel": "전용 74㎡ · 약 22평",
           "representativeAreaSqm": 74.81,
-          "count": 69,
-          "averagePriceManwon": 87442,
+          "count": 70,
+          "averagePriceManwon": 87561,
           "minPriceManwon": 79000,
           "maxPriceManwon": 99000,
           "latestPriceManwon": 99000,
@@ -96,13 +96,13 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 26,
+            "score": 27,
             "observedMonths": 35,
             "periodStart": "2023-08-11",
             "periodEnd": "2026-07-11",
-            "transactionCount": 130,
+            "transactionCount": 131,
             "baselineSampleCount": 8,
-            "recentSampleCount": 52,
+            "recentSampleCount": 53,
             "baselineMedianPriceManwon": 76636,
             "recentMedianPriceManwon": 88000,
             "longTermChangePercent": 14.8,
@@ -151,7 +151,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 24,
+            "score": 26,
             "observedMonths": 33,
             "periodStart": "2023-10-21",
             "periodEnd": "2026-07-13",
@@ -696,7 +696,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 68,
+            "score": 67,
             "observedMonths": 35,
             "periodStart": "2023-08-19",
             "periodEnd": "2026-07-16",
@@ -1327,8 +1327,8 @@
           "areaTypeSqm": 99,
           "areaLabel": "전용 99㎡ · 약 30평",
           "representativeAreaSqm": 97.92,
-          "count": 32,
-          "averagePriceManwon": 85641,
+          "count": 33,
+          "averagePriceManwon": 85667,
           "minPriceManwon": 78000,
           "maxPriceManwon": 91800,
           "latestPriceManwon": 91000,
@@ -1347,19 +1347,19 @@
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
               "jibun": "940",
-              "contractDate": "2026-07-02",
-              "priceManwon": 91500,
+              "contractDate": "2026-07-03",
+              "priceManwon": 86500,
               "areaSqm": 97.92,
-              "floor": 12
+              "floor": 7
             },
             {
               "apartmentName": "래미안영통마크원2단지",
               "dongName": "신동",
               "jibun": "940",
-              "contractDate": "2026-06-27",
-              "priceManwon": 91800,
+              "contractDate": "2026-07-02",
+              "priceManwon": 91500,
               "areaSqm": 97.92,
-              "floor": 22
+              "floor": 12
             }
           ],
           "growthAnalysis": {
@@ -1368,13 +1368,13 @@
             "observedMonths": 35,
             "periodStart": "2023-08-23",
             "periodEnd": "2026-07-16",
-            "transactionCount": 56,
+            "transactionCount": 57,
             "baselineSampleCount": 6,
-            "recentSampleCount": 17,
+            "recentSampleCount": 18,
             "baselineMedianPriceManwon": 78850,
-            "recentMedianPriceManwon": 88800,
-            "longTermChangePercent": 12.6,
-            "recentMomentumPercent": 5.7,
+            "recentMedianPriceManwon": 88650,
+            "longTermChangePercent": 12.4,
+            "recentMomentumPercent": 5.5,
             "confidence": "medium"
           }
         },
@@ -2370,23 +2370,32 @@
         "apartmentName": "매화마을공무원1",
         "dongName": "야탑동",
         "jibun": "201",
-        "contractDate": "2026-06-25",
-        "priceManwon": 100000,
+        "contractDate": "2026-07-14",
+        "priceManwon": 99500,
         "areaSqm": 49.67,
-        "floor": 7
+        "floor": 4
       },
       "areaPrices": [
         {
           "areaTypeSqm": 49,
           "areaLabel": "전용 49㎡ · 약 15평",
           "representativeAreaSqm": 49.67,
-          "count": 7,
-          "averagePriceManwon": 87686,
+          "count": 8,
+          "averagePriceManwon": 89163,
           "minPriceManwon": 75000,
           "maxPriceManwon": 100000,
-          "latestPriceManwon": 100000,
-          "latestContractDate": "2026-06-25",
+          "latestPriceManwon": 99500,
+          "latestContractDate": "2026-07-14",
           "recentTransactions": [
+            {
+              "apartmentName": "매화마을공무원1",
+              "dongName": "야탑동",
+              "jibun": "201",
+              "contractDate": "2026-07-14",
+              "priceManwon": 99500,
+              "areaSqm": 49.67,
+              "floor": 4
+            },
             {
               "apartmentName": "매화마을공무원1",
               "dongName": "야탑동",
@@ -2404,30 +2413,21 @@
               "priceManwon": 97000,
               "areaSqm": 49.67,
               "floor": 9
-            },
-            {
-              "apartmentName": "매화마을공무원1",
-              "dongName": "야탑동",
-              "jibun": "201",
-              "contractDate": "2026-04-06",
-              "priceManwon": 95500,
-              "areaSqm": 49.67,
-              "floor": 7
             }
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 77,
-            "observedMonths": 34,
+            "score": 78,
+            "observedMonths": 35,
             "periodStart": "2023-08-22",
-            "periodEnd": "2026-06-25",
-            "transactionCount": 19,
+            "periodEnd": "2026-07-14",
+            "transactionCount": 20,
             "baselineSampleCount": 3,
-            "recentSampleCount": 4,
+            "recentSampleCount": 5,
             "baselineMedianPriceManwon": 64750,
-            "recentMedianPriceManwon": 96250,
-            "longTermChangePercent": 48.6,
-            "recentMomentumPercent": 28.3,
+            "recentMedianPriceManwon": 97000,
+            "longTermChangePercent": 49.8,
+            "recentMomentumPercent": 29.1,
             "confidence": "limited"
           }
         },
@@ -2472,7 +2472,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 84,
+            "score": 83,
             "observedMonths": 34,
             "periodStart": "2023-08-08",
             "periodEnd": "2026-06-11",
@@ -2906,10 +2906,10 @@
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.88,
-          "count": 27,
-          "averagePriceManwon": 101957,
+          "count": 26,
+          "averagePriceManwon": 101225,
           "minPriceManwon": 65000,
-          "maxPriceManwon": 121000,
+          "maxPriceManwon": 119800,
           "latestPriceManwon": 115000,
           "latestContractDate": "2026-05-30",
           "recentTransactions": [
@@ -2926,34 +2926,34 @@
               "apartmentName": "e편한세상금빛그랑메종5단지",
               "dongName": "금광동",
               "jibun": "1020",
-              "contractDate": "2026-05-22",
-              "priceManwon": 121000,
+              "contractDate": "2026-05-07",
+              "priceManwon": 115000,
               "areaSqm": 84.98,
-              "floor": 19
+              "floor": 16
             },
             {
               "apartmentName": "e편한세상금빛그랑메종5단지",
               "dongName": "금광동",
               "jibun": "1020",
-              "contractDate": "2026-05-07",
-              "priceManwon": 115000,
-              "areaSqm": 84.98,
-              "floor": 16
+              "contractDate": "2026-04-17",
+              "priceManwon": 113000,
+              "areaSqm": 84.56,
+              "floor": 22
             }
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 27,
+            "score": 24,
             "observedMonths": 23,
             "periodStart": "2024-07-06",
             "periodEnd": "2026-05-30",
-            "transactionCount": 39,
+            "transactionCount": 38,
             "baselineSampleCount": 5,
-            "recentSampleCount": 13,
+            "recentSampleCount": 12,
             "baselineMedianPriceManwon": 98000,
-            "recentMedianPriceManwon": 112000,
-            "longTermChangePercent": 14.3,
-            "recentMomentumPercent": 16.1,
+            "recentMedianPriceManwon": 111250,
+            "longTermChangePercent": 13.5,
+            "recentMomentumPercent": 15.3,
             "confidence": "limited"
           }
         }
@@ -3024,7 +3024,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 42,
+            "score": 41,
             "observedMonths": 27,
             "periodStart": "2024-03-23",
             "periodEnd": "2026-06-26",
@@ -3108,8 +3108,8 @@
       ],
       "completionYear": 2019,
       "households": 768,
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
+      "priceStatus": "ok",
+      "priceMessage": "",
       "latestTransaction": {
         "apartmentName": "판교밸리호반써밋",
         "dongName": "고등동",
@@ -3161,7 +3161,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 22,
+            "score": 24,
             "observedMonths": 35,
             "periodStart": "2023-08-05",
             "periodEnd": "2026-07-18",
@@ -3188,8 +3188,8 @@
       "matchNames": [
         "코오롱하늘채"
       ],
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
+      "priceStatus": "ok",
+      "priceMessage": "",
       "latestTransaction": {
         "apartmentName": "코오롱하늘채",
         "dongName": "단대동",
@@ -3335,8 +3335,8 @@
       ],
       "completionYear": 2018,
       "households": 1316,
-      "priceStatus": "error",
-      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
+      "priceStatus": "ok",
+      "priceMessage": "",
       "latestTransaction": {
         "apartmentName": "기흥역센트럴푸르지오",
         "dongName": "구갈동",
