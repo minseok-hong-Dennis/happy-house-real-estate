@@ -1,5 +1,5 @@
 {
-  "status": "ok",
+  "status": "partial",
   "source": {
     "name": "국토교통부 아파트 매매 실거래자료",
     "url": "https://www.data.go.kr/data/15126469/openapi.do",
@@ -7,8 +7,8 @@
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-07-25 19:20 KST",
-    "message": ""
+    "lastSuccessfulAt": "2026-07-26 19:56 KST",
+    "message": "일부 단지는 이전 동기화 가격을 유지합니다."
   },
   "candidates": [
     {
@@ -249,7 +249,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 70,
+            "score": 69,
             "observedMonths": 34,
             "periodStart": "2023-08-19",
             "periodEnd": "2026-06-30",
@@ -1024,23 +1024,41 @@
         "apartmentName": "힐스테이트영통",
         "dongName": "망포동",
         "jibun": "728",
-        "contractDate": "2026-07-22",
-        "priceManwon": 138000,
-        "areaSqm": 84.8897,
-        "floor": 17
+        "contractDate": "2026-07-23",
+        "priceManwon": 108000,
+        "areaSqm": 62.5963,
+        "floor": 2
       },
       "areaPrices": [
         {
           "areaTypeSqm": 63,
           "areaLabel": "전용 63㎡ · 약 19평",
           "representativeAreaSqm": 62.66,
-          "count": 42,
-          "averagePriceManwon": 93097,
+          "count": 44,
+          "averagePriceManwon": 93934,
           "minPriceManwon": 79300,
           "maxPriceManwon": 121000,
-          "latestPriceManwon": 121000,
-          "latestContractDate": "2026-07-08",
+          "latestPriceManwon": 108000,
+          "latestContractDate": "2026-07-23",
           "recentTransactions": [
+            {
+              "apartmentName": "힐스테이트영통",
+              "dongName": "망포동",
+              "jibun": "728",
+              "contractDate": "2026-07-23",
+              "priceManwon": 108000,
+              "areaSqm": 62.5963,
+              "floor": 2
+            },
+            {
+              "apartmentName": "힐스테이트영통",
+              "dongName": "망포동",
+              "jibun": "728",
+              "contractDate": "2026-07-08",
+              "priceManwon": 115000,
+              "areaSqm": 62.6303,
+              "floor": 16
+            },
             {
               "apartmentName": "힐스테이트영통",
               "dongName": "망포동",
@@ -1049,39 +1067,21 @@
               "priceManwon": 121000,
               "areaSqm": 62.6303,
               "floor": 15
-            },
-            {
-              "apartmentName": "힐스테이트영통",
-              "dongName": "망포동",
-              "jibun": "728",
-              "contractDate": "2026-06-29",
-              "priceManwon": 109500,
-              "areaSqm": 62.6303,
-              "floor": 24
-            },
-            {
-              "apartmentName": "힐스테이트영통",
-              "dongName": "망포동",
-              "jibun": "728",
-              "contractDate": "2026-06-26",
-              "priceManwon": 111500,
-              "areaSqm": 62.5963,
-              "floor": 24
             }
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 71,
-            "observedMonths": 35,
+            "score": 75,
+            "observedMonths": 36,
             "periodStart": "2023-08-05",
-            "periodEnd": "2026-07-08",
-            "transactionCount": 143,
+            "periodEnd": "2026-07-23",
+            "transactionCount": 145,
             "baselineSampleCount": 20,
-            "recentSampleCount": 19,
+            "recentSampleCount": 20,
             "baselineMedianPriceManwon": 73000,
-            "recentMedianPriceManwon": 100500,
-            "longTermChangePercent": 37.7,
-            "recentMomentumPercent": 17.3,
+            "recentMedianPriceManwon": 101250,
+            "longTermChangePercent": 38.7,
+            "recentMomentumPercent": 17.7,
             "confidence": "high"
           }
         },
@@ -2200,7 +2200,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 74,
+            "score": 72,
             "observedMonths": 35,
             "periodStart": "2023-08-10",
             "periodEnd": "2026-07-11",
@@ -3108,8 +3108,8 @@
       ],
       "completionYear": 2019,
       "households": 768,
-      "priceStatus": "ok",
-      "priceMessage": "",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": {
         "apartmentName": "판교밸리호반써밋",
         "dongName": "고등동",
@@ -3188,8 +3188,8 @@
       "matchNames": [
         "코오롱하늘채"
       ],
-      "priceStatus": "ok",
-      "priceMessage": "",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": {
         "apartmentName": "코오롱하늘채",
         "dongName": "단대동",
