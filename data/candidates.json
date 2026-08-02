@@ -1,5 +1,5 @@
 {
-  "status": "ok",
+  "status": "partial",
   "source": {
     "name": "국토교통부 아파트 매매 실거래자료",
     "url": "https://www.data.go.kr/data/15126469/openapi.do",
@@ -7,8 +7,8 @@
   },
   "sync": {
     "schedule": "매일 14:00 KST",
-    "lastSuccessfulAt": "2026-08-01 19:52 KST",
-    "message": ""
+    "lastSuccessfulAt": "2026-08-02 19:54 KST",
+    "message": "일부 단지는 이전 동기화 가격을 유지합니다."
   },
   "candidates": [
     {
@@ -249,7 +249,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 65,
+            "score": 66,
             "observedMonths": 33,
             "periodStart": "2023-09-21",
             "periodEnd": "2026-06-30",
@@ -1126,7 +1126,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 74,
+            "score": 75,
             "observedMonths": 34,
             "periodStart": "2023-09-02",
             "periodEnd": "2026-07-08",
@@ -2225,23 +2225,32 @@
         "apartmentName": "매화마을공무원2",
         "dongName": "야탑동",
         "jibun": "215",
-        "contractDate": "2026-07-17",
-        "priceManwon": 106000,
+        "contractDate": "2026-07-23",
+        "priceManwon": 101000,
         "areaSqm": 58.71,
-        "floor": 8
+        "floor": 1
       },
       "areaPrices": [
         {
           "areaTypeSqm": 59,
           "areaLabel": "전용 59㎡ · 약 18평",
           "representativeAreaSqm": 58.62,
-          "count": 107,
-          "averagePriceManwon": 95884,
+          "count": 108,
+          "averagePriceManwon": 95931,
           "minPriceManwon": 54000,
           "maxPriceManwon": 110000,
-          "latestPriceManwon": 106000,
-          "latestContractDate": "2026-07-17",
+          "latestPriceManwon": 101000,
+          "latestContractDate": "2026-07-23",
           "recentTransactions": [
+            {
+              "apartmentName": "매화마을공무원2",
+              "dongName": "야탑동",
+              "jibun": "215",
+              "contractDate": "2026-07-23",
+              "priceManwon": 101000,
+              "areaSqm": 58.71,
+              "floor": 1
+            },
             {
               "apartmentName": "매화마을공무원2",
               "dongName": "야탑동",
@@ -2259,30 +2268,21 @@
               "priceManwon": 108000,
               "areaSqm": 58.71,
               "floor": 10
-            },
-            {
-              "apartmentName": "매화마을공무원2",
-              "dongName": "야탑동",
-              "jibun": "215",
-              "contractDate": "2026-07-16",
-              "priceManwon": 105000,
-              "areaSqm": 58.71,
-              "floor": 19
             }
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 89,
-            "observedMonths": 34,
+            "score": 87,
+            "observedMonths": 35,
             "periodStart": "2023-09-02",
-            "periodEnd": "2026-07-17",
-            "transactionCount": 190,
+            "periodEnd": "2026-07-23",
+            "transactionCount": 191,
             "baselineSampleCount": 10,
-            "recentSampleCount": 73,
+            "recentSampleCount": 71,
             "baselineMedianPriceManwon": 70000,
             "recentMedianPriceManwon": 103000,
             "longTermChangePercent": 47.1,
-            "recentMomentumPercent": 21.2,
+            "recentMomentumPercent": 19.8,
             "confidence": "high"
           }
         },
@@ -2888,7 +2888,7 @@
           ],
           "growthAnalysis": {
             "status": "ok",
-            "score": 51,
+            "score": 52,
             "observedMonths": 27,
             "periodStart": "2024-03-15",
             "periodEnd": "2026-05-31",
@@ -3108,8 +3108,8 @@
       ],
       "completionYear": 2019,
       "households": 768,
-      "priceStatus": "ok",
-      "priceMessage": "",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": {
         "apartmentName": "판교밸리호반써밋",
         "dongName": "고등동",
@@ -3188,8 +3188,8 @@
       "matchNames": [
         "코오롱하늘채"
       ],
-      "priceStatus": "ok",
-      "priceMessage": "",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": {
         "apartmentName": "코오롱하늘채",
         "dongName": "단대동",
@@ -3335,8 +3335,8 @@
       ],
       "completionYear": 2018,
       "households": 1316,
-      "priceStatus": "ok",
-      "priceMessage": "",
+      "priceStatus": "error",
+      "priceMessage": "최근 실거래가를 불러오지 못했어요.",
       "latestTransaction": {
         "apartmentName": "기흥역센트럴푸르지오",
         "dongName": "구갈동",
