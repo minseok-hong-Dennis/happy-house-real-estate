@@ -7,7 +7,7 @@
     "url": "https://www.data.go.kr/data/15160169/fileData.do"
   },
   "sync": {
-    "lastSuccessfulAt": "2026-08-02 19:54 KST",
+    "lastSuccessfulAt": "2026-08-03 23:01 KST",
     "message": ""
   },
   "geocoding": {
@@ -10525,10 +10525,10 @@
         "apartmentName": "호계럭키",
         "dongName": "호계동",
         "jibun": "570",
-        "contractDate": "2026-07-20",
-        "priceManwon": 86000,
-        "areaSqm": 127.57,
-        "floor": 8
+        "contractDate": "2026-07-28",
+        "priceManwon": 74500,
+        "areaSqm": 84.79,
+        "floor": 4
       },
       "geocodeStatus": "not_configured",
       "geocodeMessage": "NAVER Geocoding 설정 대기",
@@ -10540,13 +10540,22 @@
           "areaTypeSqm": 84,
           "areaLabel": "전용 84㎡ · 약 25평",
           "representativeAreaSqm": 84.79,
-          "count": 28,
-          "averagePriceManwon": 64280,
+          "count": 29,
+          "averagePriceManwon": 64633,
           "minPriceManwon": 46000,
           "maxPriceManwon": 75700,
-          "latestPriceManwon": 75700,
-          "latestContractDate": "2026-06-12",
+          "latestPriceManwon": 74500,
+          "latestContractDate": "2026-07-28",
           "recentTransactions": [
+            {
+              "apartmentName": "호계럭키",
+              "dongName": "호계동",
+              "jibun": "570",
+              "contractDate": "2026-07-28",
+              "priceManwon": 74500,
+              "areaSqm": 84.79,
+              "floor": 4
+            },
             {
               "apartmentName": "호계럭키",
               "dongName": "호계동",
@@ -10564,15 +10573,6 @@
               "priceManwon": 71000,
               "areaSqm": 84.79,
               "floor": 8
-            },
-            {
-              "apartmentName": "호계럭키",
-              "dongName": "호계동",
-              "jibun": "570",
-              "contractDate": "2026-06-08",
-              "priceManwon": 72500,
-              "areaSqm": 84.79,
-              "floor": 5
             }
           ]
         },
